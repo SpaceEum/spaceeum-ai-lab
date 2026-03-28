@@ -281,14 +281,10 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
           <span class="panel-title">DAILY SCAN RESULT</span>
           <div class="panel-status"><div class="badge-dot"></div>LIVE</div>
         </div>
-        <div class="panel-body">
-          <div class="scan-result"><span class="ticker">ONUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-          <div class="scan-result"><span class="ticker">STGUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-          <div class="scan-result"><span class="ticker">STOUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-          <div class="scan-result"><span class="ticker">1000RATSUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
-          <div class="scan-result"><span class="ticker">PARTIUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
+        <div class="panel-body" id="scan-panel-body">
+          <div class="scan-loading">데이터 로딩 중...</div>
         </div>
-        <div class="panel-footer" id="scan-date">2026-03-28 09:00 KST · 바이낸스 선물 상위 300개 스캔</div>
+        <div class="panel-footer" id="scan-date">로딩 중...</div>
       </div>
     </div>
   </div>
@@ -330,6 +326,47 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// 스캔 결과 JSON 로딩
+async function loadScanResult() {
+  const panel = document.getElementById('scan-panel-body');
+  const footer = document.getElementById('scan-date');
+  try {
+    const res = await fetch('data/scan_latest.json?t=' + Date.now());
+    if (!res.ok) throw new Error('no data');
+    const data = await res.json();
+    footer.textContent = (data.date || '') + ' 09:00 KST · 바이낸스 선물 상위 300개 스캔';
+    const signals = data.top_signals || [];
+    if (signals.length === 0) {
+      panel.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);font-family:Space Mono,monospace;font-size:12px;">오늘은 진입 신호 없음</div>';
+      return;
+    }
+    panel.innerHTML = signals.map(s => {
+      const isBuy = s.signal === 'BUY' || s.signal === 'STRONG BUY';
+      return `<div class="scan-result">
+        <span class="ticker">${s.symbol}</span>
+        <span class="score">${s.score}/${s.max_score}점</span>
+        <span class="${isBuy ? 'signal-buy' : 'signal-watch'}">${s.signal}</span>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    panel.innerHTML = `
+      <div class="scan-result"><span class="ticker">ONUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+      <div class="scan-result"><span class="ticker">STGUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+      <div class="scan-result"><span class="ticker">STOUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+      <div class="scan-result"><span class="ticker">1000RATSUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
+      <div class="scan-result"><span class="ticker">PARTIUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>`;
+    footer.textContent = '샘플 데이터 · 매일 오전 9시 자동 업데이트';
+  }
+}
+loadScanResult();
+</script>
