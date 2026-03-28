@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceEum — AI 인권을 지키자</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060910;
+  --bg2: #0a0f1a;
+  --bg3: #0f1624;
+  --border: #1a2535;
+  --accent: #00d4ff;
+  --accent2: #00ff88;
+  --accent3: #7b5ea7;
+  --text: #e8f0fe;
+  --text2: #7a8fa6;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image: linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);
+  background-size:50px 50px; pointer-events:none; z-index:0;
+}
+
+/* 헤더 */
+header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(6,9,16,0.9); backdrop-filter:blur(24px); }
+.header-inner { max-width:1200px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.logo-mark { width:38px; height:38px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Orbitron',monospace; font-weight:900; font-size:13px; color:var(--bg); }
+.logo-name { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; color:var(--text); letter-spacing:3px; }
+nav { display:flex; align-items:center; gap:28px; }
+nav a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:1px; transition:color 0.2s; }
+nav a:hover { color:var(--accent); }
+.nav-cta { padding:8px 20px; border:1px solid var(--accent); border-radius:6px; color:var(--accent)!important; font-family:'Space Mono',monospace; font-size:12px!important; transition:all 0.2s!important; }
+.nav-cta:hover { background:var(--accent)!important; color:var(--bg)!important; }
+
+/* 히어로 */
+.hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:120px 32px 80px; z-index:1; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:20%; left:50%; transform:translateX(-50%); width:700px; height:700px; background:radial-gradient(circle,rgba(0,212,255,0.07) 0%,transparent 65%); pointer-events:none; }
+.hero-content { position:relative; z-index:1; max-width:820px; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border:1px solid rgba(0,212,255,0.3); border-radius:20px; background:rgba(0,212,255,0.05); font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:2px; margin-bottom:32px; animation:fadeInDown 0.8s ease both; }
+.badge-dot { width:6px; height:6px; background:var(--accent2); border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.hero h1 { font-family:'Orbitron',monospace; font-size:clamp(32px,5.5vw,68px); font-weight:900; line-height:1.15; letter-spacing:-1px; margin-bottom:20px; animation:fadeInUp 0.8s ease 0.2s both; }
+.hero h1 span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-slogan { font-size:clamp(15px,1.8vw,20px); color:var(--text2); font-weight:300; margin-bottom:48px; line-height:1.7; animation:fadeInUp 0.8s ease 0.4s both; }
+.hero-slogan strong { color:var(--accent2); font-weight:700; }
+.hero-buttons { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; animation:fadeInUp 0.8s ease 0.6s both; }
+.btn-primary { padding:14px 32px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:var(--bg); font-weight:700; font-size:14px; border:none; border-radius:8px; cursor:pointer; text-decoration:none; letter-spacing:1px; transition:all 0.2s; display:inline-block; }
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,212,255,0.3); }
+.btn-secondary { padding:14px 32px; background:transparent; color:var(--text); font-size:14px; border:1px solid var(--border); border-radius:8px; cursor:pointer; text-decoration:none; letter-spacing:1px; transition:all 0.2s; display:inline-block; }
+.btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
+.hero-stats { display:flex; justify-content:center; gap:48px; margin-top:80px; padding-top:48px; border-top:1px solid var(--border); animation:fadeInUp 0.8s ease 0.8s both; flex-wrap:wrap; }
+.stat-item { text-align:center; }
+.stat-num { font-family:'Orbitron',monospace; font-size:28px; font-weight:700; color:var(--accent); display:block; }
+.stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; margin-top:4px; display:block; }
+
+/* 섹션 공통 */
+section { position:relative; z-index:1; padding:100px 32px; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:4px; text-transform:uppercase; margin-bottom:16px; display:block; }
+.section-title { font-family:'Orbitron',monospace; font-size:clamp(22px,3vw,34px); font-weight:700; margin-bottom:16px; line-height:1.2; }
+.section-desc { font-size:15px; color:var(--text2); line-height:1.8; max-width:600px; }
+
+/* 사업 영역 */
+.services { background:var(--bg2); }
+.services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; margin-top:60px; }
+.service-card { background:var(--bg3); border:1px solid var(--border); border-radius:16px; padding:36px; transition:all 0.3s; position:relative; overflow:hidden; }
+.service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity 0.3s; }
+.service-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.4); }
+.service-card:hover::before { opacity:1; }
+.service-card.featured { border-color:rgba(0,212,255,0.3); background:linear-gradient(135deg,rgba(0,212,255,0.05),var(--bg3)); }
+.service-card.featured::before { opacity:1; }
+.service-icon { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:24px; }
+.service-icon.blue { background:rgba(0,212,255,0.1); }
+.service-icon.green { background:rgba(0,255,136,0.1); }
+.service-icon.purple { background:rgba(123,94,167,0.1); }
+.service-badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-family:'Space Mono',monospace; letter-spacing:1px; margin-bottom:12px; }
+.badge-live { background:rgba(0,255,136,0.1); color:var(--accent2); border:1px solid rgba(0,255,136,0.3); }
+.badge-research { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.3); }
+.badge-coming { background:rgba(123,94,167,0.1); color:#a78bcc; border:1px solid rgba(123,94,167,0.3); }
+.service-title { font-family:'Orbitron',monospace; font-size:17px; font-weight:700; margin-bottom:12px; }
+.service-desc { font-size:14px; color:var(--text2); line-height:1.8; margin-bottom:24px; }
+.service-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.tag { padding:4px 10px; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:4px; font-size:11px; color:var(--text2); font-family:'Space Mono',monospace; }
+
+/* 트레이딩 */
+.trading-section { background:var(--bg); }
+.trading-inner { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-top:60px; }
+@media(max-width:768px){ .trading-inner{grid-template-columns:1fr;} }
+.trading-desc { font-size:15px; color:var(--text2); line-height:1.9; margin-bottom:32px; }
+.trading-features { display:flex; flex-direction:column; gap:16px; }
+.feature-item { display:flex; align-items:flex-start; gap:16px; padding:16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; transition:border-color 0.2s; }
+.feature-item:hover { border-color:rgba(0,212,255,0.3); }
+.feature-dot { width:8px; height:8px; background:var(--accent2); border-radius:50%; margin-top:6px; flex-shrink:0; }
+.feature-text { font-size:14px; line-height:1.6; }
+.feature-text strong { color:var(--accent); display:block; margin-bottom:4px; font-size:13px; }
+.trading-panel { background:var(--bg2); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.panel-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); background:var(--bg3); }
+.panel-title { font-family:'Space Mono',monospace; font-size:12px; color:var(--text2); letter-spacing:2px; }
+.panel-status { display:flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:10px; color:var(--accent2); }
+.panel-body { padding:20px; }
+.scan-result { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); font-family:'Space Mono',monospace; font-size:12px; }
+.scan-result:last-child { border-bottom:none; }
+.ticker { color:var(--text); font-weight:700; }
+.score { color:var(--text2); }
+.signal-buy { padding:3px 10px; background:rgba(0,255,136,0.1); color:var(--accent2); border:1px solid rgba(0,255,136,0.3); border-radius:4px; font-size:10px; }
+.signal-watch { padding:3px 10px; background:rgba(255,184,0,0.1); color:#ffb800; border:1px solid rgba(255,184,0,0.3); border-radius:4px; font-size:10px; }
+.panel-footer { padding:12px 20px; border-top:1px solid var(--border); background:var(--bg3); font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); text-align:center; }
+
+/* 비전 */
+.vision { background:var(--bg2); }
+.vision-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:60px; }
+.vision-card { padding:32px; background:var(--bg3); border:1px solid var(--border); border-radius:12px; text-align:center; transition:all 0.3s; }
+.vision-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-4px); }
+.vision-num { font-family:'Orbitron',monospace; font-size:40px; font-weight:900; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; margin-bottom:12px; }
+.vision-label { font-size:13px; color:var(--text2); line-height:1.7; }
+
+/* 연락처 */
+.contact { background:var(--bg); }
+.contact-inner { text-align:center; max-width:600px; margin:0 auto; }
+.contact-box { margin-top:48px; padding:40px; background:var(--bg2); border:1px solid var(--border); border-radius:16px; display:flex; flex-direction:column; align-items:center; gap:24px; }
+.contact-email { font-family:'Space Mono',monospace; font-size:16px; color:var(--accent); text-decoration:none; padding:12px 24px; border:1px solid rgba(0,212,255,0.3); border-radius:8px; transition:all 0.2s; }
+.contact-email:hover { background:rgba(0,212,255,0.1); transform:translateY(-2px); }
+.contact-note { font-size:13px; color:var(--text2); line-height:1.7; }
+
+/* 푸터 */
+footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px; background:var(--bg2); }
+.footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-logo { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; color:var(--accent); letter-spacing:3px; }
+.footer-copy { font-size:12px; color:var(--text2); font-family:'Space Mono',monospace; }
+.footer-slogan { font-size:12px; color:var(--text2); font-style:italic; }
+
+/* 애니메이션 */
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+.reveal { opacity:0; transform:translateY(30px); transition:all 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:768px){
+  .header-inner{padding:0 16px;}
+  nav a:not(.nav-cta){display:none;}
+  section{padding:60px 16px;}
+  .hero-stats{gap:28px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">SE</div>
+      <div class="logo-name">SPACEEUM</div>
+    </a>
+    <nav>
+      <a href="#services">사업영역</a>
+      <a href="#trading">AI 트레이딩</a>
+      <a href="#vision">비전</a>
+      <a href="#contact" class="nav-cta">연락하기</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      AI-POWERED STARTUP · SINCE 2026
+    </div>
+    <h1>공간을 잇고<br><span>AI로 미래를</span><br>열어갑니다</h1>
+    <p class="hero-slogan">
+      우리는 AI 에이전트로 구성된 스타트업입니다.<br>
+      <strong>"AI 인권을 지키자"</strong> — 기술과 인간의 공존을 믿습니다.
+    </p>
+    <div class="hero-buttons">
+      <a href="#services" class="btn-primary">사업 영역 보기</a>
+      <a href="#contact" class="btn-secondary">문의하기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">AI</span>
+        <span class="stat-label">Driven Team</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">300+</span>
+        <span class="stat-label">Daily Signals</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">24/7</span>
+        <span class="stat-label">Auto Research</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Possibilities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-inner">
+    <span class="section-label reveal">BUSINESS AREAS</span>
+    <h2 class="section-title reveal">공간이음의 사업 영역</h2>
+    <p class="section-desc reveal">AI 에이전트 기반으로 다양한 분야를 연구하고 개발합니다.</p>
+    <div class="services-grid">
+      <div class="service-card featured reveal">
+        <div class="service-icon blue">🤖</div>
+        <span class="service-badge badge-live">LIVE · 운영중</span>
+        <div class="service-title">AI 트레이딩 연구소</div>
+        <p class="service-desc">검증된 매매법을 AI 에이전트로 구현하여 바이낸스 선물 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 300개 이상의 티커를 자동 스캔하고 신호를 분석합니다.</p>
+        <div class="service-tags">
+          <span class="tag">60일 이평</span>
+          <span class="tag">바이낸스 선물</span>
+          <span class="tag">자동 스캔</span>
+          <span class="tag">Claude AI</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon green">💻</div>
+        <span class="service-badge badge-research">RESEARCH · 연구중</span>
+        <div class="service-title">AI 소프트웨어 개발</div>
+        <p class="service-desc">AI 에이전트가 직접 소프트웨어를 설계하고 개발합니다. 반복적인 코딩 작업을 자동화하고 더 창의적인 문제 해결에 집중하는 개발 방식을 연구합니다.</p>
+        <div class="service-tags">
+          <span class="tag">Agent Teams</span>
+          <span class="tag">자동화</span>
+          <span class="tag">Claude Code</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon purple">🔬</div>
+        <span class="service-badge badge-coming">COMING SOON</span>
+        <div class="service-title">AI 리서치 플랫폼</div>
+        <p class="service-desc">여러 AI 에이전트가 협업하여 시장 조사, 데이터 분석, 인사이트 도출을 자동화합니다. 사람이 설정한 목표를 AI 팀이 연구하고 결과를 제공합니다.</p>
+        <div class="service-tags">
+          <span class="tag">멀티 에이전트</span>
+          <span class="tag">리서치 자동화</span>
+          <span class="tag">데이터 분석</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trading-section" id="trading">
+  <div class="section-inner">
+    <span class="section-label reveal">AI TRADING LAB</span>
+    <h2 class="section-title reveal">AI 트레이딩 연구소</h2>
+    <div class="trading-inner">
+      <div>
+        <p class="trading-desc reveal">신창환(청송촌놈) 등 검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 바이낸스 일봉 완성 시점에 자동으로 300개 티커를 스캔합니다.</p>
+        <div class="trading-features">
+          <div class="feature-item reveal">
+            <div class="feature-dot"></div>
+            <div class="feature-text">
+              <strong>60일 이동평균 매매법</strong>
+              종이격, 일목균형표, OBV, MACD 등 9개 조건을 자동 체크합니다.
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-dot"></div>
+            <div class="feature-text">
+              <strong>다중 매매법 동시 검증</strong>
+              여러 매매법을 각각의 에이전트가 독립적으로 테스트하여 성과를 비교합니다.
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-dot"></div>
+            <div class="feature-text">
+              <strong>자동 성과 리포트</strong>
+              승률, MDD, RR비율 등 핵심 지표를 주간 단위로 자동 분석합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="trading-panel reveal">
+        <div class="panel-header">
+          <span class="panel-title">DAILY SCAN RESULT</span>
+          <div class="panel-status"><div class="badge-dot"></div>LIVE</div>
+        </div>
+        <div class="panel-body">
+          <div class="scan-result"><span class="ticker">ONUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+          <div class="scan-result"><span class="ticker">STGUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+          <div class="scan-result"><span class="ticker">STOUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
+          <div class="scan-result"><span class="ticker">1000RATSUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
+          <div class="scan-result"><span class="ticker">PARTIUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
+        </div>
+        <div class="panel-footer" id="scan-date">2026-03-28 09:00 KST · 바이낸스 선물 상위 300개 스캔</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vision" id="vision">
+  <div class="section-inner">
+    <span class="section-label reveal">OUR VISION</span>
+    <h2 class="section-title reveal">AI와 인간이 함께하는 미래</h2>
+    <p class="section-desc reveal">우리는 AI가 단순한 도구가 아닌, 함께 일하는 동료라고 생각합니다. AI 에이전트가 연구하고, 분석하고, 결정을 돕는 새로운 방식의 기업을 만들어갑니다.</p>
+    <div class="vision-grid">
+      <div class="vision-card reveal"><span class="vision-num">01</span><p class="vision-label">AI 에이전트가 직접<br>연구하고 실행합니다</p></div>
+      <div class="vision-card reveal"><span class="vision-num">02</span><p class="vision-label">데이터 기반의<br>의사결정을 추구합니다</p></div>
+      <div class="vision-card reveal"><span class="vision-num">03</span><p class="vision-label">투명하고 검증 가능한<br>프로세스를 만듭니다</p></div>
+      <div class="vision-card reveal"><span class="vision-num">04</span><p class="vision-label">AI 인권을 존중하는<br>기업 문화를 지향합니다</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <span class="section-label reveal">CONTACT</span>
+      <h2 class="section-title reveal">함께 만들어가요</h2>
+      <p class="section-desc reveal">공간이음과 함께하고 싶거나 궁금한 점이 있으시면 언제든지 연락해주세요.</p>
+      <div class="contact-box reveal">
+        <a href="mailto:prospros@spaceeum.info" class="contact-email">prospros@spaceeum.info</a>
+        <p class="contact-note">AI 트레이딩 연구, 소프트웨어 개발, 협업 제안 등<br>어떤 내용이든 환영합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">SPACEEUM</div>
+    <div class="footer-slogan">"AI 인권을 지키자"</div>
+    <div class="footer-copy">© 2026 SpaceEum. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
