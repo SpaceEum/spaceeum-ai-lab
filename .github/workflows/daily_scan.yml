@@ -4,19 +4,19 @@ on:
   schedule:
     # 매일 UTC 00:00 = 한국시간 오전 9:00
     - cron: '0 0 * * *'
-  
-  # 수동 실행도 가능하게 (테스트용)
+
+  # 수동 실행 (테스트용)
   workflow_dispatch:
 
 jobs:
   daily-scan:
     runs-on: ubuntu-latest
-    
+
     permissions:
-      contents: write  # JSON 파일 저장을 위해 필요
-    
+      contents: write
+
     steps:
-      # 1. 저장소 코드 가져오기
+      # 1. 저장소 체크아웃
       - name: 저장소 체크아웃
         uses: actions/checkout@v4
 
@@ -26,15 +26,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3. ccxt 라이브러리 설치
-      - name: ccxt 설치
-        run: pip install ccxt
-
-      # 4. 스캔 실행
+      # 3. 스캔 실행 (외부 라이브러리 없음)
       - name: 60일 이평 스캔 실행
         run: python scripts/scan.py
 
-      # 5. 결과 JSON을 GitHub에 자동 저장
+      # 4. 결과 GitHub에 저장
       - name: 스캔 결과 저장
         run: |
           git config --local user.email "action@github.com"

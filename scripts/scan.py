@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 """
 SpaceEum AI Lab - 바이비트 선물 60일 이평 자동 스캔
-매일 오전 9시 (KST) GitHub Actions에서 자동 실행
+api.bytick.com 사용 (미국/유럽 서버 접속 가능한 Bybit 공식 대체 도메인)
 """
 
 import json
+import urllib.request
+import urllib.parse
 import time
 import math
 import os
 from datetime import datetime, timezone, timedelta
 
-try:
-    import ccxt
-except ImportError:
-    os.system("pip install ccxt -q")
-    import ccxt
-
 # ── 설정 ─────────────────────────────────────────
+BASE_URL = "https://api.bytick.com"  # 미국 접속 가능한 Bybit 공식 도메인
 TOP_N = 300
 MIN_SCORE = 5
 BUY_SCORE = 6
@@ -28,42 +25,56 @@ def log(msg):
     now = datetime.now(KST).strftime("%H:%M:%S")
     print(f"[{now}] {msg}")
 
-# ── 거래소 초기화 (바이비트) ──────────────────────
-def init_exchange():
-    exchange = ccxt.bybit({
-        'enableRateLimit': True,
-        'options': {
-            'defaultType': 'linear',  # USDT 선물
-        }
-    })
-    return exchange
+def api_get(path, params=None):
+    url = BASE_URL + path
+    if params:
+        url += '?' + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    with urllib.request.urlopen(req, timeout=10) as r:
+        return json.loads(r.read())
 
 # ── STEP 1: 거래량 상위 300개 티커 ───────────────
-def get_top_tickers(exchange, n=300):
+def get_top_tickers(n=300):
     log("바이비트 선물 티커 목록 가져오는 중...")
-    tickers = exchange.fetch_tickers()
-    usdt = {k: v for k, v in tickers.items() 
-            if k.endswith('/USDT') and ':USDT' in k}
+    data = api_get('/v5/market/tickers', {'category': 'linear'})
+    tickers = data['result']['list']
+    # USDT 페어만 필터링
+    usdt = [t for t in tickers if t['symbol'].endswith('USDT')]
+    # 거래대금 기준 정렬
     sorted_tickers = sorted(
-        usdt.items(),
-        key=lambda x: float(x[1].get('quoteVolume') or 0),
+        usdt,
+        key=lambda x: float(x.get('turnover24h') or 0),
         reverse=True
     )
     top = sorted_tickers[:n]
-    symbols = [t[0] for t in top]
+    symbols = [t['symbol'] for t in top]
     log(f"전체 USDT 선물: {len(usdt)}개 → 상위 {n}개 추출")
     return symbols
 
-# ── STEP 2: 개별 티커 분석 ────────────────────────
-def analyze_ticker(exchange, symbol):
-    ohlcv = exchange.fetch_ohlcv(symbol, '1d', limit=90)
-    if len(ohlcv) < 62:
+# ── STEP 2: 개별 티커 캔들 데이터 ────────────────
+def get_ohlcv(symbol, limit=90):
+    data = api_get('/v5/market/kline', {
+        'category': 'linear',
+        'symbol': symbol,
+        'interval': 'D',
+        'limit': limit
+    })
+    candles = data['result']['list']
+    # Bybit은 최신이 먼저 오므로 역순 정렬
+    candles = sorted(candles, key=lambda x: int(x[0]))
+    # [timestamp, open, high, low, close, volume, turnover]
+    return candles
+
+# ── STEP 3: 개별 티커 분석 ────────────────────────
+def analyze_ticker(symbol):
+    candles = get_ohlcv(symbol, 90)
+    if len(candles) < 62:
         return None
 
-    closes = [d[4] for d in ohlcv]
-    volumes = [d[5] for d in ohlcv]
-    highs = [d[2] for d in ohlcv]
-    lows = [d[3] for d in ohlcv]
+    closes = [float(c[4]) for c in candles]
+    volumes = [float(c[5]) for c in candles]
+    highs = [float(c[2]) for c in candles]
+    lows = [float(c[3]) for c in candles]
     current_price = closes[-1]
 
     # 60일 이평 및 종이격
@@ -147,11 +158,8 @@ def analyze_ticker(exchange, symbol):
     else:
         signal = 'WATCH'
 
-    # 심볼명 정리 (BTC/USDT:USDT → BTCUSDT)
-    clean_symbol = symbol.split('/')[0] + 'USDT'
-
     return {
-        'symbol': clean_symbol,
+        'symbol': symbol,
         'signal': signal,
         'score': score,
         'max_score': 9,
@@ -168,20 +176,19 @@ def analyze_ticker(exchange, symbol):
         'satisfied_conditions': satisfied,
     }
 
-# ── STEP 3: 전체 스캔 ────────────────────────────
+# ── STEP 4: 전체 스캔 ────────────────────────────
 def run_scan():
     today = datetime.now(KST).strftime("%Y-%m-%d")
     log(f"=== SpaceEum AI Lab 자동 스캔 시작: {today} ===")
 
-    exchange = init_exchange()
-    symbols = get_top_tickers(exchange, TOP_N)
+    symbols = get_top_tickers(TOP_N)
     signals = []
 
     log(f"{len(symbols)}개 티커 스캔 중...")
 
     for i, symbol in enumerate(symbols):
         try:
-            result = analyze_ticker(exchange, symbol)
+            result = analyze_ticker(symbol)
             if result:
                 signals.append(result)
             if (i + 1) % 50 == 0:
