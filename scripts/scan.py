@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-SpaceEum AI Lab - 바이낸스 선물 60일 이평 자동 스캔
-ccxt 라이브러리 사용 (GitHub Actions 미국 서버 우회)
+SpaceEum AI Lab - 바이비트 선물 60일 이평 자동 스캔
+매일 오전 9시 (KST) GitHub Actions에서 자동 실행
 """
 
 import json
@@ -28,20 +28,22 @@ def log(msg):
     now = datetime.now(KST).strftime("%H:%M:%S")
     print(f"[{now}] {msg}")
 
+# ── 거래소 초기화 (바이비트) ──────────────────────
 def init_exchange():
-    exchange = ccxt.binanceusdm({
+    exchange = ccxt.bybit({
         'enableRateLimit': True,
         'options': {
-            'defaultType': 'future',
-            'adjustForTimeDifference': True,
+            'defaultType': 'linear',  # USDT 선물
         }
     })
     return exchange
 
+# ── STEP 1: 거래량 상위 300개 티커 ───────────────
 def get_top_tickers(exchange, n=300):
-    log("바이낸스 선물 티커 목록 가져오는 중...")
+    log("바이비트 선물 티커 목록 가져오는 중...")
     tickers = exchange.fetch_tickers()
-    usdt = {k: v for k, v in tickers.items() if k.endswith('/USDT')}
+    usdt = {k: v for k, v in tickers.items() 
+            if k.endswith('/USDT') and ':USDT' in k}
     sorted_tickers = sorted(
         usdt.items(),
         key=lambda x: float(x[1].get('quoteVolume') or 0),
@@ -52,6 +54,7 @@ def get_top_tickers(exchange, n=300):
     log(f"전체 USDT 선물: {len(usdt)}개 → 상위 {n}개 추출")
     return symbols
 
+# ── STEP 2: 개별 티커 분석 ────────────────────────
 def analyze_ticker(exchange, symbol):
     ohlcv = exchange.fetch_ohlcv(symbol, '1d', limit=90)
     if len(ohlcv) < 62:
@@ -63,19 +66,23 @@ def analyze_ticker(exchange, symbol):
     lows = [d[3] for d in ohlcv]
     current_price = closes[-1]
 
+    # 60일 이평 및 종이격
     ma60 = sum(closes[-60:]) / 60
     ma60_prev = sum(closes[-61:-1]) / 60
     ma60_prev2 = sum(closes[-62:-2]) / 60
     jongi_gap_today = ma60 - ma60_prev
     jongi_gap_yesterday = ma60_prev - ma60_prev2
 
+    # 1차 필터
     if current_price <= ma60:
         return None
 
+    # 이평선
     ma9 = sum(closes[-9:]) / 9
     ma10 = sum(closes[-10:]) / 10
     ma26 = sum(closes[-26:]) / 26
 
+    # MACD
     def ema(prices, period):
         k = 2 / (period + 1)
         v = prices[0]
@@ -86,6 +93,7 @@ def analyze_ticker(exchange, symbol):
     macd = ema(closes[-40:], 12) - ema(closes[-40:], 26)
     macd_above_zero = macd > 0
 
+    # OBV
     obv_list = [0]
     for j in range(1, len(closes)):
         if closes[j] > closes[j-1]:
@@ -96,20 +104,24 @@ def analyze_ticker(exchange, symbol):
             obv_list.append(obv_list[-1])
     obv_rising = sum(obv_list[-5:]) / 5 > sum(obv_list[-15:-5]) / 10
 
+    # 거래량
     volume_increasing = sum(volumes[-5:]) / 5 > sum(volumes[-25:-5]) / 20
 
+    # 일목균형표 구름대
     span_a = (ma9 + ma26) / 2
     span_b = (max(highs[-52:]) + min(lows[-52:])) / 2
     above_cloud = current_price > max(span_a, span_b)
     is_positive_cloud = span_a > span_b
     is_new_high_60d = current_price >= max(closes[-60:]) * 0.99
 
+    # 볼린저 밴드
     ma20 = sum(closes[-20:]) / 20
     std20 = math.sqrt(sum((c - ma20)**2 for c in closes[-20:]) / 20)
     bb_upper = ma20 + 2 * std20
     bb_lower = ma20 - 2 * std20
     bb_pos = round((current_price - bb_lower) / (bb_upper - bb_lower) * 100, 1) if bb_upper != bb_lower else 50
 
+    # 조건 체크 (9개)
     conditions = {
         '현재가_60이평_위': current_price > ma60,
         '60이평_우상향': jongi_gap_today > 0,
@@ -135,8 +147,11 @@ def analyze_ticker(exchange, symbol):
     else:
         signal = 'WATCH'
 
+    # 심볼명 정리 (BTC/USDT:USDT → BTCUSDT)
+    clean_symbol = symbol.split('/')[0] + 'USDT'
+
     return {
-        'symbol': symbol.replace('/USDT', 'USDT'),
+        'symbol': clean_symbol,
         'signal': signal,
         'score': score,
         'max_score': 9,
@@ -153,6 +168,7 @@ def analyze_ticker(exchange, symbol):
         'satisfied_conditions': satisfied,
     }
 
+# ── STEP 3: 전체 스캔 ────────────────────────────
 def run_scan():
     today = datetime.now(KST).strftime("%Y-%m-%d")
     log(f"=== SpaceEum AI Lab 자동 스캔 시작: {today} ===")
@@ -194,6 +210,7 @@ def run_scan():
     result_data = {
         'date': today,
         'scan_time': datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S"),
+        'exchange': 'Bybit',
         'total_scanned': len(symbols),
         'strong_buy_count': len([s for s in signals if s['signal'] == 'STRONG BUY']),
         'buy_count': len([s for s in signals if s['signal'] == 'BUY']),
