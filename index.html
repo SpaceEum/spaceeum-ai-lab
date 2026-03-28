@@ -29,8 +29,8 @@ body::before {
 /* 헤더 */
 header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(6,9,16,0.9); backdrop-filter:blur(24px); }
 .header-inner { max-width:1200px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.logo-img { height: 36px; width: auto; object-fit: contain; }
 .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-.logo-mark { width:38px; height:38px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Orbitron',monospace; font-weight:900; font-size:13px; color:var(--bg); }
 .logo-name { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; color:var(--text); letter-spacing:3px; }
 nav { display:flex; align-items:center; gap:28px; }
 nav a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:1px; transition:color 0.2s; }
@@ -154,8 +154,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 <header>
   <div class="header-inner">
     <a href="#" class="logo">
-      <div class="logo-mark">SE</div>
-      <div class="logo-name">SPACEEUM</div>
+      <img src="logo_full.png" alt="공간이음 로고" class="logo-img">
     </a>
     <nav>
       <a href="#services">사업영역</a>
@@ -252,7 +251,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <h2 class="section-title reveal">AI 트레이딩 연구소</h2>
     <div class="trading-inner">
       <div>
-        <p class="trading-desc reveal">신창환(청송촌놈) 등 검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 바이낸스 일봉 완성 시점에 자동으로 300개 티커를 스캔합니다.</p>
+        <p class="trading-desc reveal">검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 바이낸스 일봉 완성 시점에 자동으로 300개 티커를 스캔합니다.</p>
         <div class="trading-features">
           <div class="feature-item reveal">
             <div class="feature-dot"></div>
@@ -316,7 +315,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       <h2 class="section-title reveal">함께 만들어가요</h2>
       <p class="section-desc reveal">공간이음과 함께하고 싶거나 궁금한 점이 있으시면 언제든지 연락해주세요.</p>
       <div class="contact-box reveal">
-        <a href="mailto:prospros@spaceeum.info" class="contact-email">prospros@spaceeum.info</a>
+        <a href="/cdn-cgi/l/email-protection#08787a677b787a677b487b78696b6d6d7d652661666e67" class="contact-email"><span class="__cf_email__" data-cfemail="c7b7b5a8b4b7b5a8b487b4b7a6a4a2a2b2aae9aea9a1a8">[email&#160;protected]</span></a>
         <p class="contact-note">AI 트레이딩 연구, 소프트웨어 개발, 협업 제안 등<br>어떤 내용이든 환영합니다.</p>
       </div>
     </div>
@@ -325,21 +324,12 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">SPACEEUM</div>
+    <img src="logo_full.png" alt="공간이음" style="height:28px; width:auto; opacity:0.8;">
     <div class="footer-slogan">"AI 인권을 지키자"</div>
     <div class="footer-copy">© 2026 SpaceEum. All rights reserved.</div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+  entries.forEach((entry
