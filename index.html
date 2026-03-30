@@ -250,52 +250,14 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   <div class="section-inner">
     <span class="section-label reveal">AI TRADING LAB</span>
     <h2 class="section-title reveal">AI 트레이딩 연구소</h2>
-    <div class="trading-inner">
-      <div>
-        <p class="trading-desc reveal">검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 업비트 일봉 완성 시점에 자동으로 200개 티커를 스캔합니다.</p>
-        <div class="trading-features">
-          <div class="feature-item reveal">
-            <div class="feature-dot"></div>
-            <div class="feature-text">
-              <strong>60일 이동평균 매매법</strong>
-              종이격, 일목균형표, OBV, MACD 등 9개 조건을 자동 체크합니다.
-            </div>
-          </div>
-          <div class="feature-item reveal">
-            <div class="feature-dot"></div>
-            <div class="feature-text">
-              <strong>다중 매매법 동시 검증</strong>
-              여러 매매법을 각각의 에이전트가 독립적으로 테스트하여 성과를 비교합니다.
-            </div>
-          </div>
-          <div class="feature-item reveal">
-            <div class="feature-dot"></div>
-            <div class="feature-text">
-              <strong>자동 성과 리포트</strong>
-              승률, MDD, RR비율 등 핵심 지표를 주간 단위로 자동 분석합니다.
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:32px;" class="reveal">
-          <p style="font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:20px;">
-            매일 오전 9시 자동 스캔 결과, 9가지 기술적 분석 조건 상세 설명,<br>
-            페이퍼 트레이딩 성과까지 한눈에 확인하세요.
-          </p>
-          <a href="/ai-trading.html" class="btn-primary" style="display:inline-block;font-size:13px;">
-            🔬 AI 트레이딩 연구소 바로가기 →
-          </a>
-        </div>
-      </div>
-      <div class="trading-panel reveal">
-        <div class="panel-header">
-          <span class="panel-title">DAILY SCAN RESULT</span>
-          <div class="panel-status"><div class="badge-dot"></div>LIVE</div>
-        </div>
-        <div class="panel-body" id="scan-panel-body">
-          <div class="scan-loading">데이터 로딩 중...</div>
-        </div>
-        <div class="panel-footer" id="scan-date">로딩 중...</div>
-      </div>
+    <p class="trading-desc reveal" style="max-width:680px;">
+      신창환 60일 이동평균 매매법을 AI로 자동화하여 매일 업비트 KRW 마켓을 스캔합니다.<br>
+      9가지 기술적 분석 조건으로 점수화된 매매 신호와 페이퍼 트레이딩 성과를 확인하세요.
+    </p>
+    <div style="margin-top:32px;" class="reveal">
+      <a href="/ai-trading.html" class="btn-primary" style="display:inline-block;font-size:13px;">
+        🔬 AI 트레이딩 연구소 바로가기 →
+      </a>
     </div>
   </div>
 </section>
@@ -346,37 +308,4 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// 스캔 결과 JSON 로딩
-async function loadScanResult() {
-  const panel = document.getElementById('scan-panel-body');
-  const footer = document.getElementById('scan-date');
-  try {
-    const res = await fetch('data/scan_latest.json?t=' + Date.now());
-    if (!res.ok) throw new Error('no data');
-    const data = await res.json();
-    footer.textContent = (data.date || '') + ' 09:00 KST · 업비트 KRW 마켓 상위 200개 스캔';
-    const signals = data.top_signals || [];
-    if (signals.length === 0) {
-      panel.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);font-family:Space Mono,monospace;font-size:12px;">오늘은 진입 신호 없음</div>';
-      return;
-    }
-    panel.innerHTML = signals.map(s => {
-      const isBuy = s.signal === 'BUY' || s.signal === 'STRONG BUY';
-      return `<div class="scan-result">
-        <span class="ticker">${s.symbol}</span>
-        <span class="score">${s.score}/${s.max_score}점</span>
-        <span class="${isBuy ? 'signal-buy' : 'signal-watch'}">${s.signal}</span>
-      </div>`;
-    }).join('');
-  } catch(e) {
-    panel.innerHTML = `
-      <div class="scan-result"><span class="ticker">ONUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-      <div class="scan-result"><span class="ticker">STGUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-      <div class="scan-result"><span class="ticker">STOUSDT</span><span class="score">8/9점</span><span class="signal-buy">BUY</span></div>
-      <div class="scan-result"><span class="ticker">1000RATSUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>
-      <div class="scan-result"><span class="ticker">PARTIUSDT</span><span class="score">5/9점</span><span class="signal-watch">WATCH</span></div>`;
-    footer.textContent = '샘플 데이터 · 매일 오전 9시 자동 업데이트';
-  }
-}
-loadScanResult();
 </script>
