@@ -214,7 +214,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         <p class="service-desc">검증된 매매법을 AI 에이전트로 구현하여 바이낸스 선물 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 300개 이상의 티커를 자동 스캔하고 신호를 분석합니다.</p>
         <div class="service-tags">
           <span class="tag">60일 이평</span>
-          <span class="tag">바이비트 선물</span>
+          <span class="tag">업비트 KRW</span>
           <span class="tag">자동 스캔</span>
           <span class="tag">Claude AI</span>
         </div>
@@ -251,7 +251,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <h2 class="section-title reveal">AI 트레이딩 연구소</h2>
     <div class="trading-inner">
       <div>
-        <p class="trading-desc reveal">검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 바이비트 일봉 완성 시점에 자동으로 300개 티커를 스캔합니다.</p>
+        <p class="trading-desc reveal">검증된 전문가의 매매법을 AI 에이전트로 구현하여 실제 시장에서 페이퍼 트레이딩으로 검증합니다. 매일 오전 9시, 업비트 일봉 완성 시점에 자동으로 200개 티커를 스캔합니다.</p>
         <div class="trading-features">
           <div class="feature-item reveal">
             <div class="feature-dot"></div>
@@ -344,7 +344,7 @@ async function loadScanResult() {
     const res = await fetch('data/scan_latest.json?t=' + Date.now());
     if (!res.ok) throw new Error('no data');
     const data = await res.json();
-    footer.textContent = (data.date || '') + ' 09:00 KST · 바이비트 선물 상위 300개 스캔';
+    footer.textContent = (data.date || '') + ' 09:00 KST · 업비트 KRW 마켓 상위 200개 스캔';
     const signals = data.top_signals || [];
     if (signals.length === 0) {
       panel.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text2);font-family:Space Mono,monospace;font-size:12px;">오늘은 진입 신호 없음</div>';
