@@ -1,0 +1,6 @@
+{
+  "initial_capital": 10000000,
+  "trade_unit": 2000000,
+  "max_positions": 5,
+  "trades": []
+}

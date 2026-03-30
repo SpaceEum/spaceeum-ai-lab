@@ -16,6 +16,8 @@
   --accent3: #7b5ea7;
   --text: #e8f0fe;
   --text2: #7a8fa6;
+  --red: #ff4d6d;
+  --yellow: #ffb800;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -56,9 +58,11 @@ section { position:relative; z-index:1; padding:80px 32px; }
 .section-desc { font-size:14px; color:var(--text2); line-height:1.8; margin-bottom:40px; }
 
 /* 요약 스탯 */
-.stats-bar { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px 32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:24px; margin-bottom:48px; }
+.stats-bar { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px 32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:24px; margin-bottom:48px; }
 .stat-item { text-align:center; }
 .stat-num { font-family:'Orbitron',monospace; font-size:22px; font-weight:700; color:var(--accent); display:block; }
+.stat-num.green { color:var(--accent2); }
+.stat-num.red { color:var(--red); }
 .stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; margin-top:4px; display:block; }
 
 /* 스캔 결과 전체 */
@@ -67,16 +71,31 @@ section { position:relative; z-index:1; padding:80px 32px; }
 .filter-btn { padding:6px 16px; border:1px solid var(--border); border-radius:20px; background:transparent; color:var(--text2); font-family:'Space Mono',monospace; font-size:11px; cursor:pointer; transition:all 0.2s; letter-spacing:1px; }
 .filter-btn:hover, .filter-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,0.05); }
 .filter-btn.strong.active { border-color:var(--accent2); color:var(--accent2); background:rgba(0,255,136,0.05); }
+.filter-btn.cycle12.active { border-color:#a78bfa; color:#a78bfa; background:rgba(167,139,250,0.05); }
 .scan-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
 .scan-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:20px; transition:all 0.2s; }
 .scan-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-2px); }
 .scan-card.strong-buy { border-color:rgba(0,255,136,0.25); }
-.scan-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.scan-card.buy-target { border-color:rgba(167,139,250,0.4); box-shadow:0 0 12px rgba(167,139,250,0.1); }
+.scan-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
 .scan-ticker { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; }
+.badge-row { display:flex; align-items:center; gap:6px; }
 .signal-badge { padding:4px 12px; border-radius:20px; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; font-weight:700; }
 .signal-strong { background:rgba(0,255,136,0.15); color:var(--accent2); border:1px solid rgba(0,255,136,0.4); }
 .signal-buy { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.3); }
 .signal-watch { background:rgba(255,184,0,0.1); color:#ffb800; border:1px solid rgba(255,184,0,0.3); }
+
+/* 주기 배지 */
+.cycle-badge { padding:3px 8px; border-radius:4px; font-size:10px; font-weight:700; font-family:'Space Mono',monospace; white-space:nowrap; }
+.cycle-1-2 { background:rgba(167,139,250,0.2); color:#a78bfa; border:1px solid rgba(167,139,250,0.4); }
+.cycle-3-4 { background:rgba(255,77,109,0.15); color:var(--red); border:1px solid rgba(255,77,109,0.35); }
+.cycle-5-6 { background:rgba(255,184,0,0.1); color:var(--yellow); border:1px solid rgba(255,184,0,0.3); }
+.cycle-7-8 { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.25); }
+.cycle-unknown { background:rgba(122,143,166,0.1); color:var(--text2); border:1px solid rgba(122,143,166,0.2); }
+
+/* 매수타점 강조 배너 */
+.buy-target-banner { background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.3); border-radius:6px; padding:6px 10px; margin-bottom:12px; font-size:11px; color:#a78bfa; font-family:'Space Mono',monospace; letter-spacing:1px; text-align:center; }
+
 .scan-score { margin-bottom:12px; }
 .score-bar-bg { background:var(--bg); border-radius:4px; height:6px; overflow:hidden; margin-top:6px; }
 .score-bar-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
@@ -97,12 +116,56 @@ section { position:relative; z-index:1; padding:80px 32px; }
 .condition-name { font-size:14px; font-weight:700; color:var(--accent); margin-bottom:8px; }
 .condition-desc { font-size:13px; color:var(--text2); line-height:1.7; }
 
+/* 60MA 주기 설명 */
+.cycle-section { background:var(--bg2); }
+.cycle-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:32px; }
+.cycle-card { border-radius:12px; padding:24px; border:1px solid; }
+.cycle-card-12 { background:rgba(167,139,250,0.06); border-color:rgba(167,139,250,0.3); }
+.cycle-card-34 { background:rgba(255,77,109,0.06); border-color:rgba(255,77,109,0.3); }
+.cycle-card-56 { background:rgba(255,184,0,0.05); border-color:rgba(255,184,0,0.3); }
+.cycle-card-78 { background:rgba(0,212,255,0.05); border-color:rgba(0,212,255,0.25); }
+.cycle-card-num { font-family:'Orbitron',monospace; font-size:28px; font-weight:900; margin-bottom:4px; }
+.cycle-card-12 .cycle-card-num { color:#a78bfa; }
+.cycle-card-34 .cycle-card-num { color:var(--red); }
+.cycle-card-56 .cycle-card-num { color:var(--yellow); }
+.cycle-card-78 .cycle-card-num { color:var(--accent); }
+.cycle-card-zone { font-size:12px; font-weight:700; margin-bottom:12px; }
+.cycle-card-desc { font-size:13px; color:var(--text2); line-height:1.7; }
+.cycle-card-action { margin-top:12px; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; font-family:'Space Mono',monospace; display:inline-block; }
+.cycle-card-12 .cycle-card-action { background:rgba(167,139,250,0.2); color:#a78bfa; }
+.cycle-card-34 .cycle-card-action { background:rgba(255,77,109,0.15); color:var(--red); }
+.cycle-card-56 .cycle-card-action { background:rgba(255,184,0,0.1); color:var(--yellow); }
+.cycle-card-78 .cycle-card-action { background:rgba(0,212,255,0.1); color:var(--accent); }
+
 /* 페이퍼 트레이딩 */
-.paper-section { background:var(--bg2); }
-.paper-placeholder { border:1px dashed rgba(0,212,255,0.2); border-radius:12px; padding:60px; text-align:center; }
-.paper-placeholder-icon { font-size:48px; margin-bottom:16px; }
-.paper-placeholder-title { font-family:'Orbitron',monospace; font-size:18px; color:var(--accent); margin-bottom:12px; }
-.paper-placeholder-desc { font-size:14px; color:var(--text2); line-height:1.8; }
+.paper-section { background:var(--bg3); }
+
+/* 페이퍼 스탯 */
+.paper-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:40px; }
+.paper-stat { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center; }
+.paper-stat-num { font-family:'Orbitron',monospace; font-size:24px; font-weight:700; display:block; margin-bottom:4px; }
+.paper-stat-label { font-size:11px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; }
+
+/* 포지션 테이블 */
+.table-wrap { overflow-x:auto; margin-bottom:40px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { padding:12px 16px; text-align:left; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--text2); border-bottom:1px solid var(--border); text-transform:uppercase; }
+tbody td { padding:12px 16px; border-bottom:1px solid rgba(26,37,53,0.8); color:var(--text); vertical-align:middle; }
+tbody tr:hover { background:rgba(0,212,255,0.02); }
+.table-label { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; margin-bottom:16px; color:var(--accent); }
+
+/* PnL 색상 */
+.pnl-pos { color:var(--accent2); font-weight:700; }
+.pnl-neg { color:var(--red); font-weight:700; }
+.pnl-zero { color:var(--text2); }
+
+/* 태그 */
+.exit-tag { padding:2px 8px; border-radius:4px; font-size:10px; font-family:'Space Mono',monospace; font-weight:700; }
+.exit-익절 { background:rgba(0,255,136,0.15); color:var(--accent2); }
+.exit-손절 { background:rgba(255,77,109,0.15); color:var(--red); }
+.exit-꼭지 { background:rgba(255,77,109,0.1); color:var(--red); }
+.exit-매도 { background:rgba(255,184,0,0.1); color:var(--yellow); }
+.exit-open { background:rgba(0,212,255,0.1); color:var(--accent); }
 
 /* 로딩/빈 상태 */
 .empty-state { text-align:center; padding:60px; color:var(--text2); font-family:'Space Mono',monospace; font-size:12px; }
@@ -123,12 +186,18 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 .reveal { opacity:0; transform:translateY(20px); transition:all 0.6s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
+/* 반응형 */
 @media(max-width:768px){
   .header-inner{padding:0 16px;}
   nav a:not(.nav-cta){display:none;}
   section{padding:60px 16px;}
   .stats-bar{grid-template-columns:repeat(2,1fr);}
   .scan-grid{grid-template-columns:1fr;}
+  .cycle-grid{grid-template-columns:repeat(2,1fr);}
+  .paper-stats{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){
+  .cycle-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -155,7 +224,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     AI TRADING LAB · LIVE
   </div>
   <h1>AI <span>트레이딩</span> 연구소</h1>
-  <p>신창환 60일 이동평균 매매법을 AI로 자동화하여 매일 업비트 KRW 마켓을 스캔합니다.<br>9개 조건을 동시에 검증하고 점수화된 신호를 제공합니다.</p>
+  <p>신창환 60일 이동평균 매매법을 AI로 자동화합니다.<br>9개 조건 스코어링 + 60MA 8등분 주기 분석으로 최적 매수/매도 타점을 포착합니다.</p>
 </div>
 
 <!-- 요약 스탯 -->
@@ -168,15 +237,19 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       </div>
       <div class="stat-item">
         <span class="stat-num" id="stat-scanned">-</span>
-        <span class="stat-label">스캔 종목 수</span>
+        <span class="stat-label">스캔 종목</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num" id="stat-strong">-</span>
+        <span class="stat-num green" id="stat-strong">-</span>
         <span class="stat-label">STRONG BUY</span>
       </div>
       <div class="stat-item">
         <span class="stat-num" id="stat-buy">-</span>
         <span class="stat-label">BUY</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-targets">-</span>
+        <span class="stat-label">매수 타점</span>
       </div>
       <div class="stat-item">
         <span class="stat-num" id="stat-watch">-</span>
@@ -191,7 +264,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   <div class="section-inner">
     <span class="section-label">DAILY SCAN RESULT</span>
     <h2 class="section-title">오늘의 매매 신호</h2>
-    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다.</p>
+    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다. <strong style="color:#a78bfa">보라색 테두리</strong>는 STRONG BUY + 1~2번 자리 = 실제 매수 타점입니다.</p>
 
     <div class="scan-date-bar">
       <span id="scan-date-text">데이터 로딩 중...</span>
@@ -199,14 +272,50 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     </div>
 
     <div class="scan-controls">
-      <button class="filter-btn active" onclick="filterSignals('all')">전체</button>
-      <button class="filter-btn strong" onclick="filterSignals('STRONG BUY')">⭐ STRONG BUY</button>
-      <button class="filter-btn" onclick="filterSignals('BUY')">BUY</button>
-      <button class="filter-btn" onclick="filterSignals('WATCH')">WATCH</button>
+      <button class="filter-btn active" onclick="filterSignals('all',this)">전체</button>
+      <button class="filter-btn strong" onclick="filterSignals('STRONG BUY',this)">⭐ STRONG BUY</button>
+      <button class="filter-btn" onclick="filterSignals('BUY',this)">BUY</button>
+      <button class="filter-btn" onclick="filterSignals('WATCH',this)">WATCH</button>
+      <button class="filter-btn cycle12" onclick="filterSignals('1~2번',this)">🎯 매수타점 (1~2번)</button>
     </div>
 
     <div class="scan-grid" id="scan-grid">
       <div class="empty-state"><span class="loading-dots">데이터 로딩 중</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 60MA 8등분 주기 설명 -->
+<section class="cycle-section" id="cycle">
+  <div class="section-inner">
+    <span class="section-label">CYCLE ANALYSIS</span>
+    <h2 class="section-title">60MA 8등분 주기 분석</h2>
+    <p class="section-desc">신창환 이론: 60일 이동평균의 기울기(종이격) 변화로 현재가 상승 사이클의 어느 위치에 있는지 판단합니다.</p>
+    <div class="cycle-grid">
+      <div class="cycle-card cycle-card-12 reveal">
+        <div class="cycle-card-num">1~2</div>
+        <div class="cycle-card-zone">상승 초기</div>
+        <p class="cycle-card-desc">종이격 양수 + 증가 중. 60MA가 우상향하며 기울기가 가팔라지는 단계. 상승 모멘텀이 강화되는 시기.</p>
+        <span class="cycle-card-action">✅ 매수 타점</span>
+      </div>
+      <div class="cycle-card cycle-card-34 reveal">
+        <div class="cycle-card-num">3~4</div>
+        <div class="cycle-card-zone">고점권 경고</div>
+        <p class="cycle-card-desc">종이격 양수지만 감소 중. 60MA는 아직 상승하나 기울기가 둔화. 꼭지 근처에서 상승 에너지가 소진되는 단계.</p>
+        <span class="cycle-card-action">⚠️ 매도 신호</span>
+      </div>
+      <div class="cycle-card cycle-card-56 reveal">
+        <div class="cycle-card-num">5~6</div>
+        <div class="cycle-card-zone">하락 중</div>
+        <p class="cycle-card-desc">종이격 음수 + 악화 중. 60MA가 우하향하며 기울기가 더 가팔라지는 하락 단계. 관망 필요.</p>
+        <span class="cycle-card-action">🚫 관망</span>
+      </div>
+      <div class="cycle-card cycle-card-78 reveal">
+        <div class="cycle-card-num">7~8</div>
+        <div class="cycle-card-zone">바닥권</div>
+        <p class="cycle-card-desc">종이격 음수이지만 완만해지는 중. 60MA 하락이 둔화. 바닥 신호로 다음 사이클 1번 자리를 기다리는 단계.</p>
+        <span class="cycle-card-action">🔄 매수 준비</span>
+      </div>
     </div>
   </div>
 </section>
@@ -216,7 +325,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   <div class="section-inner">
     <span class="section-label">ANALYSIS SYSTEM</span>
     <h2 class="section-title">9가지 기술적 분석 조건</h2>
-    <p class="section-desc">모든 종목에 9개 조건을 동시에 적용하여 점수화합니다. 8점 이상은 STRONG BUY, 6점 이상은 BUY, 5점 이상은 WATCH입니다.</p>
+    <p class="section-desc">모든 종목에 9개 조건을 동시에 적용하여 점수화합니다. 8점 이상 STRONG BUY + 1~2번 자리 = 실제 매수 타점.</p>
     <div class="conditions-grid">
       <div class="condition-card reveal">
         <div class="condition-num">01</div>
@@ -255,7 +364,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       </div>
       <div class="condition-card reveal">
         <div class="condition-num">08</div>
-        <div class="condition-name">구름대 위 & 양운</div>
+        <div class="condition-name">구름대 위 &amp; 양운</div>
         <p class="condition-desc">현재가가 일목균형표 구름대 위에 있고, 양운(선행스팬A > B) 상태인가.</p>
       </div>
       <div class="condition-card reveal">
@@ -272,14 +381,92 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   <div class="section-inner">
     <span class="section-label">PAPER TRADING</span>
     <h2 class="section-title">페이퍼 트레이딩 성과</h2>
-    <p class="section-desc">신호 기반 가상 매매 성과를 추적합니다. 실제 자금은 사용되지 않습니다.</p>
-    <div class="paper-placeholder reveal">
-      <div class="paper-placeholder-icon">📊</div>
-      <div class="paper-placeholder-title">COMING SOON</div>
-      <p class="paper-placeholder-desc">
-        스캔 신호 기반 페이퍼 트레이딩 성과 추적 기능이 곧 추가됩니다.<br>
-        STRONG BUY 신호 발생 시 가상 매수 → 자동 청산 → 승률/수익률 기록
-      </p>
+    <p class="section-desc">가상 자금 <strong style="color:var(--accent)">1,000만원</strong> 기준 · 거래당 <strong style="color:var(--accent)">200만원</strong> · 최대 5개 동시 보유<br>
+    매수: STRONG BUY(8점+) + 1~2번 자리 &nbsp;|&nbsp; 매도: 손절(-7%) · 익절(+15%) · 꼭지경고(3~4번)</p>
+
+    <!-- 누적 성과 스탯 -->
+    <div class="paper-stats reveal" id="paper-stats">
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-total" style="color:var(--accent)">-</span>
+        <span class="paper-stat-label">총 거래</span>
+      </div>
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-open" style="color:#a78bfa">-</span>
+        <span class="paper-stat-label">오픈 포지션</span>
+      </div>
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-winrate" style="color:var(--accent2)">-</span>
+        <span class="paper-stat-label">승률</span>
+      </div>
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-avgpnl">-</span>
+        <span class="paper-stat-label">평균 수익률</span>
+      </div>
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-totalpnl">-</span>
+        <span class="paper-stat-label">누적 수익률</span>
+      </div>
+      <div class="paper-stat">
+        <span class="paper-stat-num" id="p-wl" style="color:var(--text2)">-</span>
+        <span class="paper-stat-label">승/패</span>
+      </div>
+    </div>
+
+    <!-- 오픈 포지션 -->
+    <div id="open-positions-wrap">
+      <div class="table-label">🟢 오픈 포지션</div>
+      <div class="table-wrap">
+        <table id="open-table">
+          <thead>
+            <tr>
+              <th>종목</th>
+              <th>진입일</th>
+              <th>진입가</th>
+              <th>진입점수</th>
+              <th>진입주기</th>
+              <th>현재 손익</th>
+            </tr>
+          </thead>
+          <tbody id="open-tbody">
+            <tr><td colspan="6" class="empty-state" style="padding:24px">데이터 로딩 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 거래 내역 -->
+    <div id="closed-trades-wrap">
+      <div class="table-label">📋 거래 내역</div>
+      <div class="table-wrap">
+        <table id="closed-table">
+          <thead>
+            <tr>
+              <th>종목</th>
+              <th>진입일</th>
+              <th>청산일</th>
+              <th>진입가</th>
+              <th>청산가</th>
+              <th>청산 이유</th>
+              <th>수익률</th>
+            </tr>
+          </thead>
+          <tbody id="closed-tbody">
+            <tr><td colspan="7" class="empty-state" style="padding:24px">데이터 로딩 중...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 베스트/워스트 -->
+    <div id="best-worst-wrap" style="display:none; display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px;">
+      <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:24px;" id="best-trade-card">
+        <div style="font-family:'Space Mono',monospace; font-size:10px; color:var(--accent2); letter-spacing:2px; margin-bottom:12px;">🏆 BEST TRADE</div>
+        <div id="best-trade-content" style="color:var(--text2); font-size:13px;">-</div>
+      </div>
+      <div style="background:rgba(255,77,109,0.05); border:1px solid rgba(255,77,109,0.2); border-radius:12px; padding:24px;" id="worst-trade-card">
+        <div style="font-family:'Space Mono',monospace; font-size:10px; color:var(--red); letter-spacing:2px; margin-bottom:12px;">💀 WORST TRADE</div>
+        <div id="worst-trade-content" style="color:var(--text2); font-size:13px;">-</div>
+      </div>
     </div>
   </div>
 </section>
@@ -293,47 +480,81 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 </footer>
 
 <script>
-// 스캔 데이터 전역
 let allSignals = [];
 
-// 날짜 포맷
-function formatDate(dateStr) {
-  if (!dateStr) return '-';
-  return dateStr.replace(/-/g, '.');
-}
+// ── 유틸 ──────────────────────────────────────────
+function formatDate(d) { return d ? d.replace(/-/g, '.') : '-'; }
 
-// 점수 바 색상
 function getScoreColor(score, max) {
-  const pct = score / max;
-  if (pct >= 0.88) return 'var(--accent2)';
-  if (pct >= 0.66) return 'var(--accent)';
+  const p = score / max;
+  if (p >= 0.88) return 'var(--accent2)';
+  if (p >= 0.66) return 'var(--accent)';
   return '#ffb800';
 }
 
-// 신호 배지 클래스
 function getSignalClass(signal) {
   if (signal === 'STRONG BUY') return 'signal-strong';
   if (signal === 'BUY') return 'signal-buy';
   return 'signal-watch';
 }
 
-// 카드 렌더링
+function getCycleBadge(zone) {
+  if (!zone) return '';
+  const map = {
+    '1~2번': ['cycle-1-2', '📈 1~2번 상승초기'],
+    '3~4번': ['cycle-3-4', '⚠️ 3~4번 고점경고'],
+    '5~6번': ['cycle-5-6', '📉 5~6번 하락중'],
+    '7~8번': ['cycle-7-8', '🔄 7~8번 바닥권'],
+    '판단불가': ['cycle-unknown', '❓ 판단불가'],
+  };
+  const entry = map[zone] || ['cycle-unknown', zone];
+  return `<span class="cycle-badge ${entry[0]}">${entry[1]}</span>`;
+}
+
+function pnlClass(v) {
+  if (v === null || v === undefined) return 'pnl-zero';
+  return v > 0 ? 'pnl-pos' : v < 0 ? 'pnl-neg' : 'pnl-zero';
+}
+
+function pnlText(v) {
+  if (v === null || v === undefined) return '-';
+  return (v > 0 ? '+' : '') + v.toFixed(2) + '%';
+}
+
+function getExitTagClass(reason) {
+  if (!reason) return 'exit-open';
+  if (reason.includes('익절')) return 'exit-익절';
+  if (reason.includes('손절')) return 'exit-손절';
+  if (reason.includes('꼭지') || reason.includes('3~4번')) return 'exit-꼭지';
+  return 'exit-매도';
+}
+
+// ── 스캔 카드 렌더링 ─────────────────────────────
 function renderCard(s) {
   const scoreColor = getScoreColor(s.score, s.max_score);
   const scorePct = Math.round(s.score / s.max_score * 100);
   const isStrong = s.signal === 'STRONG BUY';
+  const isBuyTarget = isStrong && s.cycle_zone === '1~2번';
   const conditions = (s.satisfied_conditions || []).map(c =>
     `<span class="condition-tag">${c}</span>`
   ).join('');
+  const cycleBadge = getCycleBadge(s.cycle_zone);
+  const jongiSign = s.jongi_gap > 0 ? '+' : '';
+  const buyBanner = isBuyTarget
+    ? `<div class="buy-target-banner">🎯 매수 타점 — STRONG BUY + 1~2번 자리</div>` : '';
 
   return `
-    <div class="scan-card ${isStrong ? 'strong-buy' : ''}" data-signal="${s.signal}">
+    <div class="scan-card ${isStrong ? 'strong-buy' : ''} ${isBuyTarget ? 'buy-target' : ''}" data-signal="${s.signal}" data-zone="${s.cycle_zone}">
+      ${buyBanner}
       <div class="scan-card-header">
         <span class="scan-ticker">${s.symbol}</span>
-        <span class="signal-badge ${getSignalClass(s.signal)}">${s.signal}</span>
+        <div class="badge-row">
+          ${cycleBadge}
+          <span class="signal-badge ${getSignalClass(s.signal)}">${s.signal}</span>
+        </div>
       </div>
       <div class="scan-score">
-        <span class="score-text">${s.score} / ${s.max_score}점 · MA60 대비 +${s.price_vs_ma60_pct}%</span>
+        <span class="score-text">${s.score} / ${s.max_score}점 · MA60 대비 +${s.price_vs_ma60_pct}% · 종이격 ${jongiSign}${s.jongi_gap?.toFixed ? s.jongi_gap.toFixed(0) : s.jongi_gap}</span>
         <div class="score-bar-bg">
           <div class="score-bar-fill" style="width:${scorePct}%; background:${scoreColor};"></div>
         </div>
@@ -360,13 +581,20 @@ function renderCard(s) {
     </div>`;
 }
 
-// 필터링
-function filterSignals(type) {
+// ── 필터링 ────────────────────────────────────────
+function filterSignals(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  if (btn) btn.classList.add('active');
 
   const grid = document.getElementById('scan-grid');
-  const filtered = type === 'all' ? allSignals : allSignals.filter(s => s.signal === type);
+  let filtered;
+  if (type === 'all') {
+    filtered = allSignals;
+  } else if (type === '1~2번') {
+    filtered = allSignals.filter(s => s.signal === 'STRONG BUY' && s.cycle_zone === '1~2번');
+  } else {
+    filtered = allSignals.filter(s => s.signal === type);
+  }
 
   if (filtered.length === 0) {
     grid.innerHTML = '<div class="empty-state">해당 신호 없음</div>';
@@ -375,7 +603,7 @@ function filterSignals(type) {
   grid.innerHTML = filtered.map(renderCard).join('');
 }
 
-// 데이터 로딩
+// ── 스캔 데이터 로딩 ─────────────────────────────
 async function loadScanData() {
   const grid = document.getElementById('scan-grid');
   try {
@@ -383,16 +611,15 @@ async function loadScanData() {
     if (!res.ok) throw new Error('no data');
     const data = await res.json();
 
-    // 스탯 업데이트
     document.getElementById('stat-date').textContent = formatDate(data.date);
     document.getElementById('stat-scanned').textContent = data.total_scanned || '-';
     document.getElementById('stat-strong').textContent = data.strong_buy_count || 0;
     document.getElementById('stat-buy').textContent = data.buy_count || 0;
+    document.getElementById('stat-targets').textContent = data.buy_targets_count || 0;
     document.getElementById('stat-watch').textContent = data.watch_count || 0;
     document.getElementById('scan-date-text').textContent =
       `${data.scan_time || data.date} · 업비트 KRW 마켓 ${data.total_scanned}개 스캔`;
 
-    // 전체 신호 합치기 (STRONG BUY → BUY → WATCH 순)
     const strong = (data.all_buy_signals || []).filter(s => s.signal === 'STRONG BUY');
     const buy = (data.all_buy_signals || []).filter(s => s.signal === 'BUY');
     const watch = data.all_watch_signals || [];
@@ -400,14 +627,106 @@ async function loadScanData() {
 
     if (allSignals.length === 0) {
       grid.innerHTML = '<div class="empty-state">오늘은 진입 신호가 없습니다</div>';
-      return;
+    } else {
+      grid.innerHTML = allSignals.map(renderCard).join('');
     }
 
-    grid.innerHTML = allSignals.map(renderCard).join('');
+  } catch(e) {
+    document.getElementById('scan-date-text').textContent = '매일 오전 9시 자동 업데이트';
+    grid.innerHTML = '<div class="empty-state">데이터를 불러올 수 없습니다. GitHub Actions 스캔 후 확인해주세요.</div>';
+  }
+}
+
+// ── 페이퍼 트레이딩 데이터 로딩 ─────────────────
+async function loadPaperData() {
+  try {
+    // performance.json
+    const perfRes = await fetch('data/performance.json?t=' + Date.now());
+    if (perfRes.ok) {
+      const perf = await perfRes.json();
+      const avgEl = document.getElementById('p-avgpnl');
+      const totEl = document.getElementById('p-totalpnl');
+
+      document.getElementById('p-total').textContent = perf.total_trades || 0;
+      document.getElementById('p-open').textContent = perf.open_positions || 0;
+      document.getElementById('p-winrate').textContent = (perf.win_rate || 0) + '%';
+      document.getElementById('p-wl').textContent = `${perf.wins || 0}W / ${perf.losses || 0}L`;
+
+      const avg = perf.avg_pnl_pct || 0;
+      avgEl.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%';
+      avgEl.className = 'paper-stat-num ' + pnlClass(avg);
+
+      const tot = perf.total_pnl_pct || 0;
+      totEl.textContent = (tot >= 0 ? '+' : '') + tot.toFixed(2) + '%';
+      totEl.className = 'paper-stat-num ' + pnlClass(tot);
+
+      // 베스트/워스트
+      if (perf.best_trade) {
+        const b = perf.best_trade;
+        document.getElementById('best-trade-content').innerHTML =
+          `<strong style="color:var(--accent2); font-size:16px">${b.symbol}</strong><br>
+           <span style="color:var(--accent2); font-size:18px; font-family:'Orbitron',monospace">+${b.pnl_pct?.toFixed(2)}%</span><br>
+           <span style="font-size:12px">${b.entry_date} → ${b.exit_date}</span><br>
+           <span style="font-size:11px; color:var(--text2)">${b.exit_reason}</span>`;
+        document.getElementById('best-worst-wrap').style.display = 'grid';
+      }
+      if (perf.worst_trade) {
+        const w = perf.worst_trade;
+        document.getElementById('worst-trade-content').innerHTML =
+          `<strong style="color:var(--red); font-size:16px">${w.symbol}</strong><br>
+           <span style="color:var(--red); font-size:18px; font-family:'Orbitron',monospace">${w.pnl_pct?.toFixed(2)}%</span><br>
+           <span style="font-size:12px">${w.entry_date} → ${w.exit_date}</span><br>
+           <span style="font-size:11px; color:var(--text2)">${w.exit_reason}</span>`;
+      }
+
+      // 오픈 포지션 테이블
+      const openList = perf.open_position_list || [];
+      const openTbody = document.getElementById('open-tbody');
+      if (openList.length === 0) {
+        openTbody.innerHTML = '<tr><td colspan="6" class="empty-state" style="padding:24px; color:var(--text2)">현재 오픈 포지션 없음</td></tr>';
+      } else {
+        openTbody.innerHTML = openList.map(p => {
+          const pnl = p.current_pnl_pct;
+          return `<tr>
+            <td><strong style="font-family:'Orbitron',monospace; font-size:12px">${p.symbol}</strong></td>
+            <td style="color:var(--text2); font-size:12px">${formatDate(p.entry_date)}</td>
+            <td style="font-family:'Space Mono',monospace">${p.entry_price?.toLocaleString()}</td>
+            <td><span style="color:var(--accent2)">${p.entry_score}/9</span></td>
+            <td>${getCycleBadge(p.entry_cycle)}</td>
+            <td class="${pnlClass(pnl)}">${pnl !== null && pnl !== undefined ? (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%' : '-'}</td>
+          </tr>`;
+        }).join('');
+      }
+    }
+
+    // paper_trades.json (거래 내역)
+    const tradesRes = await fetch('data/paper_trades.json?t=' + Date.now());
+    if (tradesRes.ok) {
+      const tradesData = await tradesRes.json();
+      const closed = (tradesData.trades || []).filter(t => t.status === 'CLOSED').reverse();
+      const closedTbody = document.getElementById('closed-tbody');
+
+      if (closed.length === 0) {
+        closedTbody.innerHTML = '<tr><td colspan="7" class="empty-state" style="padding:24px; color:var(--text2)">아직 청산된 거래가 없습니다. 첫 매수 신호를 기다리는 중...</td></tr>';
+      } else {
+        closedTbody.innerHTML = closed.map(t => {
+          const pnl = t.pnl_pct;
+          const exitTagClass = getExitTagClass(t.exit_reason);
+          return `<tr>
+            <td><strong style="font-family:'Orbitron',monospace; font-size:12px">${t.symbol}</strong></td>
+            <td style="color:var(--text2); font-size:12px">${formatDate(t.entry_date)}</td>
+            <td style="color:var(--text2); font-size:12px">${formatDate(t.exit_date)}</td>
+            <td style="font-family:'Space Mono',monospace; font-size:12px">${t.entry_price?.toLocaleString()}</td>
+            <td style="font-family:'Space Mono',monospace; font-size:12px">${t.exit_price?.toLocaleString()}</td>
+            <td><span class="exit-tag ${exitTagClass}">${t.exit_reason || '-'}</span></td>
+            <td class="${pnlClass(pnl)}" style="font-family:'Space Mono',monospace">${pnlText(pnl)}</td>
+          </tr>`;
+        }).join('');
+      }
+    }
 
   } catch(e) {
-    document.getElementById('scan-date-text').textContent = '샘플 데이터 · 매일 오전 9시 자동 업데이트';
-    grid.innerHTML = '<div class="empty-state">데이터를 불러올 수 없습니다. 잠시 후 다시 시도해주세요.</div>';
+    console.error('페이퍼 트레이딩 데이터 로드 오류:', e);
   }
 }
 
@@ -421,7 +740,9 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+// 초기 로드
 loadScanData();
+loadPaperData();
 </script>
 </body>
 </html>
