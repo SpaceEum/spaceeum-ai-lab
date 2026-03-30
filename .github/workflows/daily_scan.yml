@@ -26,11 +26,15 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 3. 스캔 실행 (외부 라이브러리 없음)
+      # 3. pyupbit 설치
+      - name: pyupbit 설치
+        run: pip install pyupbit
+
+      # 4. 스캔 실행
       - name: 60일 이평 스캔 실행
         run: python scripts/scan.py
 
-      # 4. 결과 GitHub에 저장
+      # 5. 결과 GitHub에 저장
       - name: 스캔 결과 저장
         run: |
           git config --local user.email "action@github.com"
