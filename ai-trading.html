@@ -77,6 +77,7 @@ section { position:relative; z-index:1; padding:80px 32px; }
 .scan-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-2px); }
 .scan-card.strong-buy { border-color:rgba(0,255,136,0.25); }
 .scan-card.buy-target { border-color:rgba(167,139,250,0.4); box-shadow:0 0 12px rgba(167,139,250,0.1); }
+.scan-card.dual-strong-card { border-color:rgba(255,215,0,0.5); box-shadow:0 0 16px rgba(255,215,0,0.12); }
 .scan-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
 .scan-ticker { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; }
 .badge-row { display:flex; align-items:center; gap:6px; }
@@ -95,6 +96,24 @@ section { position:relative; z-index:1; padding:80px 32px; }
 
 /* 매수타점 강조 배너 */
 .buy-target-banner { background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.3); border-radius:6px; padding:6px 10px; margin-bottom:12px; font-size:11px; color:#a78bfa; font-family:'Space Mono',monospace; letter-spacing:1px; text-align:center; }
+
+/* 1D+4H 동시 STRONG BUY 배너 */
+.dual-strong-banner { background:linear-gradient(90deg,rgba(255,215,0,0.08),rgba(0,255,136,0.08)); border:1px solid rgba(255,215,0,0.4); border-radius:6px; padding:6px 10px; margin-bottom:12px; font-size:11px; color:#ffd700; font-family:'Space Mono',monospace; letter-spacing:1px; text-align:center; }
+
+/* 타임프레임 비교 행 */
+.tf-compare { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+.tf-box { background:var(--bg); border-radius:8px; padding:10px 12px; border:1px solid var(--border); }
+.tf-box.tf-active-strong { border-color:rgba(0,255,136,0.35); }
+.tf-box.tf-active-buy { border-color:rgba(0,212,255,0.3); }
+.tf-box.tf-active-watch { border-color:rgba(255,184,0,0.3); }
+.tf-box.tf-none { opacity:0.5; }
+.tf-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); letter-spacing:2px; margin-bottom:6px; display:block; }
+.tf-signal-row { display:flex; align-items:center; justify-content:space-between; gap:4px; flex-wrap:wrap; }
+.tf-score { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; }
+.tf-score.score-strong { color:var(--accent2); }
+.tf-score.score-buy { color:var(--accent); }
+.tf-score.score-watch { color:var(--yellow); }
+.tf-score.score-none { color:var(--text2); }
 
 .scan-score { margin-bottom:12px; }
 .score-bar-bg { background:var(--bg); border-radius:4px; height:6px; overflow:hidden; margin-top:6px; }
@@ -252,6 +271,10 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         <span class="stat-label">매수 타점</span>
       </div>
       <div class="stat-item">
+        <span class="stat-num" id="stat-dual" style="color:#ffd700">-</span>
+        <span class="stat-label">1D+4H 동시</span>
+      </div>
+      <div class="stat-item">
         <span class="stat-num" id="stat-watch">-</span>
         <span class="stat-label">WATCH</span>
       </div>
@@ -264,7 +287,8 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   <div class="section-inner">
     <span class="section-label">DAILY SCAN RESULT</span>
     <h2 class="section-title">오늘의 매매 신호</h2>
-    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다. <strong style="color:#a78bfa">보라색 테두리</strong>는 STRONG BUY + 1~2번 자리 = 실제 매수 타점입니다.</p>
+    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다.<br>
+    <strong style="color:#a78bfa">보라색 테두리</strong> = STRONG BUY + 1~2번 자리(매수 타점) &nbsp;|&nbsp; <strong style="color:#ffd700">금색 테두리</strong> = 1D + 4H 동시 STRONG BUY(최강 타점)</p>
 
     <div class="scan-date-bar">
       <span id="scan-date-text">데이터 로딩 중...</span>
@@ -277,6 +301,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       <button class="filter-btn" onclick="filterSignals('BUY',this)">BUY</button>
       <button class="filter-btn" onclick="filterSignals('WATCH',this)">WATCH</button>
       <button class="filter-btn cycle12" onclick="filterSignals('1~2번',this)">🎯 매수타점 (1~2번)</button>
+      <button class="filter-btn" style="border-color:rgba(255,215,0,0.4); color:#ffd700;" onclick="filterSignals('dual',this)">★ 1D+4H 동시 STRONG BUY</button>
     </div>
 
     <div class="scan-grid" id="scan-grid">
@@ -535,17 +560,42 @@ function renderCard(s) {
   const scorePct = Math.round(s.score / s.max_score * 100);
   const isStrong = s.signal === 'STRONG BUY';
   const isBuyTarget = isStrong && s.cycle_zone === '1~2번';
+  const isDual = s.dual_strong === true;
+  const cycleBadge = getCycleBadge(s.cycle_zone);
+  const jongiSign = s.jongi_gap > 0 ? '+' : '';
+
+  // 상단 배너
+  let topBanner = '';
+  if (isDual) {
+    topBanner = `<div class="dual-strong-banner">★ 1D + 4H 동시 STRONG BUY — 최강 매수 타점</div>`;
+  } else if (isBuyTarget) {
+    topBanner = `<div class="buy-target-banner">🎯 매수 타점 — STRONG BUY + 1~2번 자리</div>`;
+  }
+
+  // 카드 테두리 클래스
+  let cardClass = 'scan-card';
+  if (isDual) cardClass += ' dual-strong-card';
+  else if (isBuyTarget) cardClass += ' buy-target';
+  if (isStrong) cardClass += ' strong-buy';
+
+  // 4H 박스
+  const tf4h = s.tf_4h || {};
+  const has4h = tf4h.signal != null;
+  const tf4hClass = has4h
+    ? (tf4h.signal === 'STRONG BUY' ? 'tf-active-strong' : tf4h.signal === 'BUY' ? 'tf-active-buy' : 'tf-active-watch')
+    : 'tf-none';
+  const tf4hScoreClass = has4h
+    ? (tf4h.signal === 'STRONG BUY' ? 'score-strong' : tf4h.signal === 'BUY' ? 'score-buy' : 'score-watch')
+    : 'score-none';
+  const tf1dScoreClass = s.signal === 'STRONG BUY' ? 'score-strong' : s.signal === 'BUY' ? 'score-buy' : 'score-watch';
+
   const conditions = (s.satisfied_conditions || []).map(c =>
     `<span class="condition-tag">${c}</span>`
   ).join('');
-  const cycleBadge = getCycleBadge(s.cycle_zone);
-  const jongiSign = s.jongi_gap > 0 ? '+' : '';
-  const buyBanner = isBuyTarget
-    ? `<div class="buy-target-banner">🎯 매수 타점 — STRONG BUY + 1~2번 자리</div>` : '';
 
   return `
-    <div class="scan-card ${isStrong ? 'strong-buy' : ''} ${isBuyTarget ? 'buy-target' : ''}" data-signal="${s.signal}" data-zone="${s.cycle_zone}">
-      ${buyBanner}
+    <div class="${cardClass}" data-signal="${s.signal}" data-zone="${s.cycle_zone}" data-dual="${isDual}">
+      ${topBanner}
       <div class="scan-card-header">
         <span class="scan-ticker">${s.symbol}</span>
         <div class="badge-row">
@@ -554,7 +604,7 @@ function renderCard(s) {
         </div>
       </div>
       <div class="scan-score">
-        <span class="score-text">${s.score} / ${s.max_score}점 · MA60 대비 +${s.price_vs_ma60_pct}% · 종이격 ${jongiSign}${s.jongi_gap?.toFixed ? s.jongi_gap.toFixed(0) : s.jongi_gap}</span>
+        <span class="score-text">1D: ${s.score}/${s.max_score}점 · MA60 대비 +${s.price_vs_ma60_pct}% · 종이격 ${jongiSign}${s.jongi_gap?.toFixed ? s.jongi_gap.toFixed(0) : s.jongi_gap}</span>
         <div class="score-bar-bg">
           <div class="score-bar-fill" style="width:${scorePct}%; background:${scoreColor};"></div>
         </div>
@@ -565,7 +615,7 @@ function renderCard(s) {
           <div class="detail-value">${s.current_price?.toLocaleString()}</div>
         </div>
         <div class="detail-item">
-          <div class="detail-label">MA60</div>
+          <div class="detail-label">MA60 (1D)</div>
           <div class="detail-value">${s.ma60?.toLocaleString()}</div>
         </div>
         <div class="detail-item">
@@ -577,6 +627,28 @@ function renderCard(s) {
           <div class="detail-value">${s.obv_signal}</div>
         </div>
       </div>
+
+      <!-- 1D / 4H 타임프레임 비교 -->
+      <div class="tf-compare">
+        <div class="tf-box tf-active-${s.signal === 'STRONG BUY' ? 'strong' : s.signal === 'BUY' ? 'buy' : 'watch'}">
+          <span class="tf-label">1D (일봉)</span>
+          <div class="tf-signal-row">
+            <span class="tf-score ${tf1dScoreClass}">${s.score}/9</span>
+            <span class="signal-badge ${getSignalClass(s.signal)}" style="font-size:9px">${s.signal}</span>
+            ${getCycleBadge(s.cycle_zone)}
+          </div>
+        </div>
+        <div class="tf-box ${tf4hClass}">
+          <span class="tf-label">4H (4시간봉)</span>
+          ${has4h ? `
+          <div class="tf-signal-row">
+            <span class="tf-score ${tf4hScoreClass}">${tf4h.score}/9</span>
+            <span class="signal-badge ${getSignalClass(tf4h.signal)}" style="font-size:9px">${tf4h.signal}</span>
+            ${getCycleBadge(tf4h.cycle_zone)}
+          </div>` : `<div style="color:var(--text2); font-size:11px; margin-top:4px">데이터 없음</div>`}
+        </div>
+      </div>
+
       ${conditions ? `<div class="conditions-list">${conditions}</div>` : ''}
     </div>`;
 }
@@ -592,6 +664,8 @@ function filterSignals(type, btn) {
     filtered = allSignals;
   } else if (type === '1~2번') {
     filtered = allSignals.filter(s => s.signal === 'STRONG BUY' && s.cycle_zone === '1~2번');
+  } else if (type === 'dual') {
+    filtered = allSignals.filter(s => s.dual_strong === true);
   } else {
     filtered = allSignals.filter(s => s.signal === type);
   }
@@ -616,6 +690,7 @@ async function loadScanData() {
     document.getElementById('stat-strong').textContent = data.strong_buy_count || 0;
     document.getElementById('stat-buy').textContent = data.buy_count || 0;
     document.getElementById('stat-targets').textContent = data.buy_targets_count || 0;
+    document.getElementById('stat-dual').textContent = data.dual_strong_count || 0;
     document.getElementById('stat-watch').textContent = data.watch_count || 0;
     document.getElementById('scan-date-text').textContent =
       `${data.scan_time || data.date} · 업비트 KRW 마켓 ${data.total_scanned}개 스캔`;
