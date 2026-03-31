@@ -39,6 +39,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "SpaceEum Bot"
-          git add data/scan_latest.json
+          git add data/scan_latest.json data/paper_trades.json data/performance.json
           git diff --staged --quiet || git commit -m "Auto scan: $(date '+%Y-%m-%d') 09:00 KST"
           git push
