@@ -232,7 +232,3 @@ class PaperTrader:
             "watching_symbols": len(self.symbols),
             "open_positions": len(get_open_trades())
         }
-
-
-# 전역 트레이더 인스턴스
-trader = PaperTrader()

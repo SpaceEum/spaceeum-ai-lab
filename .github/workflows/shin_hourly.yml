@@ -21,7 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: 패키지 설치
-        run: pip install requests
+        run: pip install requests numpy
 
       - name: 트레이딩 사이클 실행
         run: |
