@@ -1,0 +1,42 @@
+name: 신창환 60MA 봇 — 매시간 자동 트레이딩
+
+on:
+  schedule:
+    - cron: '5 * * * *'   # 매시간 5분 (UTC 기준)
+  workflow_dispatch:        # 수동 실행 버튼
+
+jobs:
+  trading-cycle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4.2.2
+
+      - name: Python 설치
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: '3.11'
+
+      - name: 패키지 설치
+        run: pip install requests
+
+      - name: 트레이딩 사이클 실행
+        run: |
+          cd scripts/shin_agent
+          python run_cycle.py
+
+      - name: 성과 JSON 생성
+        run: |
+          cd scripts/shin_agent
+          python generate_performance.py
+
+      - name: 결과 커밋 & 푸시
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "SpaceEum Bot"
+          git add data/shin_trades.db data/shin_performance.json
+          git diff --staged --quiet || git commit -m "🤖 신창환 봇 사이클 $(date '+%Y-%m-%d %H:%M') KST"
+          git push

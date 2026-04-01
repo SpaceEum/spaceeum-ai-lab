@@ -1,0 +1,201 @@
+{
+  "updated_at": "2026-04-01 18:10:14",
+  "summary": {
+    "total_closed_trades": 19,
+    "total_wins": 11,
+    "overall_win_rate": 57.9,
+    "open_positions": 1,
+    "best_strategy": "Shin_60MA_Bounce"
+  },
+  "strategies": [
+    {
+      "name": "Shin_60MA_Bounce",
+      "initial_balance": 10000.0,
+      "current_balance": 10425.63,
+      "total_trades": 7,
+      "win_trades": 4,
+      "loss_trades": 3,
+      "win_rate": 57.1,
+      "total_pnl_pct": 4.26,
+      "updated_at": "2026-03-27 12:15:46"
+    },
+    {
+      "name": "Shin_60MA_Cross",
+      "initial_balance": 10000.0,
+      "current_balance": 10344.16,
+      "total_trades": 5,
+      "win_trades": 3,
+      "loss_trades": 2,
+      "win_rate": 60.0,
+      "total_pnl_pct": 3.44,
+      "updated_at": "2026-03-27 12:15:46"
+    },
+    {
+      "name": "Shin_60MA_Volume",
+      "initial_balance": 10000.0,
+      "current_balance": 10216.15,
+      "total_trades": 3,
+      "win_trades": 2,
+      "loss_trades": 1,
+      "win_rate": 66.7,
+      "total_pnl_pct": 2.16,
+      "updated_at": "2026-03-27 12:15:46"
+    },
+    {
+      "name": "Shin_60MA_RSI",
+      "initial_balance": 10000.0,
+      "current_balance": 10117.67,
+      "total_trades": 2,
+      "win_trades": 1,
+      "loss_trades": 1,
+      "win_rate": 50.0,
+      "total_pnl_pct": 1.18,
+      "updated_at": "2026-03-27 12:15:46"
+    },
+    {
+      "name": "Shin_60MA_Basic",
+      "initial_balance": 10000.0,
+      "current_balance": 10105.87,
+      "total_trades": 2,
+      "win_trades": 1,
+      "loss_trades": 1,
+      "win_rate": 50.0,
+      "total_pnl_pct": 1.06,
+      "updated_at": "2026-03-27 12:15:46"
+    }
+  ],
+  "open_positions": [
+    {
+      "strategy": "Shin_60MA_Cross",
+      "symbol": "BNBUSDT",
+      "direction": "LONG",
+      "entry_price": 582.603434,
+      "stop_loss": 570.951365,
+      "take_profit": 605.907571,
+      "entry_time": "2026-03-27 12:15:46",
+      "entry_reason": "골든크로스 발생! MA20 > MA60 상향 돌파"
+    }
+  ],
+  "recent_trades": [
+    {
+      "strategy": "Shin_60MA_Cross",
+      "symbol": "XRPUSDT",
+      "direction": "SHORT",
+      "entry_price": 0.616449,
+      "exit_price": 0.609693,
+      "pnl_pct": 5.48,
+      "exit_reason": "익절 ✅",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "WIN"
+    },
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "XRPUSDT",
+      "direction": "SHORT",
+      "entry_price": 0.614177,
+      "exit_price": 0.588936,
+      "pnl_pct": 20.55,
+      "exit_reason": "익절 ✅",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "WIN"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "BTCUSDT",
+      "direction": "SHORT",
+      "entry_price": 85563.425507,
+      "exit_price": 82164.196564,
+      "pnl_pct": 19.86,
+      "exit_reason": "익절 ✅",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "WIN"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "XRPUSDT",
+      "direction": "SHORT",
+      "entry_price": 0.62253,
+      "exit_price": 0.599788,
+      "pnl_pct": 18.27,
+      "exit_reason": "익절 ✅",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "WIN"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "XRPUSDT",
+      "direction": "LONG",
+      "entry_price": 0.617317,
+      "exit_price": 0.603331,
+      "pnl_pct": -11.33,
+      "exit_reason": "손절",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "XRPUSDT",
+      "direction": "LONG",
+      "entry_price": 0.618317,
+      "exit_price": 0.614973,
+      "pnl_pct": -2.7,
+      "exit_reason": "손절",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "BTCUSDT",
+      "direction": "SHORT",
+      "entry_price": 85125.366482,
+      "exit_price": 87032.26153,
+      "pnl_pct": -11.2,
+      "exit_reason": "손절",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Cross",
+      "symbol": "BTCUSDT",
+      "direction": "SHORT",
+      "entry_price": 85838.52654,
+      "exit_price": 81864.445357,
+      "pnl_pct": 23.15,
+      "exit_reason": "익절 ✅",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "WIN"
+    },
+    {
+      "strategy": "Shin_60MA_Cross",
+      "symbol": "BNBUSDT",
+      "direction": "SHORT",
+      "entry_price": 577.703271,
+      "exit_price": 590.200626,
+      "pnl_pct": -10.82,
+      "exit_reason": "손절",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_RSI",
+      "symbol": "BTCUSDT",
+      "direction": "SHORT",
+      "entry_price": 84892.496788,
+      "exit_price": 85627.446805,
+      "pnl_pct": -4.33,
+      "exit_reason": "손절",
+      "entry_time": "2026-03-27 12:15:46",
+      "exit_time": "2026-03-27 12:15:46",
+      "status": "LOSS"
+    }
+  ]
+}
