@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-01 18:10:14",
+  "updated_at": "2026-04-01 18:33:23",
   "summary": {
     "total_closed_trades": 19,
     "total_wins": 11,
@@ -16,8 +16,7 @@
       "win_trades": 4,
       "loss_trades": 3,
       "win_rate": 57.1,
-      "total_pnl_pct": 4.26,
-      "updated_at": "2026-03-27 12:15:46"
+      "total_pnl_pct": 4.26
     },
     {
       "name": "Shin_60MA_Cross",
@@ -27,8 +26,7 @@
       "win_trades": 3,
       "loss_trades": 2,
       "win_rate": 60.0,
-      "total_pnl_pct": 3.44,
-      "updated_at": "2026-03-27 12:15:46"
+      "total_pnl_pct": 3.44
     },
     {
       "name": "Shin_60MA_Volume",
@@ -38,8 +36,7 @@
       "win_trades": 2,
       "loss_trades": 1,
       "win_rate": 66.7,
-      "total_pnl_pct": 2.16,
-      "updated_at": "2026-03-27 12:15:46"
+      "total_pnl_pct": 2.16
     },
     {
       "name": "Shin_60MA_RSI",
@@ -49,8 +46,7 @@
       "win_trades": 1,
       "loss_trades": 1,
       "win_rate": 50.0,
-      "total_pnl_pct": 1.18,
-      "updated_at": "2026-03-27 12:15:46"
+      "total_pnl_pct": 1.18
     },
     {
       "name": "Shin_60MA_Basic",
@@ -60,8 +56,7 @@
       "win_trades": 1,
       "loss_trades": 1,
       "win_rate": 50.0,
-      "total_pnl_pct": 1.06,
-      "updated_at": "2026-03-27 12:15:46"
+      "total_pnl_pct": 1.06
     }
   ],
   "open_positions": [

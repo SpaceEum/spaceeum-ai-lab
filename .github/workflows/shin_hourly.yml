@@ -1,9 +1,10 @@
-name: 신창환 60MA 봇 — 매시간 자동 트레이딩
+name: 신창환 5전략 — 매일 자동 트레이딩
 
 on:
   schedule:
-    - cron: '5 * * * *'   # 매시간 5분 (UTC 기준)
-  workflow_dispatch:        # 수동 실행 버튼
+    # 매일 UTC 00:05 = 한국시간 오전 9:05 (매매법1 완료 후 실행)
+    - cron: '5 0 * * *'
+  workflow_dispatch:
 
 jobs:
   trading-cycle:
@@ -21,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: 패키지 설치
-        run: pip install requests numpy
+        run: pip install pyupbit
 
       - name: 트레이딩 사이클 실행
         run: |
@@ -38,5 +39,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "SpaceEum Bot"
           git add data/shin_trades.db data/shin_performance.json
-          git diff --staged --quiet || git commit -m "🤖 신창환 봇 사이클 $(date '+%Y-%m-%d %H:%M') KST"
+          git diff --staged --quiet || git commit -m "⚡ 매매법2 사이클: $(date '+%Y-%m-%d') 09:05 KST"
           git push
+
+      - name: 텔레그램 보고 발송
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/notify.py shin

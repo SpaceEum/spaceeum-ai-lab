@@ -10,7 +10,7 @@ import threading
 from datetime import datetime
 from config import (PAPER_BALANCE, LEVERAGE, POSITION_SIZE_PCT,
                     MAX_POSITIONS, SCAN_INTERVAL_MINUTES)
-from binance_data import get_top_symbols, get_klines, get_batch_prices
+from upbit_data import get_top_symbols, get_klines, get_batch_prices
 from strategies import ALL_STRATEGIES
 from database import (init_db, open_trade, close_trade, get_open_trades,
                       log_signal, ensure_strategy_balance)
