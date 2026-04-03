@@ -2,5 +2,26 @@
   "initial_capital": 10000000,
   "trade_unit": 2000000,
   "max_positions": 5,
-  "trades": []
+  "trades": [
+    {
+      "id": "2026-04-03_KRW-ALGO",
+      "symbol": "KRW-ALGO",
+      "status": "OPEN",
+      "entry_date": "2026-04-03",
+      "entry_price": 181.0,
+      "entry_score": 8,
+      "entry_score_4h": 8,
+      "entry_cycle": "1~2번",
+      "entry_cycle_4h": "3~4번",
+      "dual_strong": true,
+      "entry_reason": "★ 1D+4H STRONG BUY(8/9) + 1~2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
+    }
+  ]
 }
