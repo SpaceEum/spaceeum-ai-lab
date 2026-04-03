@@ -1,0 +1,19 @@
+2025-12-13 15:48:54,212 - INFO - Starting Weekly Update Process...
+2025-12-13 15:48:54,216 - INFO - Step 1: Updating 1-Hour OHLCV Data...
+2025-12-13 15:48:56,801 - INFO - --- 1h 데이터 업데이트 시작 ---
+2025-12-13 15:48:58,586 - INFO - 바이낸스에서 605개의 USDT 무기한 선물 티커를 찾았습니다.
+2025-12-13 15:52:40,226 - INFO - 제외 목록에 있는 심볼이므로 건너뜁니다: BTCST/USDT:USDT
+2025-12-13 15:55:34,365 - WARNING - 
+GAIB/USDT:USDT (1h) 데이터 수집 오류: binance {"code":-1122,"msg":"Invalid symbol status."}. 5초 후 재시도합니다.
+2025-12-13 15:55:39,428 - WARNING - 
+GAIB/USDT:USDT (1h) 데이터 수집 오류: binance {"code":-1122,"msg":"Invalid symbol status."}. 5초 후 재시도합니다.
+2025-12-13 15:55:44,484 - WARNING - 
+GAIB/USDT:USDT (1h) 데이터 수집 오류: binance {"code":-1122,"msg":"Invalid symbol status."}. 5초 후 재시도합니다.
+2025-12-13 15:55:49,487 - ERROR - 
+GAIB/USDT:USDT (1h) 데이터 수집에 최종 실패했습니다.
+2025-12-13 16:05:50,523 - INFO - --- 1h 데이터 업데이트 완료 ---
+2025-12-13 16:05:50,586 - INFO - Data Update Completed.
+2025-12-13 16:05:50,586 - INFO - Step 2: Running Backtest Analysis...
+2025-12-13 16:06:48,535 - INFO - Selected Top 5 Tickers: ['ZRXUSDT/USDT:USDT', 'LINAUSDT/USDT:USDT', 'PTBUSDT/USDT:USDT', 'NFPUSDT/USDT:USDT', 'WLDUSDT/USDT:USDT']
+2025-12-13 16:06:48,536 - INFO - Step 3: Updating Target Tickers File...
+2025-12-13 16:06:48,546 - INFO - Successfully updated target_tickers.json

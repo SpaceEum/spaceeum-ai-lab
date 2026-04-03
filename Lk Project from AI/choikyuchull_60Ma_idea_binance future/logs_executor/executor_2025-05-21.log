@@ -1,0 +1,37 @@
+2025-05-21 12:04:06,666 - trading_executor - INFO - 바이낸스 선물 API 키가 감지되었습니다. (실제 거래 클라이언트 초기화는 필요시 주석 해제)
+2025-05-21 12:04:34,701 - trading_executor - INFO - 수동 실행 모드를 선택했습니다.
+2025-05-21 12:04:34,701 - trading_executor - INFO - 수동 실행: 종목 선정 로직을 먼저 실행합니다.
+2025-05-21 12:04:34,702 - trading_executor - INFO - --- 종목 선정 로직 시작 ---
+2025-05-21 12:04:34,703 - trading_executor - INFO - [종목선정] 바이낸스 USDⓈ-M 선물 USDT 페어 티커 목록을 가져옵니다...
+2025-05-21 12:04:34,831 - trading_executor - INFO - [종목선정] 총 416개의 바이낸스 USDT 선물 티커를 가져왔습니다.
+2025-05-21 12:04:34,831 - trading_executor - INFO - 
+[종목선정-1단계] 4시간봉 데이터 가져오기, 지표 계산 및 조건 필터링 시작...
+2025-05-21 12:05:41,751 - trading_executor - INFO - [종목선정-1단계] 총 16개 종목이 조건을 만족하고 다음 단계로 전달됩니다.
+2025-05-21 12:05:41,752 - trading_executor - INFO - 폴더 생성: Coin_Select
+2025-05-21 12:05:41,754 - trading_executor - INFO - 데이터를 'Coin_Select\60Ma_Coinselect_1Stage.json'에 저장했습니다.
+2025-05-21 12:05:41,754 - trading_executor - INFO - 
+[종목선정-2단계] 60개 캔들 종이격 상승 종목 필터링 시작...
+2025-05-21 12:05:41,755 - trading_executor - INFO - [종목선정-2단계] 총 3개 종목이 60개 캔들 종이격 상승 조건을 만족합니다.
+2025-05-21 12:05:41,756 - trading_executor - INFO - 데이터를 'Coin_Select\60Ma_Coinselect_2Stage.json'에 저장했습니다.
+2025-05-21 12:05:41,756 - trading_executor - INFO - 
+[종목선정-3단계] 선행스팬 골든크로스 분석 시작 (4시간봉 기준)...
+2025-05-21 12:05:41,757 - trading_executor - INFO - [종목선정-3단계] 총 3개 종목이 선행스팬 골든크로스 조건을 만족합니다.
+2025-05-21 12:05:41,759 - trading_executor - INFO - 데이터를 'Coin_Select\60Ma_Coinselect_3Stage.json'에 저장했습니다.
+2025-05-21 12:05:41,760 - trading_executor - INFO - 
+[종목선정-4단계] 새로운 조건 필터링 시작 (현재 종가 > 선행스팬 B > 선행스팬 A)...
+2025-05-21 12:05:41,761 - trading_executor - INFO - [종목선정-4단계] 총 0개 종목이 조건을 만족합니다.
+2025-05-21 12:05:41,762 - trading_executor - INFO - 데이터를 'Coin_Select\60Ma_Coinselect_4Stage.json'에 저장했습니다.
+2025-05-21 12:05:41,763 - trading_executor - INFO - 
+[종목선정-5단계] 최저가 발생 후 기간 조건 필터링 시작...
+2025-05-21 12:05:41,764 - trading_executor - INFO - [종목선정] 4단계 결과 없음. 5단계 건너뜀.
+2025-05-21 12:05:41,765 - trading_executor - INFO - 데이터를 'Coin_Select\60Ma_Coinselect_5Stage.json'에 저장했습니다.
+2025-05-21 12:05:41,767 - trading_executor - INFO - --- 종목 선정 로직 완료 --- (최종 0개 티커 선정)
+2025-05-21 12:05:41,768 - trading_executor - INFO - 수동 실행: 1단계 매수 로직을 실행합니다.
+2025-05-21 12:05:41,770 - trading_executor - INFO - --- 1단계 매수 로직 시작 ---
+2025-05-21 12:05:41,771 - trading_executor - WARNING - 바이낸스 API 클라이언트(인증 필요)가 초기화되지 않아 1단계 매수를 진행할 수 없습니다.
+2025-05-21 12:05:41,772 - trading_executor - INFO - 매수/매도 기능은 API 키/시크릿 설정 및 binance_client 객체 활성화 필요.
+2025-05-21 12:05:41,772 - trading_executor - INFO - 수동 실행: 2단계 매수 조건 확인 로직을 실행합니다.
+2025-05-21 12:05:41,773 - trading_executor - INFO - --- 2단계 매수 조건 확인 및 실행 시작 ---
+2025-05-21 12:05:41,773 - trading_executor - WARNING - 바이낸스 API 클라이언트(인증 필요)가 초기화되지 않아 2단계 매수를 진행할 수 없습니다.
+2025-05-21 12:05:41,774 - trading_executor - INFO - 매수/매도 기능은 API 키/시크릿 설정 및 binance_client 객체 활성화 필요.
+2025-05-21 12:05:41,774 - trading_executor - INFO - 수동 실행 완료.

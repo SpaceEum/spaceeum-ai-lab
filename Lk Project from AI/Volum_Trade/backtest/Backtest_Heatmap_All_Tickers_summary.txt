@@ -1,0 +1,7 @@
+=== Top 5 Tickers (Profit %) ===
+   symbol    profit_pct  total_profit  trade_count  win_rate
+  AIAUSDT  1.708373e+07  1.708373e+09           26 46.153846
+  MMTUSDT  1.138401e+03  1.138401e+05            2 50.000000
+TRUSTUSDT  1.388323e+02  1.388323e+04            6 33.333333
+   0GUSDT -9.855514e+01 -9.855514e+03           28 35.714286
+  BNBUSDT -9.998396e+01 -9.998396e+03          245 32.653061

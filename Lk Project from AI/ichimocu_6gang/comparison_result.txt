@@ -1,0 +1,6 @@
+  ticker  win_rate_pct_V2  win_rate_pct_V3  mdd_pct_V2  mdd_pct_V3  total_net_profit_usd_V2  total_net_profit_usd_V3  total_trades_V2  total_trades_V3
+ XRPUSDT            26.67             0.00       14.47        6.25                   218.47                   -62.02               60                5
+ ETHUSDT            25.37            25.00       14.77        1.06                   185.92                    74.23               67                4
+ SOLUSDT            27.69            36.36       23.01        2.33                   163.27                    88.72               65               11
+DOGEUSDT            21.21             0.00       32.21        8.89                  -125.13                   -88.19               66                7
+ BTCUSDT            24.29            15.38       18.96        4.14                  -181.99                   -40.09               70               13
