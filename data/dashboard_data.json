@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-04-04 15:53",
+  "updated_at": "2026-04-04 17:19",
   "stats": {
     "total_conversations": 6,
     "dev_completed": 0,
     "dev_failed": 0,
     "dev_pending": 0,
-    "active_agents": 2
+    "active_agents": 4
   },
   "ceo": {
     "status": "active",
@@ -20,7 +20,27 @@
     "current_task": null,
     "inbox": [],
     "recent_completed": [],
-    "recent_failed": []
+    "recent_failed": [],
+    "agents": {
+      "planner": {
+        "status": "active",
+        "plans_created": 0,
+        "current_task": null
+      },
+      "generator": {
+        "status": "active",
+        "files_generated": 0,
+        "tasks_processed": 0,
+        "current_task": null
+      },
+      "evaluator": {
+        "status": "active",
+        "total_evaluated": 0,
+        "total_passed": 0,
+        "total_failed": 0,
+        "current_task": null
+      }
+    }
   },
   "activity": [
     {
