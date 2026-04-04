@@ -926,6 +926,7 @@ async function loadShinData() {
         </div>
       </div>`;
     }).join('');
+    stratDiv.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // 오픈 포지션
     const openBody = document.getElementById('shin-open-tbody');
