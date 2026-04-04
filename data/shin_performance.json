@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-04 05:17:38",
+  "updated_at": "2026-04-04 18:03:01",
   "summary": {
-    "total_closed_trades": 23,
-    "total_wins": 13,
-    "overall_win_rate": 56.5,
-    "open_positions": 11,
+    "total_closed_trades": 24,
+    "total_wins": 14,
+    "overall_win_rate": 58.3,
+    "open_positions": 13,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -19,6 +19,16 @@
       "total_pnl_pct": 151.83
     },
     {
+      "name": "Shin_60MA_Bounce",
+      "initial_balance": 10000.0,
+      "current_balance": 16756.99,
+      "total_trades": 8,
+      "win_trades": 5,
+      "loss_trades": 3,
+      "win_rate": 62.5,
+      "total_pnl_pct": 67.57
+    },
+    {
       "name": "Shin_60MA_Volume",
       "initial_balance": 10000.0,
       "current_balance": 13771.79,
@@ -27,16 +37,6 @@
       "loss_trades": 2,
       "win_rate": 60.0,
       "total_pnl_pct": 37.72
-    },
-    {
-      "name": "Shin_60MA_Bounce",
-      "initial_balance": 10000.0,
-      "current_balance": 10425.63,
-      "total_trades": 7,
-      "win_trades": 4,
-      "loss_trades": 3,
-      "win_rate": 57.1,
-      "total_pnl_pct": 4.26
     },
     {
       "name": "Shin_60MA_RSI",
@@ -60,6 +60,36 @@
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-JTO",
+      "direction": "LONG",
+      "entry_price": 419.0,
+      "stop_loss": 410.62,
+      "take_profit": 435.76,
+      "entry_time": "2026-04-04 18:03:01",
+      "entry_reason": "60MA 상향 돌파 (종가 419.0000 > MA60 415.7333)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-JTO",
+      "direction": "LONG",
+      "entry_price": 419.0,
+      "stop_loss": 408.525,
+      "take_profit": 444.14,
+      "entry_time": "2026-04-04 18:03:01",
+      "entry_reason": "거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 2.3배)"
+    },
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "KRW-WAXP",
+      "direction": "SHORT",
+      "entry_price": 9.7,
+      "stop_loss": 9.9425,
+      "take_profit": 9.118,
+      "entry_time": "2026-04-04 18:02:33",
+      "entry_reason": "60MA 저항 반락 (하락추세, MA60=9.8587 저항 후 음봉 반락)"
+    },
     {
       "strategy": "Shin_60MA_Cross",
       "symbol": "KRW-UNI",
@@ -122,16 +152,6 @@
     },
     {
       "strategy": "Shin_60MA_Bounce",
-      "symbol": "KRW-UNI",
-      "direction": "SHORT",
-      "entry_price": 5070.0,
-      "stop_loss": 5196.75,
-      "take_profit": 4765.8,
-      "entry_time": "2026-04-02 08:08:14",
-      "entry_reason": "60MA 저항 반락 (하락추세, MA60=5393.2667 저항 후 음봉 반락)"
-    },
-    {
-      "strategy": "Shin_60MA_Bounce",
       "symbol": "KRW-BOUNTY",
       "direction": "SHORT",
       "entry_price": 30.2,
@@ -172,6 +192,18 @@
     }
   ],
   "recent_trades": [
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "KRW-UNI",
+      "direction": "SHORT",
+      "entry_price": 5070.0,
+      "exit_price": 4749.0,
+      "pnl_pct": 6.33,
+      "exit_reason": "익절 (현재가 4749.0000 ≤ TP 4765.8000)",
+      "entry_time": "2026-04-02 08:08:14",
+      "exit_time": "2026-04-04 18:02:33",
+      "status": "WIN"
+    },
     {
       "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-BLAST",
@@ -275,18 +307,6 @@
       "entry_price": 0.617317,
       "exit_price": 0.603331,
       "pnl_pct": -11.33,
-      "exit_reason": "손절",
-      "entry_time": "2026-03-27 12:15:46",
-      "exit_time": "2026-03-27 12:15:46",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Bounce",
-      "symbol": "XRPUSDT",
-      "direction": "LONG",
-      "entry_price": 0.618317,
-      "exit_price": 0.614973,
-      "pnl_pct": -2.7,
       "exit_reason": "손절",
       "entry_time": "2026-03-27 12:15:46",
       "exit_time": "2026-03-27 12:15:46",
