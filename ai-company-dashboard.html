@@ -922,51 +922,51 @@
             <div class="card-title">🤖 에이전트 현황</div>
             <div class="badge">12 AGENTS</div>
           </div>
-          <table class="agent-table">
+          <table class="agent-table" id="live-agent-table">
             <thead>
               <tr>
                 <th>에이전트</th>
                 <th>부서</th>
-                <th>오늘 작업</th>
-                <th>사용률</th>
+                <th>누적 작업</th>
+                <th>상태</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(124,92,252,0.15)">🏢</div><div><div class="agent-name">CEO 에이전트</div><div class="agent-dept">Orchestrator</div></div></div></td>
+                <td><span class="dept-tag tag-dev">CEO</span></td>
+                <td><span id="live-ceo-convs" style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:var(--accent2);font-size:11px;font-family:'Space Mono',monospace">● ACTIVE</span></td>
+              </tr>
+              <tr>
                 <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(124,92,252,0.15)">📐</div><div><div class="agent-name">플래너</div><div class="agent-dept">Planner AI</div></div></div></td>
                 <td><span class="dept-tag tag-dev">DEV</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">12</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:87%;background:var(--accent)"></div></div></td>
+                <td><span id="live-planner-count" style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:var(--accent2);font-size:11px;font-family:'Space Mono',monospace">● ACTIVE</span></td>
               </tr>
               <tr>
                 <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(0,229,195,0.1)">⚙️</div><div><div class="agent-name">제너레이터</div><div class="agent-dept">Generator AI</div></div></div></td>
                 <td><span class="dept-tag tag-dev">DEV</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">19</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:95%;background:var(--accent2)"></div></div></td>
+                <td><span id="live-generator-count" style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:var(--accent2);font-size:11px;font-family:'Space Mono',monospace">● ACTIVE</span></td>
               </tr>
               <tr>
-                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(255,107,107,0.1)">🔍</div><div><div class="agent-name">이밸루에이터</div><div class="agent-dept">Evaluator AI</div></div></div></td>
+                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(255,107,107,0.1)">🔍</div><div><div class="agent-name">이밸류에이터</div><div class="agent-dept">Evaluator AI</div></div></div></td>
                 <td><span class="dept-tag tag-dev">DEV</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">19</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:90%;background:var(--accent3)"></div></div></td>
+                <td><span id="live-evaluator-count" style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:var(--accent2);font-size:11px;font-family:'Space Mono',monospace">● ACTIVE</span></td>
               </tr>
               <tr>
-                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(0,229,195,0.1)">📊</div><div><div class="agent-name">CRM 매니저</div><div class="agent-dept">CRM Agent</div></div></div></td>
+                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(107,107,127,0.1)">📊</div><div><div class="agent-name">BIZ 부서</div><div class="agent-dept">CRM · 견적 · 카피</div></div></div></td>
                 <td><span class="dept-tag tag-biz">BIZ</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">8</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:62%;background:var(--accent2)"></div></div></td>
+                <td><span style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:#6b6b7f;font-size:11px;font-family:'Space Mono',monospace">○ 공석</span></td>
               </tr>
               <tr>
-                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(255,107,107,0.1)">⚖️</div><div><div class="agent-name">법무 담당</div><div class="agent-dept">Legal AI</div></div></div></td>
-                <td><span class="dept-tag tag-legal">LEGAL</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">4</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:38%;background:var(--accent3)"></div></div></td>
-              </tr>
-              <tr>
-                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(255,209,102,0.1)">💰</div><div><div class="agent-name">세무 자문</div><div class="agent-dept">Finance AI</div></div></div></td>
-                <td><span class="dept-tag tag-fin">FIN</span></td>
-                <td><span style="font-family:'Space Mono',monospace;font-size:11px">5</span></td>
-                <td><div class="usage-bar-wrap"><div class="usage-bar-fill" style="width:45%;background:var(--accent4)"></div></div></td>
+                <td><div class="agent-name-cell"><div class="agent-avatar" style="background:rgba(107,107,127,0.1)">🏛️</div><div><div class="agent-name">SUPPORT 부서</div><div class="agent-dept">법무 · 세무 · HR</div></div></div></td>
+                <td><span class="dept-tag tag-legal">SUPPORT</span></td>
+                <td><span style="font-family:'Space Mono',monospace;font-size:11px">-</span></td>
+                <td><span style="color:#6b6b7f;font-size:11px;font-family:'Space Mono',monospace">○ 공석</span></td>
               </tr>
             </tbody>
           </table>
@@ -1027,23 +1027,23 @@
             </div>
           </div>
           <div class="org-tier">
-            <div class="org-node" onclick="showToast('개발 부서: 플래너, 제너레이터, 이밸루에이터, 아키텍트')">
+            <div class="org-node" onclick="showToast('개발 부서: 플래너, 제너레이터, 이밸류에이터 — 하네스 파이프라인 운영 중')">
               <div class="node-status busy"></div>
               <div class="node-name">💻 개발 부서</div>
               <div class="node-role">DEV DEPT</div>
-              <span class="dept-tag tag-dev">4 AGENTS</span>
+              <span class="dept-tag tag-dev">3 ACTIVE</span>
             </div>
-            <div class="org-node" onclick="showToast('비즈니스 부서: CRM, 견적, 카피라이터, 전략')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('비즈니스 부서: 미배치 — CRM, 견적, 카피라이터, 전략 순서로 충원 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">📊 비즈니스 부서</div>
               <div class="node-role">BIZ DEPT</div>
-              <span class="dept-tag tag-biz">4 AGENTS</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">준비중</span>
             </div>
-            <div class="org-node" onclick="showToast('지원 부서: 법무, 재무, HR, 보안')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('지원 부서: 미배치 — 법무, 세무, HR, 보안 순서로 충원 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">🏛️ 지원 부서</div>
               <div class="node-role">SUPPORT DEPT</div>
-              <span class="dept-tag tag-legal">4 AGENTS</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">준비중</span>
             </div>
           </div>
           <div class="org-tier">
@@ -1065,35 +1065,35 @@
               <div class="node-role">EVALUATOR AGENT</div>
               <span class="dept-tag tag-dev">DEV</span>
             </div>
-            <div class="org-node" onclick="showToast('아키텍트: 시스템 구조 설계')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('아키텍트: 미배치 — 향후 추가 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">🏗️ 아키텍트</div>
               <div class="node-role">ARCHITECT AGENT</div>
-              <span class="dept-tag tag-dev">DEV</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">공석</span>
             </div>
-            <div class="org-node" onclick="showToast('CRM 매니저: 고객 이메일 분류 및 관리')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('CRM 매니저: 공석 — 충원 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">📊 CRM 매니저</div>
               <div class="node-role">CRM AGENT</div>
-              <span class="dept-tag tag-biz">BIZ</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">공석</span>
             </div>
-            <div class="org-node" onclick="showToast('견적 담당: 자동 견적서 생성')">
+            <div class="org-node" onclick="showToast('견적 담당: 공석 — 충원 예정')">
               <div class="node-status idle"></div>
               <div class="node-name">💼 견적 담당</div>
               <div class="node-role">QUOTE AGENT</div>
-              <span class="dept-tag tag-biz">BIZ</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">공석</span>
             </div>
-            <div class="org-node" onclick="showToast('법무 담당: 계약서 검토 및 리스크 분석')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('법무 담당: 공석 — 충원 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">⚖️ 법무 담당</div>
               <div class="node-role">LEGAL AGENT</div>
-              <span class="dept-tag tag-legal">LEGAL</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">공석</span>
             </div>
-            <div class="org-node" onclick="showToast('세무 자문: 부가세 예측 및 세무 관리')">
-              <div class="node-status online"></div>
+            <div class="org-node" onclick="showToast('세무 자문: 공석 — 충원 예정')">
+              <div class="node-status idle"></div>
               <div class="node-name">💰 세무 자문</div>
               <div class="node-role">FINANCE AGENT</div>
-              <span class="dept-tag tag-fin">FIN</span>
+              <span class="dept-tag" style="background:rgba(107,107,127,0.15);color:#6b6b7f;border:1px solid rgba(107,107,127,0.3)">공석</span>
             </div>
           </div>
         </div>
@@ -1445,6 +1445,19 @@
       kpiPending.textContent = pending;
       animateNum(kpiPending, pending);
       document.getElementById('live-kpi-pending-sub').textContent = pending > 0 ? '처리 대기 중' : '대기열 비어있음';
+
+      // 에이전트 현황 테이블
+      const ceoConvs = document.getElementById('live-ceo-convs');
+      if (ceoConvs) ceoConvs.textContent = (d.stats?.total_conversations ?? 0) + '회 대화';
+      const plannerCount = document.getElementById('live-planner-count');
+      if (plannerCount) plannerCount.textContent = (d.dev?.agents?.planner?.plans_created ?? 0) + '개 계획';
+      const generatorCount = document.getElementById('live-generator-count');
+      if (generatorCount) generatorCount.textContent = (d.dev?.agents?.generator?.files_generated ?? 0) + '개 파일';
+      const evaluatorCount = document.getElementById('live-evaluator-count');
+      if (evaluatorCount) {
+        const ev = d.dev?.agents?.evaluator ?? {};
+        evaluatorCount.textContent = (ev.total_evaluated ?? 0) + '회 평가';
+      }
 
       // 업무 로그 피드
       const feed = document.getElementById('live-activity-feed');
