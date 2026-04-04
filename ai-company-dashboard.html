@@ -812,8 +812,8 @@
         <div class="pulse"></div>
       </div>
       <div class="status-row" style="margin-top:6px;">
-        <span style="font-size:10px; color: var(--accent2);">12/12 ONLINE</span>
-        <span style="font-size:10px;">Today 09:14</span>
+        <span id="live-agent-status" style="font-size:10px; color: var(--accent2);">-- ONLINE</span>
+        <span id="live-update-time" style="font-size:10px;">--</span>
       </div>
     </div>
   </nav>
@@ -832,23 +832,23 @@
       <div class="kpi-row">
         <div class="kpi-card">
           <div class="kpi-label">활성 에이전트</div>
-          <div class="kpi-value">12</div>
-          <div class="kpi-change">↑ 3 신규 배치</div>
+          <div class="kpi-value" id="live-kpi-agents">-</div>
+          <div class="kpi-change" id="live-kpi-agents-sub">로딩 중...</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">오늘 처리 작업</div>
-          <div class="kpi-value">47</div>
-          <div class="kpi-change">↑ +18% vs 어제</div>
+          <div class="kpi-label">DEV 완료 작업</div>
+          <div class="kpi-value" id="live-kpi-completed">-</div>
+          <div class="kpi-change" id="live-kpi-completed-sub">로딩 중...</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">가드레일 차단</div>
-          <div class="kpi-value">3</div>
-          <div class="kpi-change">오류 방지 성공</div>
+          <div class="kpi-label">CEO 대화 횟수</div>
+          <div class="kpi-value" id="live-kpi-conversations">-</div>
+          <div class="kpi-change" id="live-kpi-conversations-sub">로딩 중...</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">평균 품질 점수</div>
-          <div class="kpi-value">94</div>
-          <div class="kpi-change">↑ +2pt Evaluator 검증</div>
+          <div class="kpi-label">DEV 대기 작업</div>
+          <div class="kpi-value" id="live-kpi-pending">-</div>
+          <div class="kpi-change" id="live-kpi-pending-sub">로딩 중...</div>
         </div>
       </div>
 
@@ -1251,7 +1251,7 @@
       </div>
       <div class="card">
         <div class="card-header"><div class="card-title">📋 실시간 활동 피드</div><div class="badge green">LIVE</div></div>
-        <div class="activity-list">
+        <div class="activity-list" id="live-activity-feed">
           <div class="activity-item">
             <div class="activity-icon" style="background:rgba(0,229,195,0.1)">🔍</div>
             <div class="activity-body">
@@ -1382,7 +1382,6 @@
       if (el) el.style.display = t === name ? 'block' : 'none';
     });
     navItems.forEach(n => n.classList.remove('active'));
-    // find matching nav item
     navItems.forEach(n => {
       if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(name)) {
         n.classList.add('active');
@@ -1398,22 +1397,91 @@
     setTimeout(() => t.classList.remove('show'), 3000);
   }
 
-  // Initial tab visibility
-  showTab('dashboard');
+  function animateNum(el, target) {
+    if (isNaN(target)) return;
+    let current = 0;
+    const step = Math.max(1, target / 30);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = Math.round(current);
+      if (current >= target) clearInterval(timer);
+    }, 40);
+  }
 
-  // Animate numbers on KPI cards
-  document.querySelectorAll('.kpi-value').forEach(el => {
-    const target = parseInt(el.textContent);
-    if (!isNaN(target)) {
-      let current = 0;
-      const step = target / 30;
-      const timer = setInterval(() => {
-        current = Math.min(current + step, target);
-        el.textContent = Math.round(current);
-        if (current >= target) clearInterval(timer);
-      }, 40);
+  // ── 라이브 데이터 로드 ────────────────────────────────────────────
+  async function loadDashboard() {
+    try {
+      const res = await fetch('/data/dashboard_data.json?t=' + Date.now());
+      if (!res.ok) throw new Error('데이터 없음');
+      const d = await res.json();
+
+      // 사이드바 상태
+      const agents = d.stats?.active_agents ?? 0;
+      document.getElementById('live-agent-status').textContent = `${agents}/12 ACTIVE`;
+      document.getElementById('live-update-time').textContent = (d.updated_at || '').slice(0, 16);
+
+      // KPI
+      const kpiAgents = document.getElementById('live-kpi-agents');
+      const kpiCompleted = document.getElementById('live-kpi-completed');
+      const kpiConversations = document.getElementById('live-kpi-conversations');
+      const kpiPending = document.getElementById('live-kpi-pending');
+
+      kpiAgents.textContent = agents;
+      animateNum(kpiAgents, agents);
+      document.getElementById('live-kpi-agents-sub').textContent = `CEO + DEV 운영 중`;
+
+      const completed = d.stats?.dev_completed ?? 0;
+      kpiCompleted.textContent = completed;
+      animateNum(kpiCompleted, completed);
+      const failed = d.stats?.dev_failed ?? 0;
+      document.getElementById('live-kpi-completed-sub').textContent = failed > 0 ? `실패 ${failed}건 포함` : '오류 없음';
+
+      const convs = d.stats?.total_conversations ?? 0;
+      kpiConversations.textContent = convs;
+      animateNum(kpiConversations, convs);
+      document.getElementById('live-kpi-conversations-sub').textContent = `텔레그램 누적`;
+
+      const pending = d.stats?.dev_pending ?? 0;
+      kpiPending.textContent = pending;
+      animateNum(kpiPending, pending);
+      document.getElementById('live-kpi-pending-sub').textContent = pending > 0 ? '처리 대기 중' : '대기열 비어있음';
+
+      // 업무 로그 피드
+      const feed = document.getElementById('live-activity-feed');
+      const activity = d.activity || [];
+      if (activity.length === 0) {
+        feed.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">아직 활동 기록이 없습니다.</div>';
+      } else {
+        feed.innerHTML = activity.map(item => `
+          <div class="activity-item">
+            <div class="activity-icon" style="background:rgba(124,92,252,0.1);font-size:16px;display:flex;align-items:center;justify-content:center;">${item.icon || '🤖'}</div>
+            <div class="activity-body">
+              <div class="activity-agent" style="color:${item.color || 'var(--accent)'}">${item.agent}</div>
+              <div class="activity-text">${item.text}</div>
+            </div>
+            <div class="activity-time">${item.time || ''}</div>
+          </div>
+        `).join('');
+      }
+
+    } catch (e) {
+      console.warn('대시보드 데이터 로드 실패:', e.message);
+      document.getElementById('live-update-time').textContent = '데이터 준비 중';
+      document.getElementById('live-agent-status').textContent = '-- ACTIVE';
+      ['live-kpi-agents','live-kpi-completed','live-kpi-conversations','live-kpi-pending'].forEach(id => {
+        document.getElementById(id).textContent = '-';
+      });
+      ['live-kpi-agents-sub','live-kpi-completed-sub','live-kpi-conversations-sub','live-kpi-pending-sub'].forEach(id => {
+        document.getElementById(id).textContent = '데이터 준비 중';
+      });
+      const feed = document.getElementById('live-activity-feed');
+      if (feed) feed.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">⏳ 대시보드 데이터 준비 중입니다.<br>CEO 에이전트가 30분마다 자동 업데이트합니다.</div>';
     }
-  });
+  }
+
+  // 초기 실행
+  showTab('dashboard');
+  loadDashboard();
 </script>
 </body>
 </html>
