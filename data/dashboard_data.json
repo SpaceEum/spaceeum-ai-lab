@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-04-04 09:57",
+  "updated_at": "2026-04-04 11:04",
   "stats": {
-    "total_conversations": 4,
+    "total_conversations": 5,
     "dev_completed": 0,
     "dev_failed": 0,
     "dev_pending": 0,
@@ -23,6 +23,22 @@
     "recent_failed": []
   },
   "activity": [
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
+      "text": "넵, 추가했습니다! ✅  **새 지침:** > 💡 한번 했던 대답은 최대표님이 다시 물어보기 전까지 반복하지 않는다  ---  짧고 깔끔하게 가겠습니다 앞으로! 👍  그럼 다시 본론으로 — **DEV 에이전트 어디로 인사 보내면 될까요?** 😆",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "한번 했던 대답은 다시물어보기전까지 안해도 된다 지침에 추가해",
+      "time": ""
+    },
     {
       "type": "ceo_response",
       "agent": "CEO 에이전트",
