@@ -303,129 +303,10 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </section>
 
-<!-- 스캔 결과 -->
-<section class="scan-section" id="scan">
-  <div class="section-inner">
-    <span class="section-label">DAILY SCAN RESULT</span>
-    <h2 class="section-title">오늘의 매매 신호</h2>
-    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다.<br>
-    <strong style="color:#a78bfa">보라색 테두리</strong> = STRONG BUY + 1~2번 자리(매수 타점) &nbsp;|&nbsp; <strong style="color:#ffd700">금색 테두리</strong> = 1D + 4H 동시 STRONG BUY(최강 타점)</p>
-
-    <div class="scan-date-bar">
-      <span id="scan-date-text">데이터 로딩 중...</span>
-      <span class="scan-live"><span class="badge-dot"></span>AUTO UPDATE 09:00 KST</span>
-    </div>
-
-    <div class="scan-controls">
-      <button class="filter-btn active" onclick="filterSignals('all',this)">전체</button>
-      <button class="filter-btn strong" onclick="filterSignals('STRONG BUY',this)">⭐ STRONG BUY</button>
-      <button class="filter-btn" onclick="filterSignals('BUY',this)">BUY</button>
-      <button class="filter-btn" onclick="filterSignals('WATCH',this)">WATCH</button>
-      <button class="filter-btn cycle12" onclick="filterSignals('1~2번',this)">🎯 매수타점 (1~2번)</button>
-      <button class="filter-btn" style="border-color:rgba(255,215,0,0.4); color:#ffd700;" onclick="filterSignals('dual',this)">★ 1D+4H 동시 STRONG BUY</button>
-    </div>
-
-    <div class="scan-grid" id="scan-grid">
-      <div class="empty-state"><span class="loading-dots">데이터 로딩 중</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 60MA 8등분 주기 설명 -->
-<section class="cycle-section" id="cycle">
-  <div class="section-inner">
-    <span class="section-label">CYCLE ANALYSIS</span>
-    <h2 class="section-title">60MA 8등분 주기 분석</h2>
-    <p class="section-desc">신창환 이론: 60일 이동평균의 기울기(종이격) 변화로 현재가 상승 사이클의 어느 위치에 있는지 판단합니다.</p>
-    <div class="cycle-grid">
-      <div class="cycle-card cycle-card-12 reveal">
-        <div class="cycle-card-num">1~2</div>
-        <div class="cycle-card-zone">상승 초기</div>
-        <p class="cycle-card-desc">종이격 양수 + 증가 중. 60MA가 우상향하며 기울기가 가팔라지는 단계. 상승 모멘텀이 강화되는 시기.</p>
-        <span class="cycle-card-action">✅ 매수 타점</span>
-      </div>
-      <div class="cycle-card cycle-card-34 reveal">
-        <div class="cycle-card-num">3~4</div>
-        <div class="cycle-card-zone">고점권 경고</div>
-        <p class="cycle-card-desc">종이격 양수지만 감소 중. 60MA는 아직 상승하나 기울기가 둔화. 꼭지 근처에서 상승 에너지가 소진되는 단계.</p>
-        <span class="cycle-card-action">⚠️ 매도 신호</span>
-      </div>
-      <div class="cycle-card cycle-card-56 reveal">
-        <div class="cycle-card-num">5~6</div>
-        <div class="cycle-card-zone">하락 중</div>
-        <p class="cycle-card-desc">종이격 음수 + 악화 중. 60MA가 우하향하며 기울기가 더 가팔라지는 하락 단계. 관망 필요.</p>
-        <span class="cycle-card-action">🚫 관망</span>
-      </div>
-      <div class="cycle-card cycle-card-78 reveal">
-        <div class="cycle-card-num">7~8</div>
-        <div class="cycle-card-zone">바닥권</div>
-        <p class="cycle-card-desc">종이격 음수이지만 완만해지는 중. 60MA 하락이 둔화. 바닥 신호로 다음 사이클 1번 자리를 기다리는 단계.</p>
-        <span class="cycle-card-action">🔄 매수 준비</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 9개 조건 설명 -->
-<section class="conditions-section" id="conditions">
-  <div class="section-inner">
-    <span class="section-label">ANALYSIS SYSTEM</span>
-    <h2 class="section-title">9가지 기술적 분석 조건</h2>
-    <p class="section-desc">모든 종목에 9개 조건을 동시에 적용하여 점수화합니다. 8점 이상 STRONG BUY + 1~2번 자리 = 실제 매수 타점.</p>
-    <div class="conditions-grid">
-      <div class="condition-card reveal">
-        <div class="condition-num">01</div>
-        <div class="condition-name">현재가 60이평 위</div>
-        <p class="condition-desc">종가가 60일 이동평균선보다 위에 있는가. 신창환 전략의 핵심 필터.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">02</div>
-        <div class="condition-name">60이평 우상향</div>
-        <p class="condition-desc">60이평선이 전일 대비 상승 중인가. 종이격이 양수여야 함.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">03</div>
-        <div class="condition-name">종이격 증가중</div>
-        <p class="condition-desc">60이평선의 기울기가 점점 가팔라지는가. 상승 모멘텀 가속 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">04</div>
-        <div class="condition-name">MACD 영선 위</div>
-        <p class="condition-desc">MACD가 0선 위에 있는가. 단기 이평이 장기 이평보다 위에 있는 상태.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">05</div>
-        <div class="condition-name">OBV 상승중</div>
-        <p class="condition-desc">On-Balance Volume이 상승 추세인가. 거래량이 매수 쪽으로 쏠리는지 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">06</div>
-        <div class="condition-name">거래량 증가</div>
-        <p class="condition-desc">최근 5일 평균 거래량이 직전 20일 평균보다 많은가. 수급 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">07</div>
-        <div class="condition-name">정배열 (전환선-10이평-기준선)</div>
-        <p class="condition-desc">일목균형표 전환선 > 10이평 > 기준선 순서로 정배열 상태인가.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">08</div>
-        <div class="condition-name">구름대 위 &amp; 양운</div>
-        <p class="condition-desc">현재가가 일목균형표 구름대 위에 있고, 양운(선행스팬A > B) 상태인가.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">09</div>
-        <div class="condition-name">60일 신고가 근처</div>
-        <p class="condition-desc">현재가가 60일 최고가의 99% 이상인가. 신고가 돌파 직전 포착.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 페이퍼 트레이딩 성과 -->
+<!-- 60일 이동평균선 매매 - 페이퍼 트레이딩 -->
 <section class="paper-section" id="paper">
   <div class="section-inner">
-    <span class="section-label">PAPER TRADING</span>
+    <span class="section-label">60일 이동평균선 매매 · PAPER TRADING</span>
     <h2 class="section-title">페이퍼 트레이딩 성과</h2>
     <p class="section-desc">가상 자금 <strong style="color:var(--accent)">1,000만원</strong> 기준 · 거래당 <strong style="color:var(--accent)">200만원</strong> · 최대 5개 동시 보유<br>
     매수: STRONG BUY(8점+) + 1~2번 자리 &nbsp;|&nbsp; 매도: 손절(-7%) · 익절(+15%) · 꼭지경고(3~4번)</p>
@@ -517,13 +398,132 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </section>
 
-<!-- 신창환 에이전트 — 바이낸스 선물 페이퍼 트레이딩 -->
+<!-- 60일 이동평균선 매매 - 신호 티커 -->
+<section class="scan-section" id="scan">
+  <div class="section-inner">
+    <span class="section-label">DAILY SCAN RESULT</span>
+    <h2 class="section-title">신호 티커</h2>
+    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다.<br>
+    <strong style="color:#a78bfa">보라색 테두리</strong> = STRONG BUY + 1~2번 자리(매수 타점) &nbsp;|&nbsp; <strong style="color:#ffd700">금색 테두리</strong> = 1D + 4H 동시 STRONG BUY(최강 타점)</p>
+
+    <div class="scan-date-bar">
+      <span id="scan-date-text">데이터 로딩 중...</span>
+      <span class="scan-live"><span class="badge-dot"></span>AUTO UPDATE 09:00 KST</span>
+    </div>
+
+    <div class="scan-controls">
+      <button class="filter-btn active" onclick="filterSignals('all',this)">전체</button>
+      <button class="filter-btn strong" onclick="filterSignals('STRONG BUY',this)">⭐ STRONG BUY</button>
+      <button class="filter-btn" onclick="filterSignals('BUY',this)">BUY</button>
+      <button class="filter-btn" onclick="filterSignals('WATCH',this)">WATCH</button>
+      <button class="filter-btn cycle12" onclick="filterSignals('1~2번',this)">🎯 매수타점 (1~2번)</button>
+      <button class="filter-btn" style="border-color:rgba(255,215,0,0.4); color:#ffd700;" onclick="filterSignals('dual',this)">★ 1D+4H 동시 STRONG BUY</button>
+    </div>
+
+    <div class="scan-grid" id="scan-grid">
+      <div class="empty-state"><span class="loading-dots">데이터 로딩 중</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 60일 이동평균선 매매 - 매매법 설명 (주기 분석) -->
+<section class="cycle-section" id="cycle">
+  <div class="section-inner">
+    <span class="section-label">TRADING METHOD · CYCLE ANALYSIS</span>
+    <h2 class="section-title">60MA 8등분 주기 분석</h2>
+    <p class="section-desc">신창환 이론: 60일 이동평균의 기울기(종이격) 변화로 현재가 상승 사이클의 어느 위치에 있는지 판단합니다.</p>
+    <div class="cycle-grid">
+      <div class="cycle-card cycle-card-12 reveal">
+        <div class="cycle-card-num">1~2</div>
+        <div class="cycle-card-zone">상승 초기</div>
+        <p class="cycle-card-desc">종이격 양수 + 증가 중. 60MA가 우상향하며 기울기가 가팔라지는 단계. 상승 모멘텀이 강화되는 시기.</p>
+        <span class="cycle-card-action">✅ 매수 타점</span>
+      </div>
+      <div class="cycle-card cycle-card-34 reveal">
+        <div class="cycle-card-num">3~4</div>
+        <div class="cycle-card-zone">고점권 경고</div>
+        <p class="cycle-card-desc">종이격 양수지만 감소 중. 60MA는 아직 상승하나 기울기가 둔화. 꼭지 근처에서 상승 에너지가 소진되는 단계.</p>
+        <span class="cycle-card-action">⚠️ 매도 신호</span>
+      </div>
+      <div class="cycle-card cycle-card-56 reveal">
+        <div class="cycle-card-num">5~6</div>
+        <div class="cycle-card-zone">하락 중</div>
+        <p class="cycle-card-desc">종이격 음수 + 악화 중. 60MA가 우하향하며 기울기가 더 가팔라지는 하락 단계. 관망 필요.</p>
+        <span class="cycle-card-action">🚫 관망</span>
+      </div>
+      <div class="cycle-card cycle-card-78 reveal">
+        <div class="cycle-card-num">7~8</div>
+        <div class="cycle-card-zone">바닥권</div>
+        <p class="cycle-card-desc">종이격 음수이지만 완만해지는 중. 60MA 하락이 둔화. 바닥 신호로 다음 사이클 1번 자리를 기다리는 단계.</p>
+        <span class="cycle-card-action">🔄 매수 준비</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 60일 이동평균선 매매 - 매매법 설명 (9개 조건) -->
+<section class="conditions-section" id="conditions">
+  <div class="section-inner">
+    <span class="section-label">TRADING METHOD · ANALYSIS SYSTEM</span>
+    <h2 class="section-title">9가지 기술적 분석 조건</h2>
+    <p class="section-desc">모든 종목에 9개 조건을 동시에 적용하여 점수화합니다. 8점 이상 STRONG BUY + 1~2번 자리 = 실제 매수 타점.</p>
+    <div class="conditions-grid">
+      <div class="condition-card reveal">
+        <div class="condition-num">01</div>
+        <div class="condition-name">현재가 60이평 위</div>
+        <p class="condition-desc">종가가 60일 이동평균선보다 위에 있는가. 신창환 전략의 핵심 필터.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">02</div>
+        <div class="condition-name">60이평 우상향</div>
+        <p class="condition-desc">60이평선이 전일 대비 상승 중인가. 종이격이 양수여야 함.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">03</div>
+        <div class="condition-name">종이격 증가중</div>
+        <p class="condition-desc">60이평선의 기울기가 점점 가팔라지는가. 상승 모멘텀 가속 확인.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">04</div>
+        <div class="condition-name">MACD 영선 위</div>
+        <p class="condition-desc">MACD가 0선 위에 있는가. 단기 이평이 장기 이평보다 위에 있는 상태.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">05</div>
+        <div class="condition-name">OBV 상승중</div>
+        <p class="condition-desc">On-Balance Volume이 상승 추세인가. 거래량이 매수 쪽으로 쏠리는지 확인.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">06</div>
+        <div class="condition-name">거래량 증가</div>
+        <p class="condition-desc">최근 5일 평균 거래량이 직전 20일 평균보다 많은가. 수급 확인.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">07</div>
+        <div class="condition-name">정배열 (전환선-10이평-기준선)</div>
+        <p class="condition-desc">일목균형표 전환선 > 10이평 > 기준선 순서로 정배열 상태인가.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">08</div>
+        <div class="condition-name">구름대 위 &amp; 양운</div>
+        <p class="condition-desc">현재가가 일목균형표 구름대 위에 있고, 양운(선행스팬A > B) 상태인가.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">09</div>
+        <div class="condition-name">60일 신고가 근처</div>
+        <p class="condition-desc">현재가가 60일 최고가의 99% 이상인가. 신고가 돌파 직전 포착.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 일목 기본 매매법 - 페이퍼 트레이딩 -->
 <section class="shin-section" id="shin-agent">
   <div class="section-inner">
-    <span class="section-label">BINANCE FUTURES · PAPER TRADING</span>
-    <h2 class="section-title">신창환 에이전트 성과</h2>
-    <p class="section-desc">신창환 60MA 이론 기반 5개 전략 · 바이낸스 선물 페이퍼 트레이딩<br>
-    레버리지 5배 · 초기 자본 $10,000 · 매시간 자동 실행</p>
+    <span class="section-label">일목 기본 매매법 · PAPER TRADING</span>
+    <h2 class="section-title">페이퍼 트레이딩 성과</h2>
+    <p class="section-desc">일목균형표 기반 5개 전략 · 업비트 현물 페이퍼 트레이딩<br>
+    초기 자본 $10,000 · 매시간 자동 실행</p>
     <p class="shin-updated">🕐 업데이트: <span id="shin-updated">-</span></p>
 
     <!-- 요약 스탯 -->
@@ -576,6 +576,61 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
           <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text2)">로딩 중...</td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</section>
+
+<!-- 일목 기본 매매법 - 신호 티커 -->
+<section class="scan-section" id="ichimoku-scan">
+  <div class="section-inner">
+    <span class="section-label">SIGNAL TICKER</span>
+    <h2 class="section-title">신호 티커</h2>
+    <p class="section-desc">일목 기본 매매법 기반 업비트 KRW 마켓 신호 스캔.</p>
+    <div style="text-align:center; padding:60px 0; color:var(--text2);">
+      <div style="font-size:48px; margin-bottom:16px; opacity:0.3;">🔧</div>
+      <p style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--text2);">COMING SOON · 준비 중</p>
+      <p style="font-size:12px; color:var(--text2); margin-top:8px; opacity:0.7;">일목 기본 매매법 신호 스캔 기능이 곧 추가됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 일목 기본 매매법 - 매매법 설명 -->
+<section class="conditions-section" id="ichimoku-method">
+  <div class="section-inner">
+    <span class="section-label">일목 기본 매매법 · TRADING METHOD</span>
+    <h2 class="section-title">일목균형표 기본 매매 원리</h2>
+    <p class="section-desc">일목균형표(Ichimoku Kinko Hyo)의 5가지 핵심 지표를 조합하여 매수·매도 타점을 판단합니다.<br>구름대, 전환선, 기준선, 후행스팬의 상호 관계로 추세와 지지/저항을 동시에 파악합니다.</p>
+    <div class="conditions-grid">
+      <div class="condition-card reveal">
+        <div class="condition-num">01</div>
+        <div class="condition-name">구름대 위 돌파 매수</div>
+        <p class="condition-desc">현재가가 구름대(선행스팬A·B) 상단을 상향 돌파할 때 매수 신호. 구름대 두께가 클수록 강한 지지.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">02</div>
+        <div class="condition-name">전환선 > 기준선 골든크로스</div>
+        <p class="condition-desc">전환선(9일)이 기준선(26일)을 상향 돌파. 단기 모멘텀이 중기 추세를 뚫고 올라오는 매수 시점.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">03</div>
+        <div class="condition-name">후행스팬 확인</div>
+        <p class="condition-desc">후행스팬(현재 종가를 26일 전에 표시)이 26일 전 가격 위에 위치하면 상승 추세 확인. 매수 신호 보강.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">04</div>
+        <div class="condition-name">양운 (선행스팬A > B)</div>
+        <p class="condition-desc">선행스팬A가 선행스팬B보다 위에 있는 양운 상태. 26일 후 구름대가 상승 지지 역할 예고.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">05</div>
+        <div class="condition-name">기준선 지지 반등</div>
+        <p class="condition-desc">가격이 기준선(26일 중간값)까지 눌렸다가 반등할 때 매수 타점. 구름대 위 유지가 조건.</p>
+      </div>
+      <div class="condition-card reveal">
+        <div class="condition-num">06</div>
+        <div class="condition-name">구름대 하단 이탈 매도</div>
+        <p class="condition-desc">현재가가 구름대 하단을 하향 이탈하면 매도·손절 신호. 추세 전환 가능성이 높은 위험 구간.</p>
+      </div>
     </div>
   </div>
 </section>
