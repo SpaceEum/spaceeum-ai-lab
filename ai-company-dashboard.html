@@ -28,6 +28,7 @@
     font-family: 'Noto Sans KR', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    padding-top: 56px;
   }
 
   /* Animated background grid */
@@ -57,8 +58,8 @@
     border-right: 1px solid var(--border);
     padding: 24px 0;
     position: sticky;
-    top: 0;
-    height: 100vh;
+    top: 56px;
+    height: calc(100vh - 56px);
     display: flex;
     flex-direction: column;
   }
@@ -760,9 +761,232 @@
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 2px; }
+
+  /* ── 상단 네비게이션 ─────────────────────────────────── */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 2000;
+    height: 56px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(24px);
+  }
+  .top-nav-inner {
+    height: 56px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .top-nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .top-nav-logo img { height: 28px; width: auto; object-fit: contain; }
+  .top-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .top-nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .top-nav-links a:hover { color: var(--text); }
+  .top-nav-links a.nav-active { color: var(--accent); }
+  .top-nav-cta {
+    padding: 7px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    color: var(--accent) !important;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px !important;
+    transition: all 0.2s !important;
+  }
+  .top-nav-cta:hover {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+  }
+
+  /* ── 햄버거 ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+
+  /* ── 모바일 드로어 메뉴 ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px 16px;
+    z-index: 1999;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    padding: 11px 16px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.15s;
+  }
+  .mobile-menu a:hover, .mobile-menu a.nav-active {
+    background: rgba(124,92,252,0.1);
+    color: var(--text);
+  }
+
+  /* ── 모바일 탭 스트립 ── */
+  .mobile-tabs {
+    display: none;
+    overflow-x: auto;
+    padding: 14px 16px 0;
+    gap: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex-shrink: 0;
+  }
+  .mobile-tabs::-webkit-scrollbar { display: none; }
+  .mobile-tab {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .mobile-tab.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* ── 반응형 ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    .sidebar { display: none; }
+    .main { padding: 0 16px 32px; }
+    .mobile-tabs { display: flex; }
+    .hamburger { display: flex; }
+    .top-nav-links { display: none; }
+
+    .page-header { margin: 16px 0 20px; }
+    .page-title { font-size: 20px; }
+
+    .kpi-row {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .kpi-value { font-size: 22px; }
+    .kpi-card { padding: 14px 14px; }
+
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+
+    .pipeline {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-align: left;
+    }
+    .pipeline-step::after { display: none; }
+    .step-icon { margin: 0; width: 42px; height: 42px; flex-shrink: 0; font-size: 18px; }
+    .step-name { margin-bottom: 2px; }
+
+    .routing-grid { grid-template-columns: 1fr 1fr; }
+
+    .agent-table { font-size: 11px; }
+    .agent-table th, .agent-table td { padding: 8px 6px; }
+    .usage-bar-wrap { width: 50px; }
+    .agent-dept { display: none; }
+
+    .org-tier { flex-wrap: wrap; }
+    .org-node { min-width: calc(50% - 4px); flex: unset; }
+
+    .activity-list { max-height: none; }
+
+    .tabs { width: 100%; overflow-x: auto; }
+    .tab { font-size: 11px; padding: 6px 12px; white-space: nowrap; }
+  }
+
+  @media (max-width: 480px) {
+    .routing-grid { grid-template-columns: 1fr; }
+    .org-node { min-width: 100%; }
+    .kpi-row { gap: 8px; }
+    .kpi-value { font-size: 20px; }
+  }
 </style>
 </head>
 <body>
+
+<!-- 상단 네비게이션 -->
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <a href="/" class="top-nav-logo">
+      <img src="logo_full.png" alt="공간이음 로고">
+    </a>
+    <div class="top-nav-links">
+      <a href="/#services">사업영역</a>
+      <a href="/ai-trading.html">AI 트레이딩</a>
+      <a href="/ai-company-dashboard.html" class="nav-active">AI 대시보드</a>
+      <a href="/#vision">비전</a>
+      <a href="/#contact" class="top-nav-cta">연락하기</a>
+    </div>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMenu()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- 모바일 드로어 -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="/">홈</a>
+  <a href="/#services">사업영역</a>
+  <a href="/ai-trading.html">AI 트레이딩</a>
+  <a href="/ai-company-dashboard.html" class="nav-active">AI 대시보드</a>
+  <a href="/#vision">비전</a>
+  <a href="/#contact">연락하기</a>
+</div>
 
 <div class="layout">
 
@@ -820,6 +1044,17 @@
 
   <!-- MAIN CONTENT -->
   <main class="main" id="main-content">
+
+    <!-- 모바일 탭 스트립 -->
+    <div class="mobile-tabs" id="mobile-tabs">
+      <div class="mobile-tab active" onclick="showTab('dashboard')">대시보드</div>
+      <div class="mobile-tab" onclick="showTab('org')">조직도</div>
+      <div class="mobile-tab" onclick="showTab('pipeline')">파이프라인</div>
+      <div class="mobile-tab" onclick="showTab('guardrail')">가드레일</div>
+      <div class="mobile-tab" onclick="showTab('routing')">라우팅</div>
+      <div class="mobile-tab" onclick="showTab('activity')">업무 로그</div>
+      <div class="mobile-tab" onclick="showTab('metrics')">지표</div>
+    </div>
 
     <!-- DASHBOARD TAB -->
     <div id="tab-dashboard">
@@ -1381,14 +1616,33 @@
       const el = document.getElementById('tab-' + t);
       if (el) el.style.display = t === name ? 'block' : 'none';
     });
+    // 사이드바 활성 상태
     navItems.forEach(n => n.classList.remove('active'));
     navItems.forEach(n => {
       if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(name)) {
         n.classList.add('active');
       }
     });
+    // 모바일 탭 활성 상태
+    document.querySelectorAll('.mobile-tab').forEach(t => {
+      t.classList.toggle('active', t.getAttribute('onclick') && t.getAttribute('onclick').includes(name));
+    });
     window.scrollTo(0, 0);
   }
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+  }
+
+  // 메뉴 외부 클릭 시 닫기
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('hamburger-btn');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
 
   function showToast(msg) {
     const t = document.getElementById('toast');
