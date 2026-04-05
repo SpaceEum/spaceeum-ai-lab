@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-05 11:59:30",
+  "updated_at": "2026-04-05 14:08:12",
   "summary": {
     "total_closed_trades": 27,
     "total_wins": 15,
     "overall_win_rate": 55.6,
-    "open_positions": 12,
+    "open_positions": 15,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -60,6 +60,36 @@
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-2Z",
+      "direction": "LONG",
+      "entry_price": 123.0,
+      "stop_loss": 119.925,
+      "take_profit": 130.38,
+      "entry_time": "2026-04-05 14:07:54",
+      "entry_reason": "거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 2.8배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-CARV",
+      "direction": "LONG",
+      "entry_price": 89.6,
+      "stop_loss": 87.808,
+      "take_profit": 93.184,
+      "entry_time": "2026-04-05 14:07:40",
+      "entry_reason": "60MA 상향 돌파 (종가 89.6000 > MA60 88.3900)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-CARV",
+      "direction": "LONG",
+      "entry_price": 89.6,
+      "stop_loss": 87.36,
+      "take_profit": 94.976,
+      "entry_time": "2026-04-05 14:07:40",
+      "entry_reason": "거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 5.8배)"
+    },
     {
       "strategy": "Shin_60MA_Basic",
       "symbol": "KRW-JTO",
