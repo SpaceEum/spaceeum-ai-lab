@@ -40,6 +40,7 @@ jobs:
           git config --local user.name "SpaceEum Bot"
           git add data/shin_trades.db data/shin_performance.json
           git diff --staged --quiet || git commit -m "⚡ 매매법2 사이클: $(date '+%Y-%m-%d') 09:05 KST"
+          git pull origin main --rebase
           git push
 
       - name: 텔레그램 보고 발송
