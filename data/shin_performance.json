@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-05 08:06:44",
+  "updated_at": "2026-04-05 11:01:53",
   "summary": {
-    "total_closed_trades": 26,
-    "total_wins": 14,
-    "overall_win_rate": 53.8,
-    "open_positions": 13,
+    "total_closed_trades": 27,
+    "total_wins": 15,
+    "overall_win_rate": 55.6,
+    "open_positions": 12,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -51,12 +51,12 @@
     {
       "name": "Shin_60MA_Basic",
       "initial_balance": 10000.0,
-      "current_balance": 4921.02,
-      "total_trades": 4,
-      "win_trades": 1,
+      "current_balance": 10049.23,
+      "total_trades": 5,
+      "win_trades": 2,
       "loss_trades": 3,
-      "win_rate": 25.0,
-      "total_pnl_pct": -50.79
+      "win_rate": 40.0,
+      "total_pnl_pct": 0.49
     }
   ],
   "open_positions": [
@@ -109,16 +109,6 @@
       "take_profit": 188.68,
       "entry_time": "2026-04-03 05:54:20",
       "entry_reason": "거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 2.7배)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-2Z",
-      "direction": "LONG",
-      "entry_price": 117.0,
-      "stop_loss": 114.66,
-      "take_profit": 121.68,
-      "entry_time": "2026-04-03 05:54:15",
-      "entry_reason": "60MA 상향 돌파 (종가 117.0000 > MA60 115.8500)"
     },
     {
       "strategy": "Shin_60MA_Volume",
@@ -192,6 +182,18 @@
     }
   ],
   "recent_trades": [
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-2Z",
+      "direction": "LONG",
+      "entry_price": 117.0,
+      "exit_price": 123.0,
+      "pnl_pct": 5.13,
+      "exit_reason": "익절 (현재가 123.0000 ≥ TP 121.6800)",
+      "entry_time": "2026-04-03 05:54:15",
+      "exit_time": "2026-04-05 11:01:24",
+      "status": "WIN"
+    },
     {
       "strategy": "Shin_60MA_Basic",
       "symbol": "KRW-JTO",
@@ -295,18 +297,6 @@
       "entry_price": 0.614177,
       "exit_price": 0.588936,
       "pnl_pct": 20.55,
-      "exit_reason": "익절 ✅",
-      "entry_time": "2026-03-27 12:15:46",
-      "exit_time": "2026-03-27 12:15:46",
-      "status": "WIN"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "BTCUSDT",
-      "direction": "SHORT",
-      "entry_price": 85563.425507,
-      "exit_price": 82164.196564,
-      "pnl_pct": 19.86,
       "exit_reason": "익절 ✅",
       "entry_time": "2026-03-27 12:15:46",
       "exit_time": "2026-03-27 12:15:46",
