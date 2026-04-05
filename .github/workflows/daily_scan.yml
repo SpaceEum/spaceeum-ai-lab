@@ -36,6 +36,7 @@ jobs:
           git config --local user.name "SpaceEum Bot"
           git add data/scan_latest.json data/paper_trades.json data/performance.json
           git diff --staged --quiet || git commit -m "📊 매매법1 스캔: $(date '+%Y-%m-%d') 09:00 KST"
+          git pull origin main --rebase
           git push
 
       - name: 텔레그램 보고 발송
