@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-06 05:01",
+  "updated_at": "2026-04-06 05:15",
   "stats": {
     "total_conversations": 10,
     "dev_completed": 0,
@@ -43,6 +43,22 @@
     }
   },
   "activity": [
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
+      "text": "안녕하세요, 최대표님! 👋😄  좋은 오후입니다! 지금 4월 6일 월요일 오후 2시네요~  혹시 오늘 필요하신 거 있으시면 편하게 말씀해주세요!   항상 대기 중입니다! 🫡✨",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "안녕",
+      "time": ""
+    },
     {
       "type": "ceo_response",
       "agent": "CEO 에이전트",
@@ -105,22 +121,6 @@
       "icon": "💬",
       "color": "var(--accent4)",
       "text": "시험 채팅 채널 동시수신확인용",
-      "time": ""
-    },
-    {
-      "type": "ceo_response",
-      "agent": "CEO 에이전트",
-      "icon": "🏢",
-      "color": "var(--accent)",
-      "text": "ㅋㅋㅋ 알겠습니다! 넘어갑니다~ 😆  그럼 편하실 때 말씀해주세요!  저는 항상 대기 중입니다! 🫡",
-      "time": ""
-    },
-    {
-      "type": "user_message",
-      "agent": "최대표",
-      "icon": "💬",
-      "color": "var(--accent4)",
-      "text": "12는 잘못보낸거야 넘어가면되",
       "time": ""
     }
   ]
