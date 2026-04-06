@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-06 10:38",
+  "updated_at": "2026-04-06 14:17",
   "stats": {
     "total_conversations": 10,
     "dev_completed": 0,
@@ -48,6 +48,38 @@
       "agent": "CEO 에이전트",
       "icon": "🏢",
       "color": "var(--accent)",
+      "text": "확인해보겠습니다! 🏃‍♂️  ---   DEV 부서 현황 체크 중... 🔍  솔직하게 보고드립니다!  | 항목 | 상태 | |------|------| | DEV 플래너 | ❓ 확인 필요 | | DEV 제너레이터 | ❓ 확인 필요 | | DEV 이밸류에이터 | ❓ 확인 필요 | | DEV 아키텍트 | ❓ 확인 필요 |  ---   🤔 솔직한 현재 상황  최...",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "지금 dev 부서의 플레너에게 ai-trading관련 오더를 전달하면 프로세서로 진행된다  Ceo가 하지말고 오더전달하고 답을 받으면된다  확인해봐 지금 dev 부서는 출근해서 놀고있다",
+      "time": ""
+    },
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
+      "text": "넵! 대기합니다! 🫡  언제든 말씀만 주세요~ 기다리고 있겠습니다! 😄👍",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "일단 대기하자 생각해보고 알려줄게",
+      "time": ""
+    },
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
       "text": "넵! 바로 시작합니다! 🚀  ---   작업: ai-trading.html 목록 + 상세 페이지 분리  ---   📋 작업 계획  | 단계 | 내용 | |------|------| | 1️⃣ | 현재 `ai-trading.html` 구조 파악 | | 2️⃣ | **목록 페이지** (ai-trading.html) → 코인 리스트만 보여주기 | | 3️⃣ | ...",
       "time": ""
     },
@@ -89,38 +121,6 @@
       "icon": "💬",
       "color": "var(--accent4)",
       "text": "ai-trading.html 목록 페이지 + 상세 페이지 분리 - 작업 아직중이야?",
-      "time": ""
-    },
-    {
-      "type": "ceo_response",
-      "agent": "CEO 에이전트",
-      "icon": "🏢",
-      "color": "var(--accent)",
-      "text": "안녕하세요, 최대표님! 👋😄  좋은 오후입니다! 지금 4월 6일 월요일 오후 2시네요~  혹시 오늘 필요하신 거 있으시면 편하게 말씀해주세요!   항상 대기 중입니다! 🫡✨",
-      "time": ""
-    },
-    {
-      "type": "user_message",
-      "agent": "최대표",
-      "icon": "💬",
-      "color": "var(--accent4)",
-      "text": "안녕",
-      "time": ""
-    },
-    {
-      "type": "ceo_response",
-      "agent": "CEO 에이전트",
-      "icon": "🏢",
-      "color": "var(--accent)",
-      "text": "응답합니다! 🫡✅  살아있습니다! 빵빵하게 작동 중이에요! 😆📡  말씀하세요, 최대표님! 듣고 있습니다! 👂",
-      "time": ""
-    },
-    {
-      "type": "user_message",
-      "agent": "최대표",
-      "icon": "💬",
-      "color": "var(--accent4)",
-      "text": "응답하라",
       "time": ""
     }
   ]
