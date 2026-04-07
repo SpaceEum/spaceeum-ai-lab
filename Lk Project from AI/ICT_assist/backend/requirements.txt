@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-ccxt
-pandas
-numpy
-apscheduler
-httpx
-python-dotenv

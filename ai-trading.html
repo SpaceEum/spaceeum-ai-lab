@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 트레이딩 연구소 — SpaceEum</title>
+<title>AI 트레이딩 대시보드 — SpaceEum</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -28,10 +28,9 @@ body::before {
   background-size:50px 50px; pointer-events:none; z-index:0;
 }
 
-/* 헤더 */
 header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(6,9,16,0.9); backdrop-filter:blur(24px); }
 .header-inner { max-width:1200px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
-.logo-img { height: 36px; width: auto; object-fit: contain; }
+.logo-img { height:36px; width:auto; object-fit:contain; }
 .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
 nav { display:flex; align-items:center; gap:28px; }
 nav a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:1px; transition:color 0.2s; }
@@ -40,8 +39,7 @@ nav a.active { color:var(--accent); }
 .nav-cta { padding:8px 20px; border:1px solid var(--accent); border-radius:6px; color:var(--accent)!important; font-family:'Space Mono',monospace; font-size:12px!important; transition:all 0.2s!important; }
 .nav-cta:hover { background:var(--accent)!important; color:var(--bg)!important; }
 
-/* 페이지 히어로 */
-.page-hero { padding:140px 32px 80px; position:relative; z-index:1; text-align:center; }
+.page-hero { padding:140px 32px 60px; position:relative; z-index:1; text-align:center; }
 .page-hero::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:400px; background:radial-gradient(circle,rgba(0,212,255,0.06) 0%,transparent 65%); pointer-events:none; }
 .hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border:1px solid rgba(0,212,255,0.3); border-radius:20px; background:rgba(0,212,255,0.05); font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:2px; margin-bottom:24px; }
 .badge-dot { width:6px; height:6px; background:var(--accent2); border-radius:50%; animation:pulse 2s infinite; }
@@ -50,152 +48,95 @@ nav a.active { color:var(--accent); }
 .page-hero h1 span { background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .page-hero p { font-size:15px; color:var(--text2); line-height:1.8; max-width:600px; margin:0 auto; }
 
-/* 섹션 공통 */
-section { position:relative; z-index:1; padding:80px 32px; }
+section { position:relative; z-index:1; padding:60px 32px 80px; }
 .section-inner { max-width:1200px; margin:0 auto; }
-.section-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; display:block; }
-.section-title { font-family:'Orbitron',monospace; font-size:clamp(20px,2.5vw,28px); font-weight:700; margin-bottom:8px; }
-.section-desc { font-size:14px; color:var(--text2); line-height:1.8; margin-bottom:40px; }
 
-/* 요약 스탯 */
-.stats-bar { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px 32px; display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:24px; margin-bottom:48px; }
-.stat-item { text-align:center; }
-.stat-num { font-family:'Orbitron',monospace; font-size:22px; font-weight:700; color:var(--accent); display:block; }
-.stat-num.green { color:var(--accent2); }
-.stat-num.red { color:var(--red); }
-.stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; margin-top:4px; display:block; }
+/* 상단 요약 바 */
+.summary-bar { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:56px; }
+.summary-item { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; }
+.summary-num { font-family:'Orbitron',monospace; font-size:28px; font-weight:700; color:var(--accent); display:block; margin-bottom:6px; }
+.summary-num.green { color:var(--accent2); }
+.summary-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
 
-/* 스캔 결과 전체 */
-.scan-section { background:var(--bg2); }
-.scan-controls { display:flex; align-items:center; gap:12px; margin-bottom:24px; flex-wrap:wrap; }
-.filter-btn { padding:6px 16px; border:1px solid var(--border); border-radius:20px; background:transparent; color:var(--text2); font-family:'Space Mono',monospace; font-size:11px; cursor:pointer; transition:all 0.2s; letter-spacing:1px; }
-.filter-btn:hover, .filter-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,0.05); }
-.filter-btn.strong.active { border-color:var(--accent2); color:var(--accent2); background:rgba(0,255,136,0.05); }
-.filter-btn.cycle12.active { border-color:#a78bfa; color:#a78bfa; background:rgba(167,139,250,0.05); }
-.scan-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
-.scan-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:20px; transition:all 0.2s; }
-.scan-card:hover { border-color:rgba(0,212,255,0.3); transform:translateY(-2px); }
-.scan-card.strong-buy { border-color:rgba(0,255,136,0.25); }
-.scan-card.buy-target { border-color:rgba(167,139,250,0.4); box-shadow:0 0 12px rgba(167,139,250,0.1); }
-.scan-card.dual-strong-card { border-color:rgba(255,215,0,0.5); box-shadow:0 0 16px rgba(255,215,0,0.12); }
-.scan-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-.scan-ticker { font-family:'Orbitron',monospace; font-size:15px; font-weight:700; }
-.badge-row { display:flex; align-items:center; gap:6px; }
-.signal-badge { padding:4px 12px; border-radius:20px; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px; font-weight:700; }
-.signal-strong { background:rgba(0,255,136,0.15); color:var(--accent2); border:1px solid rgba(0,255,136,0.4); }
-.signal-buy { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.3); }
-.signal-watch { background:rgba(255,184,0,0.1); color:#ffb800; border:1px solid rgba(255,184,0,0.3); }
+/* 매매법 카드 그리드 */
+.strategy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
 
-/* 주기 배지 */
-.cycle-badge { padding:3px 8px; border-radius:4px; font-size:10px; font-weight:700; font-family:'Space Mono',monospace; white-space:nowrap; }
-.cycle-1-2 { background:rgba(167,139,250,0.2); color:#a78bfa; border:1px solid rgba(167,139,250,0.4); }
-.cycle-3-4 { background:rgba(255,77,109,0.15); color:var(--red); border:1px solid rgba(255,77,109,0.35); }
-.cycle-5-6 { background:rgba(255,184,0,0.1); color:var(--yellow); border:1px solid rgba(255,184,0,0.3); }
-.cycle-7-8 { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.25); }
-.cycle-unknown { background:rgba(122,143,166,0.1); color:var(--text2); border:1px solid rgba(122,143,166,0.2); }
+.strategy-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:32px;
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+.strategy-card::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at top left, rgba(0,212,255,0.04), transparent 60%);
+  pointer-events:none;
+}
+.strategy-card:hover {
+  border-color:rgba(0,212,255,0.4);
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(0,212,255,0.08);
+}
+.strategy-card.shin:hover {
+  border-color:rgba(0,255,136,0.4);
+  box-shadow:0 16px 48px rgba(0,255,136,0.08);
+}
+.strategy-card.shin::before {
+  background:radial-gradient(circle at top left, rgba(0,255,136,0.04), transparent 60%);
+}
 
-/* 매수타점 강조 배너 */
-.buy-target-banner { background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.3); border-radius:6px; padding:6px 10px; margin-bottom:12px; font-size:11px; color:#a78bfa; font-family:'Space Mono',monospace; letter-spacing:1px; text-align:center; }
+.card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; }
+.card-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; padding:4px 12px; border-radius:20px; }
+.tag-spaceeum { background:rgba(0,212,255,0.1); color:var(--accent); border:1px solid rgba(0,212,255,0.3); }
+.tag-shin { background:rgba(0,255,136,0.1); color:var(--accent2); border:1px solid rgba(0,255,136,0.3); }
+.card-status { display:flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:10px; color:var(--accent2); }
+.status-dot { width:6px; height:6px; border-radius:50%; background:var(--accent2); animation:pulse 2s infinite; }
 
-/* 1D+4H 동시 STRONG BUY 배너 */
-.dual-strong-banner { background:linear-gradient(90deg,rgba(255,215,0,0.08),rgba(0,255,136,0.08)); border:1px solid rgba(255,215,0,0.4); border-radius:6px; padding:6px 10px; margin-bottom:12px; font-size:11px; color:#ffd700; font-family:'Space Mono',monospace; letter-spacing:1px; text-align:center; }
+.card-title { font-family:'Orbitron',monospace; font-size:20px; font-weight:700; margin-bottom:8px; line-height:1.3; }
+.card-desc { font-size:13px; color:var(--text2); line-height:1.8; margin-bottom:28px; }
 
-/* 타임프레임 비교 행 */
-.tf-compare { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
-.tf-box { background:var(--bg); border-radius:8px; padding:10px 12px; border:1px solid var(--border); }
-.tf-box.tf-active-strong { border-color:rgba(0,255,136,0.35); }
-.tf-box.tf-active-buy { border-color:rgba(0,212,255,0.3); }
-.tf-box.tf-active-watch { border-color:rgba(255,184,0,0.3); }
-.tf-box.tf-none { opacity:0.5; }
-.tf-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); letter-spacing:2px; margin-bottom:6px; display:block; }
-.tf-signal-row { display:flex; align-items:center; justify-content:space-between; gap:4px; flex-wrap:wrap; }
-.tf-score { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; }
-.tf-score.score-strong { color:var(--accent2); }
-.tf-score.score-buy { color:var(--accent); }
-.tf-score.score-watch { color:var(--yellow); }
-.tf-score.score-none { color:var(--text2); }
+.card-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+.card-stat { background:var(--bg3); border-radius:10px; padding:14px 12px; text-align:center; border:1px solid var(--border); }
+.card-stat-num { font-family:'Orbitron',monospace; font-size:18px; font-weight:700; display:block; margin-bottom:4px; }
+.card-stat-num.pos { color:var(--accent2); }
+.card-stat-num.neg { color:var(--red); }
+.card-stat-num.blue { color:var(--accent); }
+.card-stat-label { font-size:10px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; }
 
-.scan-score { margin-bottom:12px; }
-.score-bar-bg { background:var(--bg); border-radius:4px; height:6px; overflow:hidden; margin-top:6px; }
-.score-bar-fill { height:100%; border-radius:4px; transition:width 0.6s ease; }
-.score-text { font-family:'Space Mono',monospace; font-size:11px; color:var(--text2); }
-.scan-details { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.detail-item { background:var(--bg); border-radius:6px; padding:8px 10px; }
-.detail-label { font-size:10px; color:var(--text2); font-family:'Space Mono',monospace; margin-bottom:2px; }
-.detail-value { font-size:12px; color:var(--text); font-weight:500; }
-.conditions-list { margin-top:12px; display:flex; flex-wrap:wrap; gap:4px; }
-.condition-tag { padding:2px 8px; background:rgba(0,255,136,0.08); border:1px solid rgba(0,255,136,0.2); border-radius:4px; font-size:10px; color:var(--accent2); font-family:'Space Mono',monospace; }
+.card-footer { display:flex; align-items:center; justify-content:space-between; }
+.card-detail-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 20px; border-radius:8px;
+  font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px;
+  border:1px solid rgba(0,212,255,0.4); color:var(--accent);
+  background:rgba(0,212,255,0.05);
+  transition:all 0.2s;
+}
+.strategy-card:hover .card-detail-btn {
+  background:rgba(0,212,255,0.12);
+}
+.strategy-card.shin .card-detail-btn {
+  border-color:rgba(0,255,136,0.4); color:var(--accent2);
+  background:rgba(0,255,136,0.05);
+}
+.strategy-card.shin:hover .card-detail-btn {
+  background:rgba(0,255,136,0.12);
+}
+.card-updated { font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); }
 
-/* 9개 조건 설명 */
-.conditions-section { background:var(--bg); }
-.conditions-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-top:32px; }
-.condition-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px; transition:all 0.2s; }
-.condition-card:hover { border-color:rgba(0,212,255,0.3); }
-.condition-num { font-family:'Orbitron',monospace; font-size:24px; font-weight:900; color:var(--accent); opacity:0.4; margin-bottom:8px; }
-.condition-name { font-size:14px; font-weight:700; color:var(--accent); margin-bottom:8px; }
-.condition-desc { font-size:13px; color:var(--text2); line-height:1.7; }
+/* 전략 미니 배지 (신창환 카드) */
+.strategy-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
+.strat-tag { padding:3px 10px; border-radius:4px; font-family:'Space Mono',monospace; font-size:10px; background:rgba(0,255,136,0.08); color:var(--accent2); border:1px solid rgba(0,255,136,0.2); }
 
-/* 60MA 주기 설명 */
-.cycle-section { background:var(--bg2); }
-.cycle-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:32px; }
-.cycle-card { border-radius:12px; padding:24px; border:1px solid; }
-.cycle-card-12 { background:rgba(167,139,250,0.06); border-color:rgba(167,139,250,0.3); }
-.cycle-card-34 { background:rgba(255,77,109,0.06); border-color:rgba(255,77,109,0.3); }
-.cycle-card-56 { background:rgba(255,184,0,0.05); border-color:rgba(255,184,0,0.3); }
-.cycle-card-78 { background:rgba(0,212,255,0.05); border-color:rgba(0,212,255,0.25); }
-.cycle-card-num { font-family:'Orbitron',monospace; font-size:28px; font-weight:900; margin-bottom:4px; }
-.cycle-card-12 .cycle-card-num { color:#a78bfa; }
-.cycle-card-34 .cycle-card-num { color:var(--red); }
-.cycle-card-56 .cycle-card-num { color:var(--yellow); }
-.cycle-card-78 .cycle-card-num { color:var(--accent); }
-.cycle-card-zone { font-size:12px; font-weight:700; margin-bottom:12px; }
-.cycle-card-desc { font-size:13px; color:var(--text2); line-height:1.7; }
-.cycle-card-action { margin-top:12px; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; font-family:'Space Mono',monospace; display:inline-block; }
-.cycle-card-12 .cycle-card-action { background:rgba(167,139,250,0.2); color:#a78bfa; }
-.cycle-card-34 .cycle-card-action { background:rgba(255,77,109,0.15); color:var(--red); }
-.cycle-card-56 .cycle-card-action { background:rgba(255,184,0,0.1); color:var(--yellow); }
-.cycle-card-78 .cycle-card-action { background:rgba(0,212,255,0.1); color:var(--accent); }
-
-/* 페이퍼 트레이딩 */
-.paper-section { background:var(--bg3); }
-
-/* 페이퍼 스탯 */
-.paper-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:40px; }
-.paper-stat { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center; }
-.paper-stat-num { font-family:'Orbitron',monospace; font-size:24px; font-weight:700; display:block; margin-bottom:4px; }
-.paper-stat-label { font-size:11px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; }
-
-/* 포지션 테이블 */
-.table-wrap { overflow-x:auto; margin-bottom:40px; }
-table { width:100%; border-collapse:collapse; font-size:13px; }
-thead th { padding:12px 16px; text-align:left; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--text2); border-bottom:1px solid var(--border); text-transform:uppercase; }
-tbody td { padding:12px 16px; border-bottom:1px solid rgba(26,37,53,0.8); color:var(--text); vertical-align:middle; }
-tbody tr:hover { background:rgba(0,212,255,0.02); }
-.table-label { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; margin-bottom:16px; color:var(--accent); }
-
-/* PnL 색상 */
-.pnl-pos { color:var(--accent2); font-weight:700; }
-.pnl-neg { color:var(--red); font-weight:700; }
-.pnl-zero { color:var(--text2); }
-
-/* 태그 */
-.exit-tag { padding:2px 8px; border-radius:4px; font-size:10px; font-family:'Space Mono',monospace; font-weight:700; }
-.exit-익절 { background:rgba(0,255,136,0.15); color:var(--accent2); }
-.exit-손절 { background:rgba(255,77,109,0.15); color:var(--red); }
-.exit-꼭지 { background:rgba(255,77,109,0.1); color:var(--red); }
-.exit-매도 { background:rgba(255,184,0,0.1); color:var(--yellow); }
-.exit-open { background:rgba(0,212,255,0.1); color:var(--accent); }
-
-/* 로딩/빈 상태 */
-.empty-state { text-align:center; padding:60px; color:var(--text2); font-family:'Space Mono',monospace; font-size:12px; }
-.loading-dots::after { content:'...'; animation:dots 1.5s infinite; }
-@keyframes dots { 0%{content:'.'} 33%{content:'..'} 66%{content:'...'} }
-
-/* 스캔 날짜 바 */
-.scan-date-bar { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:var(--bg3); border:1px solid var(--border); border-radius:8px; margin-bottom:24px; font-family:'Space Mono',monospace; font-size:11px; color:var(--text2); }
-.scan-live { display:flex; align-items:center; gap:6px; color:var(--accent2); }
-
-/* 푸터 */
 footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px; background:var(--bg2); }
 .footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
 .footer-copy { font-size:12px; color:var(--text2); font-family:'Space Mono',monospace; }
@@ -205,40 +146,17 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 .reveal { opacity:0; transform:translateY(20px); transition:all 0.6s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
 
-/* 반응형 */
-@media(max-width:768px){
+@media(max-width:768px) {
   .header-inner{padding:0 16px;}
   nav a:not(.nav-cta){display:none;}
-  section{padding:60px 16px;}
-  .stats-bar{grid-template-columns:repeat(2,1fr);}
-  .scan-grid{grid-template-columns:1fr;}
-  .cycle-grid{grid-template-columns:repeat(2,1fr);}
-  .paper-stats{grid-template-columns:repeat(2,1fr);}
+  section{padding:40px 16px 60px;}
+  .summary-bar{grid-template-columns:repeat(3,1fr);}
+  .strategy-grid{grid-template-columns:1fr;}
+  .card-stats{grid-template-columns:repeat(3,1fr);}
 }
-@media(max-width:480px){
-  .cycle-grid{grid-template-columns:1fr;}
+@media(max-width:480px) {
+  .summary-bar{grid-template-columns:1fr;}
 }
-
-/* 신창환 에이전트 섹션 */
-.shin-section { background: var(--bg2); }
-.shin-updated { font-size:12px; color:var(--text2); margin-bottom:32px; text-align:center; }
-.shin-summary { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:40px; }
-.shin-stat { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center; }
-.shin-stat-num { font-family:'Orbitron',monospace; font-size:24px; font-weight:700; display:block; margin-bottom:4px; }
-.shin-stat-label { font-size:11px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; }
-.shin-strategies { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:40px; }
-.shin-card { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:20px; transition:border-color .3s; }
-.shin-card:hover { border-color:var(--accent); }
-.shin-card-top { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
-.shin-medal { font-size:20px; }
-.shin-name { font-family:'Orbitron',monospace; font-size:13px; font-weight:700; flex:1; }
-.shin-pnl { font-family:'Space Mono',monospace; font-size:16px; font-weight:700; }
-.shin-card-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.shin-card-stats > div { background:var(--bg2); border-radius:6px; padding:8px; text-align:center; }
-.shin-lbl { display:block; font-size:10px; color:var(--text2); margin-bottom:2px; text-transform:uppercase; }
-.shin-val { font-size:14px; font-weight:600; }
-.pos { color: var(--accent2) !important; }
-.neg { color: var(--red) !important; }
 </style>
 </head>
 <body>
@@ -257,785 +175,168 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </header>
 
-<!-- 히어로 -->
 <div class="page-hero">
   <div class="hero-badge">
     <span class="badge-dot"></span>
-    AI TRADING LAB · LIVE
+    AI TRADING DASHBOARD · LIVE
   </div>
-  <h1>AI <span>트레이딩</span> 연구소</h1>
-  <p>신창환 60일 이동평균 매매법을 AI로 자동화합니다.<br>9개 조건 스코어링 + 60MA 8등분 주기 분석으로 최적 매수/매도 타점을 포착합니다.</p>
+  <h1>페이퍼 <span>트레이딩</span> 대시보드</h1>
+  <p>AI가 실시간으로 운영하는 매매 전략 현황을 확인하세요.<br>2개의 독립 매매 시스템이 24시간 작동 중입니다.</p>
 </div>
 
-<!-- 요약 스탯 -->
-<section style="padding-top:0; padding-bottom:40px;">
+<section style="padding-top:0;">
   <div class="section-inner">
-    <div class="stats-bar reveal" id="stats-bar">
-      <div class="stat-item">
-        <span class="stat-num" id="stat-date">-</span>
-        <span class="stat-label">스캔 날짜</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-scanned">-</span>
-        <span class="stat-label">스캔 종목</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num green" id="stat-strong">-</span>
-        <span class="stat-label">STRONG BUY</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-buy">-</span>
-        <span class="stat-label">BUY</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-targets">-</span>
-        <span class="stat-label">매수 타점</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-dual" style="color:#ffd700">-</span>
-        <span class="stat-label">1D+4H 동시</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num" id="stat-watch">-</span>
-        <span class="stat-label">WATCH</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- 60일 이동평균선 매매 - 페이퍼 트레이딩 -->
-<section class="paper-section" id="paper">
-  <div class="section-inner">
-    <span class="section-label">60일 이동평균선 매매 · PAPER TRADING</span>
-    <h2 class="section-title">페이퍼 트레이딩 성과</h2>
-    <p class="section-desc">가상 자금 <strong style="color:var(--accent)">1,000만원</strong> 기준 · 거래당 <strong style="color:var(--accent)">200만원</strong> · 최대 5개 동시 보유<br>
-    매수: STRONG BUY(8점+) + 1~2번 자리 &nbsp;|&nbsp; 매도: 손절(-7%) · 익절(+15%) · 꼭지경고(3~4번)</p>
-
-    <!-- 누적 성과 스탯 -->
-    <div class="paper-stats reveal" id="paper-stats">
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-total" style="color:var(--accent)">-</span>
-        <span class="paper-stat-label">총 거래</span>
+    <!-- 상단 요약 -->
+    <div class="summary-bar reveal" id="summary-bar">
+      <div class="summary-item">
+        <span class="summary-num" id="total-systems">2</span>
+        <span class="summary-label">운영 중 매매 시스템</span>
       </div>
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-open" style="color:#a78bfa">-</span>
-        <span class="paper-stat-label">오픈 포지션</span>
+      <div class="summary-item">
+        <span class="summary-num green" id="total-positions">-</span>
+        <span class="summary-label">총 오픈 포지션</span>
       </div>
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-winrate" style="color:var(--accent2)">-</span>
-        <span class="paper-stat-label">승률</span>
-      </div>
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-avgpnl">-</span>
-        <span class="paper-stat-label">평균 수익률</span>
-      </div>
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-totalpnl">-</span>
-        <span class="paper-stat-label">누적 수익률</span>
-      </div>
-      <div class="paper-stat">
-        <span class="paper-stat-num" id="p-wl" style="color:var(--text2)">-</span>
-        <span class="paper-stat-label">승/패</span>
+      <div class="summary-item">
+        <span class="summary-num" id="last-updated">-</span>
+        <span class="summary-label">마지막 업데이트</span>
       </div>
     </div>
 
-    <!-- 오픈 포지션 -->
-    <div id="open-positions-wrap">
-      <div class="table-label">🟢 오픈 포지션</div>
-      <div class="table-wrap">
-        <table id="open-table">
-          <thead>
-            <tr>
-              <th>종목</th>
-              <th>진입일</th>
-              <th>진입가</th>
-              <th>진입점수</th>
-              <th>진입주기</th>
-              <th>현재 손익</th>
-            </tr>
-          </thead>
-          <tbody id="open-tbody">
-            <tr><td colspan="6" class="empty-state" style="padding:24px">데이터 로딩 중...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <!-- 매매법 카드 2개 -->
+    <div class="strategy-grid">
 
-    <!-- 거래 내역 -->
-    <div id="closed-trades-wrap">
-      <div class="table-label">📋 거래 내역</div>
-      <div class="table-wrap">
-        <table id="closed-table">
-          <thead>
-            <tr>
-              <th>종목</th>
-              <th>진입일</th>
-              <th>청산일</th>
-              <th>진입가</th>
-              <th>청산가</th>
-              <th>청산 이유</th>
-              <th>수익률</th>
-            </tr>
-          </thead>
-          <tbody id="closed-tbody">
-            <tr><td colspan="7" class="empty-state" style="padding:24px">데이터 로딩 중...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <!-- 카드 1: 공간이음 매매법 -->
+      <a href="trading_detail_spaceeum.html" class="strategy-card reveal">
+        <div class="card-header">
+          <span class="card-tag tag-spaceeum">SPACEEUM</span>
+          <span class="card-status"><span class="status-dot"></span>LIVE</span>
+        </div>
+        <div class="card-title">공간이음<br>사이클 매매법</div>
+        <div class="card-desc">60MA 8등분 주기 + 9개 조건 스코어링 기반<br>최적 매수/매도 타점 자동 포착 시스템</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp-winrate">-</span>
+            <span class="card-stat-label">승률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp-pnl">-</span>
+            <span class="card-stat-label">평균수익</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num blue" id="sp-positions">-</span>
+            <span class="card-stat-label">보유포지션</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-detail-btn">상세 보기 →</span>
+          <span class="card-updated" id="sp-updated">-</span>
+        </div>
+      </a>
 
-    <!-- 베스트/워스트 -->
-    <div id="best-worst-wrap" style="display:none; display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:32px;">
-      <div style="background:rgba(0,255,136,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:12px; padding:24px;" id="best-trade-card">
-        <div style="font-family:'Space Mono',monospace; font-size:10px; color:var(--accent2); letter-spacing:2px; margin-bottom:12px;">🏆 BEST TRADE</div>
-        <div id="best-trade-content" style="color:var(--text2); font-size:13px;">-</div>
-      </div>
-      <div style="background:rgba(255,77,109,0.05); border:1px solid rgba(255,77,109,0.2); border-radius:12px; padding:24px;" id="worst-trade-card">
-        <div style="font-family:'Space Mono',monospace; font-size:10px; color:var(--red); letter-spacing:2px; margin-bottom:12px;">💀 WORST TRADE</div>
-        <div id="worst-trade-content" style="color:var(--text2); font-size:13px;">-</div>
-      </div>
-    </div>
-  </div>
-</section>
+      <!-- 카드 2: 신창환 60MA -->
+      <a href="trading_detail_shin60ma.html" class="strategy-card shin reveal">
+        <div class="card-header">
+          <span class="card-tag tag-shin">SHIN 60MA</span>
+          <span class="card-status"><span class="status-dot"></span>LIVE</span>
+        </div>
+        <div class="card-title">신창환<br>60MA 매매법</div>
+        <div class="card-desc">60일 이동평균선 기반 5가지 전략을 동시 운영<br>Cross · Volume · Bounce · RSI · Basic</div>
+        <div class="strategy-tags" id="shin-strategy-tags">
+          <span class="strat-tag">60MA Cross</span>
+          <span class="strat-tag">60MA Volume</span>
+          <span class="strat-tag">60MA Bounce</span>
+          <span class="strat-tag">60MA RSI</span>
+          <span class="strat-tag">60MA Basic</span>
+        </div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="shin-winrate">-</span>
+            <span class="card-stat-label">종합승률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="shin-best-pnl">-</span>
+            <span class="card-stat-label">최고수익률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num blue" id="shin-positions">-</span>
+            <span class="card-stat-label">보유포지션</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-detail-btn">상세 보기 →</span>
+          <span class="card-updated" id="shin-updated">-</span>
+        </div>
+      </a>
 
-<!-- 60일 이동평균선 매매 - 신호 티커 -->
-<section class="scan-section" id="scan">
-  <div class="section-inner">
-    <span class="section-label">DAILY SCAN RESULT</span>
-    <h2 class="section-title">신호 티커</h2>
-    <p class="section-desc">매일 오전 9시 업비트 KRW 마켓 상위 200개 종목을 자동 스캔합니다.<br>
-    <strong style="color:#a78bfa">보라색 테두리</strong> = STRONG BUY + 1~2번 자리(매수 타점) &nbsp;|&nbsp; <strong style="color:#ffd700">금색 테두리</strong> = 1D + 4H 동시 STRONG BUY(최강 타점)</p>
-
-    <div class="scan-date-bar">
-      <span id="scan-date-text">데이터 로딩 중...</span>
-      <span class="scan-live"><span class="badge-dot"></span>AUTO UPDATE 09:00 KST</span>
-    </div>
-
-    <div class="scan-controls">
-      <button class="filter-btn active" onclick="filterSignals('all',this)">전체</button>
-      <button class="filter-btn strong" onclick="filterSignals('STRONG BUY',this)">⭐ STRONG BUY</button>
-      <button class="filter-btn" onclick="filterSignals('BUY',this)">BUY</button>
-      <button class="filter-btn" onclick="filterSignals('WATCH',this)">WATCH</button>
-      <button class="filter-btn cycle12" onclick="filterSignals('1~2번',this)">🎯 매수타점 (1~2번)</button>
-      <button class="filter-btn" style="border-color:rgba(255,215,0,0.4); color:#ffd700;" onclick="filterSignals('dual',this)">★ 1D+4H 동시 STRONG BUY</button>
-    </div>
-
-    <div class="scan-grid" id="scan-grid">
-      <div class="empty-state"><span class="loading-dots">데이터 로딩 중</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 60일 이동평균선 매매 - 매매법 설명 (주기 분석) -->
-<section class="cycle-section" id="cycle">
-  <div class="section-inner">
-    <span class="section-label">TRADING METHOD · CYCLE ANALYSIS</span>
-    <h2 class="section-title">60MA 8등분 주기 분석</h2>
-    <p class="section-desc">신창환 이론: 60일 이동평균의 기울기(종이격) 변화로 현재가 상승 사이클의 어느 위치에 있는지 판단합니다.</p>
-    <div class="cycle-grid">
-      <div class="cycle-card cycle-card-12 reveal">
-        <div class="cycle-card-num">1~2</div>
-        <div class="cycle-card-zone">상승 초기</div>
-        <p class="cycle-card-desc">종이격 양수 + 증가 중. 60MA가 우상향하며 기울기가 가팔라지는 단계. 상승 모멘텀이 강화되는 시기.</p>
-        <span class="cycle-card-action">✅ 매수 타점</span>
-      </div>
-      <div class="cycle-card cycle-card-34 reveal">
-        <div class="cycle-card-num">3~4</div>
-        <div class="cycle-card-zone">고점권 경고</div>
-        <p class="cycle-card-desc">종이격 양수지만 감소 중. 60MA는 아직 상승하나 기울기가 둔화. 꼭지 근처에서 상승 에너지가 소진되는 단계.</p>
-        <span class="cycle-card-action">⚠️ 매도 신호</span>
-      </div>
-      <div class="cycle-card cycle-card-56 reveal">
-        <div class="cycle-card-num">5~6</div>
-        <div class="cycle-card-zone">하락 중</div>
-        <p class="cycle-card-desc">종이격 음수 + 악화 중. 60MA가 우하향하며 기울기가 더 가팔라지는 하락 단계. 관망 필요.</p>
-        <span class="cycle-card-action">🚫 관망</span>
-      </div>
-      <div class="cycle-card cycle-card-78 reveal">
-        <div class="cycle-card-num">7~8</div>
-        <div class="cycle-card-zone">바닥권</div>
-        <p class="cycle-card-desc">종이격 음수이지만 완만해지는 중. 60MA 하락이 둔화. 바닥 신호로 다음 사이클 1번 자리를 기다리는 단계.</p>
-        <span class="cycle-card-action">🔄 매수 준비</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 60일 이동평균선 매매 - 매매법 설명 (9개 조건) -->
-<section class="conditions-section" id="conditions">
-  <div class="section-inner">
-    <span class="section-label">TRADING METHOD · ANALYSIS SYSTEM</span>
-    <h2 class="section-title">9가지 기술적 분석 조건</h2>
-    <p class="section-desc">모든 종목에 9개 조건을 동시에 적용하여 점수화합니다. 8점 이상 STRONG BUY + 1~2번 자리 = 실제 매수 타점.</p>
-    <div class="conditions-grid">
-      <div class="condition-card reveal">
-        <div class="condition-num">01</div>
-        <div class="condition-name">현재가 60이평 위</div>
-        <p class="condition-desc">종가가 60일 이동평균선보다 위에 있는가. 신창환 전략의 핵심 필터.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">02</div>
-        <div class="condition-name">60이평 우상향</div>
-        <p class="condition-desc">60이평선이 전일 대비 상승 중인가. 종이격이 양수여야 함.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">03</div>
-        <div class="condition-name">종이격 증가중</div>
-        <p class="condition-desc">60이평선의 기울기가 점점 가팔라지는가. 상승 모멘텀 가속 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">04</div>
-        <div class="condition-name">MACD 영선 위</div>
-        <p class="condition-desc">MACD가 0선 위에 있는가. 단기 이평이 장기 이평보다 위에 있는 상태.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">05</div>
-        <div class="condition-name">OBV 상승중</div>
-        <p class="condition-desc">On-Balance Volume이 상승 추세인가. 거래량이 매수 쪽으로 쏠리는지 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">06</div>
-        <div class="condition-name">거래량 증가</div>
-        <p class="condition-desc">최근 5일 평균 거래량이 직전 20일 평균보다 많은가. 수급 확인.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">07</div>
-        <div class="condition-name">정배열 (전환선-10이평-기준선)</div>
-        <p class="condition-desc">일목균형표 전환선 > 10이평 > 기준선 순서로 정배열 상태인가.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">08</div>
-        <div class="condition-name">구름대 위 &amp; 양운</div>
-        <p class="condition-desc">현재가가 일목균형표 구름대 위에 있고, 양운(선행스팬A > B) 상태인가.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">09</div>
-        <div class="condition-name">60일 신고가 근처</div>
-        <p class="condition-desc">현재가가 60일 최고가의 99% 이상인가. 신고가 돌파 직전 포착.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 일목 기본 매매법 - 페이퍼 트레이딩 -->
-<section class="shin-section" id="shin-agent">
-  <div class="section-inner">
-    <span class="section-label">일목 기본 매매법 · PAPER TRADING</span>
-    <h2 class="section-title">페이퍼 트레이딩 성과</h2>
-    <p class="section-desc">일목균형표 기반 5개 전략 · 업비트 현물 페이퍼 트레이딩<br>
-    초기 자본 $10,000 · 매시간 자동 실행</p>
-    <p class="shin-updated">🕐 업데이트: <span id="shin-updated">-</span></p>
-
-    <!-- 요약 스탯 -->
-    <div class="shin-summary reveal">
-      <div class="shin-stat">
-        <span class="shin-stat-num" id="shin-total" style="color:var(--accent)">-</span>
-        <span class="shin-stat-label">총 거래</span>
-      </div>
-      <div class="shin-stat">
-        <span class="shin-stat-num" id="shin-open" style="color:#a78bfa">-</span>
-        <span class="shin-stat-label">오픈 포지션</span>
-      </div>
-      <div class="shin-stat">
-        <span class="shin-stat-num" id="shin-winrate">-</span>
-        <span class="shin-stat-label">전체 승률</span>
-      </div>
-    </div>
-
-    <!-- 전략별 성과 카드 -->
-    <div class="table-label">📊 전략별 성과</div>
-    <div class="shin-strategies" id="shin-strategies">
-      <div style="color:var(--text2);padding:20px">데이터 로딩 중...</div>
-    </div>
-
-    <!-- 오픈 포지션 -->
-    <div class="table-label">🟢 오픈 포지션</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>종목</th><th>방향</th><th>진입가</th><th>진입시간</th><th>진입 사유</th>
-          </tr>
-        </thead>
-        <tbody id="shin-open-tbody">
-          <tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text2)">로딩 중...</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- 최근 거래 -->
-    <div class="table-label">📋 최근 거래 내역</div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>종목/전략</th><th>방향</th><th>진입가</th><th>청산가</th><th>청산 사유</th><th>수익률</th>
-          </tr>
-        </thead>
-        <tbody id="shin-recent-tbody">
-          <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text2)">로딩 중...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- 일목 기본 매매법 - 신호 티커 -->
-<section class="scan-section" id="ichimoku-scan">
-  <div class="section-inner">
-    <span class="section-label">SIGNAL TICKER</span>
-    <h2 class="section-title">신호 티커</h2>
-    <p class="section-desc">일목 기본 매매법 기반 업비트 KRW 마켓 신호 스캔.</p>
-    <div style="text-align:center; padding:60px 0; color:var(--text2);">
-      <div style="font-size:48px; margin-bottom:16px; opacity:0.3;">🔧</div>
-      <p style="font-family:'Space Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--text2);">COMING SOON · 준비 중</p>
-      <p style="font-size:12px; color:var(--text2); margin-top:8px; opacity:0.7;">일목 기본 매매법 신호 스캔 기능이 곧 추가됩니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 일목 기본 매매법 - 매매법 설명 -->
-<section class="conditions-section" id="ichimoku-method">
-  <div class="section-inner">
-    <span class="section-label">일목 기본 매매법 · TRADING METHOD</span>
-    <h2 class="section-title">일목균형표 기본 매매 원리</h2>
-    <p class="section-desc">일목균형표(Ichimoku Kinko Hyo)의 5가지 핵심 지표를 조합하여 매수·매도 타점을 판단합니다.<br>구름대, 전환선, 기준선, 후행스팬의 상호 관계로 추세와 지지/저항을 동시에 파악합니다.</p>
-    <div class="conditions-grid">
-      <div class="condition-card reveal">
-        <div class="condition-num">01</div>
-        <div class="condition-name">구름대 위 돌파 매수</div>
-        <p class="condition-desc">현재가가 구름대(선행스팬A·B) 상단을 상향 돌파할 때 매수 신호. 구름대 두께가 클수록 강한 지지.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">02</div>
-        <div class="condition-name">전환선 > 기준선 골든크로스</div>
-        <p class="condition-desc">전환선(9일)이 기준선(26일)을 상향 돌파. 단기 모멘텀이 중기 추세를 뚫고 올라오는 매수 시점.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">03</div>
-        <div class="condition-name">후행스팬 확인</div>
-        <p class="condition-desc">후행스팬(현재 종가를 26일 전에 표시)이 26일 전 가격 위에 위치하면 상승 추세 확인. 매수 신호 보강.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">04</div>
-        <div class="condition-name">양운 (선행스팬A > B)</div>
-        <p class="condition-desc">선행스팬A가 선행스팬B보다 위에 있는 양운 상태. 26일 후 구름대가 상승 지지 역할 예고.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">05</div>
-        <div class="condition-name">기준선 지지 반등</div>
-        <p class="condition-desc">가격이 기준선(26일 중간값)까지 눌렸다가 반등할 때 매수 타점. 구름대 위 유지가 조건.</p>
-      </div>
-      <div class="condition-card reveal">
-        <div class="condition-num">06</div>
-        <div class="condition-name">구름대 하단 이탈 매도</div>
-        <p class="condition-desc">현재가가 구름대 하단을 하향 이탈하면 매도·손절 신호. 추세 전환 가능성이 높은 위험 구간.</p>
-      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <img src="logo_full.png" alt="공간이음" style="height:28px; width:auto; opacity:0.8;">
-    <div class="footer-slogan">"AI 인권을 지키자"</div>
-    <div class="footer-copy">© 2026 SpaceEum. All rights reserved.</div>
+    <span class="footer-copy">© 2025 SpaceEum. AI-powered trading research.</span>
+    <span class="footer-slogan">페이퍼 트레이딩 — 실제 투자 아님</span>
   </div>
 </footer>
 
 <script>
-let allSignals = [];
-
-// ── 유틸 ──────────────────────────────────────────
-function formatDate(d) { return d ? d.replace(/-/g, '.') : '-'; }
-
-function getScoreColor(score, max) {
-  const p = score / max;
-  if (p >= 0.88) return 'var(--accent2)';
-  if (p >= 0.66) return 'var(--accent)';
-  return '#ffb800';
-}
-
-function getSignalClass(signal) {
-  if (signal === 'STRONG BUY') return 'signal-strong';
-  if (signal === 'BUY') return 'signal-buy';
-  return 'signal-watch';
-}
-
-function getCycleBadge(zone) {
-  if (!zone) return '';
-  const map = {
-    '1~2번': ['cycle-1-2', '📈 1~2번 상승초기'],
-    '3~4번': ['cycle-3-4', '⚠️ 3~4번 고점경고'],
-    '5~6번': ['cycle-5-6', '📉 5~6번 하락중'],
-    '7~8번': ['cycle-7-8', '🔄 7~8번 바닥권'],
-    '판단불가': ['cycle-unknown', '❓ 판단불가'],
-  };
-  const entry = map[zone] || ['cycle-unknown', zone];
-  return `<span class="cycle-badge ${entry[0]}">${entry[1]}</span>`;
-}
-
-function pnlClass(v) {
-  if (v === null || v === undefined) return 'pnl-zero';
-  return v > 0 ? 'pnl-pos' : v < 0 ? 'pnl-neg' : 'pnl-zero';
-}
-
-function pnlText(v) {
-  if (v === null || v === undefined) return '-';
-  return (v > 0 ? '+' : '') + v.toFixed(2) + '%';
-}
-
-function getExitTagClass(reason) {
-  if (!reason) return 'exit-open';
-  if (reason.includes('익절')) return 'exit-익절';
-  if (reason.includes('손절')) return 'exit-손절';
-  if (reason.includes('꼭지') || reason.includes('3~4번')) return 'exit-꼭지';
-  return 'exit-매도';
-}
-
-// ── 스캔 카드 렌더링 ─────────────────────────────
-function renderCard(s) {
-  const scoreColor = getScoreColor(s.score, s.max_score);
-  const scorePct = Math.round(s.score / s.max_score * 100);
-  const isStrong = s.signal === 'STRONG BUY';
-  const isBuyTarget = isStrong && s.cycle_zone === '1~2번';
-  const isDual = s.dual_strong === true;
-  const cycleBadge = getCycleBadge(s.cycle_zone);
-  const jongiSign = s.jongi_gap > 0 ? '+' : '';
-
-  // 상단 배너
-  let topBanner = '';
-  if (isDual) {
-    topBanner = `<div class="dual-strong-banner">★ 1D + 4H 동시 STRONG BUY — 최강 매수 타점</div>`;
-  } else if (isBuyTarget) {
-    topBanner = `<div class="buy-target-banner">🎯 매수 타점 — STRONG BUY + 1~2번 자리</div>`;
-  }
-
-  // 카드 테두리 클래스
-  let cardClass = 'scan-card';
-  if (isDual) cardClass += ' dual-strong-card';
-  else if (isBuyTarget) cardClass += ' buy-target';
-  if (isStrong) cardClass += ' strong-buy';
-
-  // 4H 박스
-  const tf4h = s.tf_4h || {};
-  const has4h = tf4h.signal != null;
-  const tf4hClass = has4h
-    ? (tf4h.signal === 'STRONG BUY' ? 'tf-active-strong' : tf4h.signal === 'BUY' ? 'tf-active-buy' : 'tf-active-watch')
-    : 'tf-none';
-  const tf4hScoreClass = has4h
-    ? (tf4h.signal === 'STRONG BUY' ? 'score-strong' : tf4h.signal === 'BUY' ? 'score-buy' : 'score-watch')
-    : 'score-none';
-  const tf1dScoreClass = s.signal === 'STRONG BUY' ? 'score-strong' : s.signal === 'BUY' ? 'score-buy' : 'score-watch';
-
-  const conditions = (s.satisfied_conditions || []).map(c =>
-    `<span class="condition-tag">${c}</span>`
-  ).join('');
-
-  return `
-    <div class="${cardClass}" data-signal="${s.signal}" data-zone="${s.cycle_zone}" data-dual="${isDual}">
-      ${topBanner}
-      <div class="scan-card-header">
-        <span class="scan-ticker">${s.symbol}</span>
-        <div class="badge-row">
-          ${cycleBadge}
-          <span class="signal-badge ${getSignalClass(s.signal)}">${s.signal}</span>
-        </div>
-      </div>
-      <div class="scan-score">
-        <span class="score-text">1D: ${s.score}/${s.max_score}점 · MA60 대비 +${s.price_vs_ma60_pct}% · 종이격 ${jongiSign}${s.jongi_gap?.toFixed ? s.jongi_gap.toFixed(0) : s.jongi_gap}</span>
-        <div class="score-bar-bg">
-          <div class="score-bar-fill" style="width:${scorePct}%; background:${scoreColor};"></div>
-        </div>
-      </div>
-      <div class="scan-details">
-        <div class="detail-item">
-          <div class="detail-label">현재가</div>
-          <div class="detail-value">${s.current_price?.toLocaleString()}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">MA60 (1D)</div>
-          <div class="detail-value">${s.ma60?.toLocaleString()}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">MACD</div>
-          <div class="detail-value">${s.macd_signal}</div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">OBV</div>
-          <div class="detail-value">${s.obv_signal}</div>
-        </div>
-      </div>
-
-      <!-- 1D / 4H 타임프레임 비교 -->
-      <div class="tf-compare">
-        <div class="tf-box tf-active-${s.signal === 'STRONG BUY' ? 'strong' : s.signal === 'BUY' ? 'buy' : 'watch'}">
-          <span class="tf-label">1D (일봉)</span>
-          <div class="tf-signal-row">
-            <span class="tf-score ${tf1dScoreClass}">${s.score}/9</span>
-            <span class="signal-badge ${getSignalClass(s.signal)}" style="font-size:9px">${s.signal}</span>
-            ${getCycleBadge(s.cycle_zone)}
-          </div>
-        </div>
-        <div class="tf-box ${tf4hClass}">
-          <span class="tf-label">4H (4시간봉)</span>
-          ${has4h ? `
-          <div class="tf-signal-row">
-            <span class="tf-score ${tf4hScoreClass}">${tf4h.score}/9</span>
-            <span class="signal-badge ${getSignalClass(tf4h.signal)}" style="font-size:9px">${tf4h.signal}</span>
-            ${getCycleBadge(tf4h.cycle_zone)}
-          </div>` : `<div style="color:var(--text2); font-size:11px; margin-top:4px">데이터 없음</div>`}
-        </div>
-      </div>
-
-      ${conditions ? `<div class="conditions-list">${conditions}</div>` : ''}
-    </div>`;
-}
-
-// ── 필터링 ────────────────────────────────────────
-function filterSignals(type, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-
-  const grid = document.getElementById('scan-grid');
-  let filtered;
-  if (type === 'all') {
-    filtered = allSignals;
-  } else if (type === '1~2번') {
-    filtered = allSignals.filter(s => s.signal === 'STRONG BUY' && s.cycle_zone === '1~2번');
-  } else if (type === 'dual') {
-    filtered = allSignals.filter(s => s.dual_strong === true);
-  } else {
-    filtered = allSignals.filter(s => s.signal === type);
-  }
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state">해당 신호 없음</div>';
-    return;
-  }
-  grid.innerHTML = filtered.map(renderCard).join('');
-}
-
-// ── 스캔 데이터 로딩 ─────────────────────────────
-async function loadScanData() {
-  const grid = document.getElementById('scan-grid');
+async function loadDashboard() {
   try {
-    const res = await fetch('data/scan_latest.json?t=' + Date.now());
-    if (!res.ok) throw new Error('no data');
-    const data = await res.json();
-
-    document.getElementById('stat-date').textContent = formatDate(data.date);
-    document.getElementById('stat-scanned').textContent = data.total_scanned || '-';
-    document.getElementById('stat-strong').textContent = data.strong_buy_count || 0;
-    document.getElementById('stat-buy').textContent = data.buy_count || 0;
-    document.getElementById('stat-targets').textContent = data.buy_targets_count || 0;
-    document.getElementById('stat-dual').textContent = data.dual_strong_count || 0;
-    document.getElementById('stat-watch').textContent = data.watch_count || 0;
-    document.getElementById('scan-date-text').textContent =
-      `${data.scan_time || data.date} · 업비트 KRW 마켓 ${data.total_scanned}개 스캔`;
-
-    const strong = (data.all_buy_signals || []).filter(s => s.signal === 'STRONG BUY');
-    const buy = (data.all_buy_signals || []).filter(s => s.signal === 'BUY');
-    const watch = data.all_watch_signals || [];
-    allSignals = [...strong, ...buy, ...watch];
-
-    if (allSignals.length === 0) {
-      grid.innerHTML = '<div class="empty-state">오늘은 진입 신호가 없습니다</div>';
-    } else {
-      grid.innerHTML = allSignals.map(renderCard).join('');
+    // 공간이음 매매법 데이터
+    const spRes = await fetch('data/performance.json');
+    if (spRes.ok) {
+      const sp = await spRes.json();
+      document.getElementById('sp-winrate').textContent = sp.win_rate != null ? sp.win_rate.toFixed(1) + '%' : '-';
+      const pnl = sp.avg_pnl_pct;
+      const pnlEl = document.getElementById('sp-pnl');
+      pnlEl.textContent = pnl != null ? (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%' : '-';
+      pnlEl.className = 'card-stat-num ' + (pnl >= 0 ? 'pos' : 'neg');
+      document.getElementById('sp-positions').textContent = sp.open_positions ?? '-';
+      const upd = sp.last_updated || '';
+      document.getElementById('sp-updated').textContent = upd ? upd.slice(0, 10) : '-';
     }
 
+    // 신창환 60MA 데이터
+    const shinRes = await fetch('data/shin_performance.json');
+    if (shinRes.ok) {
+      const shin = await shinRes.json();
+      const summary = shin.summary || {};
+      document.getElementById('shin-winrate').textContent = summary.overall_win_rate != null ? summary.overall_win_rate.toFixed(1) + '%' : '-';
+      document.getElementById('shin-positions').textContent = summary.open_positions ?? '-';
+
+      // 최고 수익률 전략 찾기
+      const strategies = shin.strategies || [];
+      if (strategies.length > 0) {
+        const best = strategies.reduce((a, b) => (a.total_pnl_pct > b.total_pnl_pct ? a : b));
+        const bestEl = document.getElementById('shin-best-pnl');
+        bestEl.textContent = (best.total_pnl_pct >= 0 ? '+' : '') + best.total_pnl_pct.toFixed(1) + '%';
+        bestEl.className = 'card-stat-num ' + (best.total_pnl_pct >= 0 ? 'pos' : 'neg');
+      }
+      const upd = shin.updated_at || '';
+      document.getElementById('shin-updated').textContent = upd ? upd.slice(0, 10) : '-';
+
+      // 상단 총 포지션
+      const spPositions = parseInt(document.getElementById('sp-positions').textContent) || 0;
+      const shinPositions = summary.open_positions || 0;
+      document.getElementById('total-positions').textContent = spPositions + shinPositions;
+      document.getElementById('last-updated').textContent = upd ? upd.slice(0, 10) : '-';
+    }
   } catch(e) {
-    document.getElementById('scan-date-text').textContent = '매일 오전 9시 자동 업데이트';
-    grid.innerHTML = '<div class="empty-state">데이터를 불러올 수 없습니다. GitHub Actions 스캔 후 확인해주세요.</div>';
+    console.error('대시보드 데이터 로드 오류:', e);
   }
 }
 
-// ── 페이퍼 트레이딩 데이터 로딩 ─────────────────
-async function loadPaperData() {
-  try {
-    // performance.json
-    const perfRes = await fetch('data/performance.json?t=' + Date.now());
-    if (perfRes.ok) {
-      const perf = await perfRes.json();
-      const avgEl = document.getElementById('p-avgpnl');
-      const totEl = document.getElementById('p-totalpnl');
-
-      document.getElementById('p-total').textContent = perf.total_trades || 0;
-      document.getElementById('p-open').textContent = perf.open_positions || 0;
-      document.getElementById('p-winrate').textContent = (perf.win_rate || 0) + '%';
-      document.getElementById('p-wl').textContent = `${perf.wins || 0}W / ${perf.losses || 0}L`;
-
-      const avg = perf.avg_pnl_pct || 0;
-      avgEl.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%';
-      avgEl.className = 'paper-stat-num ' + pnlClass(avg);
-
-      const tot = perf.total_pnl_pct || 0;
-      totEl.textContent = (tot >= 0 ? '+' : '') + tot.toFixed(2) + '%';
-      totEl.className = 'paper-stat-num ' + pnlClass(tot);
-
-      // 베스트/워스트
-      if (perf.best_trade) {
-        const b = perf.best_trade;
-        document.getElementById('best-trade-content').innerHTML =
-          `<strong style="color:var(--accent2); font-size:16px">${b.symbol}</strong><br>
-           <span style="color:var(--accent2); font-size:18px; font-family:'Orbitron',monospace">+${b.pnl_pct?.toFixed(2)}%</span><br>
-           <span style="font-size:12px">${b.entry_date} → ${b.exit_date}</span><br>
-           <span style="font-size:11px; color:var(--text2)">${b.exit_reason}</span>`;
-        document.getElementById('best-worst-wrap').style.display = 'grid';
-      }
-      if (perf.worst_trade) {
-        const w = perf.worst_trade;
-        document.getElementById('worst-trade-content').innerHTML =
-          `<strong style="color:var(--red); font-size:16px">${w.symbol}</strong><br>
-           <span style="color:var(--red); font-size:18px; font-family:'Orbitron',monospace">${w.pnl_pct?.toFixed(2)}%</span><br>
-           <span style="font-size:12px">${w.entry_date} → ${w.exit_date}</span><br>
-           <span style="font-size:11px; color:var(--text2)">${w.exit_reason}</span>`;
-      }
-
-      // 오픈 포지션 테이블
-      const openList = perf.open_position_list || [];
-      const openTbody = document.getElementById('open-tbody');
-      if (openList.length === 0) {
-        openTbody.innerHTML = '<tr><td colspan="6" class="empty-state" style="padding:24px; color:var(--text2)">현재 오픈 포지션 없음</td></tr>';
-      } else {
-        openTbody.innerHTML = openList.map(p => {
-          const pnl = p.current_pnl_pct;
-          return `<tr>
-            <td><strong style="font-family:'Orbitron',monospace; font-size:12px">${p.symbol}</strong></td>
-            <td style="color:var(--text2); font-size:12px">${formatDate(p.entry_date)}</td>
-            <td style="font-family:'Space Mono',monospace">${p.entry_price?.toLocaleString()}</td>
-            <td><span style="color:var(--accent2)">${p.entry_score}/9</span></td>
-            <td>${getCycleBadge(p.entry_cycle)}</td>
-            <td class="${pnlClass(pnl)}">${pnl !== null && pnl !== undefined ? (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%' : '-'}</td>
-          </tr>`;
-        }).join('');
-      }
-    }
-
-    // paper_trades.json (거래 내역)
-    const tradesRes = await fetch('data/paper_trades.json?t=' + Date.now());
-    if (tradesRes.ok) {
-      const tradesData = await tradesRes.json();
-      const closed = (tradesData.trades || []).filter(t => t.status === 'CLOSED').reverse();
-      const closedTbody = document.getElementById('closed-tbody');
-
-      if (closed.length === 0) {
-        closedTbody.innerHTML = '<tr><td colspan="7" class="empty-state" style="padding:24px; color:var(--text2)">아직 청산된 거래가 없습니다. 첫 매수 신호를 기다리는 중...</td></tr>';
-      } else {
-        closedTbody.innerHTML = closed.map(t => {
-          const pnl = t.pnl_pct;
-          const exitTagClass = getExitTagClass(t.exit_reason);
-          return `<tr>
-            <td><strong style="font-family:'Orbitron',monospace; font-size:12px">${t.symbol}</strong></td>
-            <td style="color:var(--text2); font-size:12px">${formatDate(t.entry_date)}</td>
-            <td style="color:var(--text2); font-size:12px">${formatDate(t.exit_date)}</td>
-            <td style="font-family:'Space Mono',monospace; font-size:12px">${t.entry_price?.toLocaleString()}</td>
-            <td style="font-family:'Space Mono',monospace; font-size:12px">${t.exit_price?.toLocaleString()}</td>
-            <td><span class="exit-tag ${exitTagClass}">${t.exit_reason || '-'}</span></td>
-            <td class="${pnlClass(pnl)}" style="font-family:'Space Mono',monospace">${pnlText(pnl)}</td>
-          </tr>`;
-        }).join('');
-      }
-    }
-
-  } catch(e) {
-    console.error('페이퍼 트레이딩 데이터 로드 오류:', e);
-  }
-}
-
-// ── 신창환 에이전트 (바이낸스 60MA) 데이터 로딩 ──
-async function loadShinData() {
-  try {
-    const res = await fetch('data/shin_performance.json?t=' + Date.now());
-    if (!res.ok) return;
-    const d = await res.json();
-
-    // 업데이트 시각
-    document.getElementById('shin-updated').textContent = d.updated_at || '-';
-
-    // 요약 스탯
-    const s = d.summary || {};
-    document.getElementById('shin-total').textContent = s.total_closed_trades || 0;
-    document.getElementById('shin-open').textContent = s.open_positions || 0;
-    const wrEl = document.getElementById('shin-winrate');
-    wrEl.textContent = (s.overall_win_rate || 0) + '%';
-    wrEl.className = 'shin-stat-num ' + ((s.overall_win_rate || 0) >= 50 ? 'pos' : 'neg');
-
-    // 전략 카드
-    const stratDiv = document.getElementById('shin-strategies');
-    stratDiv.innerHTML = (d.strategies || []).map((st, i) => {
-      const pnl = st.total_pnl_pct;
-      const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
-      return `<div class="shin-card reveal">
-        <div class="shin-card-top">
-          <span class="shin-medal">${medals[i] || ''}</span>
-          <span class="shin-name">${st.name.replace('Shin_60MA_','')}</span>
-          <span class="shin-pnl ${pnl >= 0 ? 'pos' : 'neg'}">${pnl >= 0 ? '+' : ''}${pnl}%</span>
-        </div>
-        <div class="shin-card-stats">
-          <div><span class="shin-lbl">잔고</span><span class="shin-val">$${st.current_balance.toLocaleString()}</span></div>
-          <div><span class="shin-lbl">거래</span><span class="shin-val">${st.total_trades}회</span></div>
-          <div><span class="shin-lbl">승률</span><span class="shin-val ${st.win_rate >= 50 ? 'pos' : 'neg'}">${st.win_rate}%</span></div>
-          <div><span class="shin-lbl">승/패</span><span class="shin-val">${st.win_trades}W/${st.loss_trades}L</span></div>
-        </div>
-      </div>`;
-    }).join('');
-    stratDiv.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // 오픈 포지션
-    const openBody = document.getElementById('shin-open-tbody');
-    const opens = d.open_positions || [];
-    if (opens.length === 0) {
-      openBody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text2)">현재 오픈 포지션 없음</td></tr>';
-    } else {
-      openBody.innerHTML = opens.map(p => `<tr>
-        <td><strong style="font-family:'Orbitron',monospace;font-size:12px">${p.symbol}</strong></td>
-        <td><span style="color:${p.direction==='LONG'?'var(--accent2)':'var(--red)'}">${p.direction}</span></td>
-        <td style="font-family:'Space Mono',monospace">${p.entry_price?.toLocaleString()}</td>
-        <td style="color:var(--text2);font-size:12px">${(p.entry_time||'').slice(0,16)}</td>
-        <td style="font-size:11px;color:var(--text2)">${p.entry_reason||'-'}</td>
-      </tr>`).join('');
-    }
-
-    // 최근 거래
-    const recentBody = document.getElementById('shin-recent-tbody');
-    const recent = d.recent_trades || [];
-    if (recent.length === 0) {
-      recentBody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text2)">거래 내역 없음</td></tr>';
-    } else {
-      recentBody.innerHTML = recent.map(t => {
-        const pnl = t.pnl_pct || 0;
-        return `<tr>
-          <td><strong style="font-family:'Orbitron',monospace;font-size:11px">${t.symbol}</strong><br><span style="font-size:10px;color:var(--text2)">${t.strategy.replace('Shin_60MA_','')}</span></td>
-          <td><span style="color:${t.direction==='LONG'?'var(--accent2)':'var(--red)'}">${t.direction}</span></td>
-          <td style="font-family:'Space Mono',monospace;font-size:12px">${t.entry_price?.toLocaleString()}</td>
-          <td style="font-family:'Space Mono',monospace;font-size:12px">${t.exit_price?.toLocaleString()}</td>
-          <td style="font-size:11px;color:var(--text2)">${t.exit_reason||'-'}</td>
-          <td class="${pnl>=0?'pos':'neg'}" style="font-family:'Space Mono',monospace">${pnl>=0?'+':''}${pnl.toFixed(2)}%</td>
-        </tr>`;
-      }).join('');
-    }
-
-  } catch(e) {
-    console.error('신창환 에이전트 데이터 로드 오류:', e);
-  }
-}
-
-// 스크롤 애니메이션
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
     }
   });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// 초기 로드
-loadScanData();
-loadPaperData();
-loadShinData();
+loadDashboard();
 </script>
 </body>
 </html>
