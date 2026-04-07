@@ -43,8 +43,3 @@ jobs:
           git pull origin main --rebase
           git push
 
-      - name: 텔레그램 보고 발송
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/notify.py shin
