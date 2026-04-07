@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-06 23:04:35",
+  "updated_at": "2026-04-07 05:31:34",
   "summary": {
-    "total_closed_trades": 41,
+    "total_closed_trades": 43,
     "total_wins": 17,
-    "overall_win_rate": 41.5,
-    "open_positions": 20,
+    "overall_win_rate": 39.5,
+    "open_positions": 19,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -31,12 +31,12 @@
     {
       "name": "Shin_60MA_Volume",
       "initial_balance": 10000.0,
-      "current_balance": 9618.41,
-      "total_trades": 11,
+      "current_balance": 6733.79,
+      "total_trades": 12,
       "win_trades": 5,
-      "loss_trades": 6,
-      "win_rate": 45.5,
-      "total_pnl_pct": -3.82
+      "loss_trades": 7,
+      "win_rate": 41.7,
+      "total_pnl_pct": -32.66
     },
     {
       "name": "Shin_60MA_Bounce",
@@ -51,15 +51,25 @@
     {
       "name": "Shin_60MA_Basic",
       "initial_balance": 10000.0,
-      "current_balance": -4005.03,
-      "total_trades": 9,
+      "current_balance": -6889.64,
+      "total_trades": 10,
       "win_trades": 2,
-      "loss_trades": 7,
-      "win_rate": 22.2,
-      "total_pnl_pct": -140.05
+      "loss_trades": 8,
+      "win_rate": 20.0,
+      "total_pnl_pct": -168.9
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-CARV",
+      "direction": "SHORT",
+      "entry_price": 83.6,
+      "stop_loss": 85.69,
+      "take_profit": 78.584,
+      "entry_time": "2026-04-07 05:30:57",
+      "entry_reason": "거래량 급증 음봉 하락 (MA60 아래, 거래량 평균대비 1.6배)"
+    },
     {
       "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-PEPE",
@@ -109,26 +119,6 @@
       "take_profit": 156.0,
       "entry_time": "2026-04-06 23:04:13",
       "entry_reason": "60MA 상향 돌파 (종가 150.0000 > MA60 149.3167)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-NEWT",
-      "direction": "LONG",
-      "entry_price": 104.0,
-      "stop_loss": 101.92,
-      "take_profit": 108.16,
-      "entry_time": "2026-04-06 20:06:50",
-      "entry_reason": "60MA 상향 돌파 (종가 104.0000 > MA60 102.8267)"
-    },
-    {
-      "strategy": "Shin_60MA_Volume",
-      "symbol": "KRW-NEWT",
-      "direction": "LONG",
-      "entry_price": 104.0,
-      "stop_loss": 101.4,
-      "take_profit": 110.24,
-      "entry_time": "2026-04-06 20:06:50",
-      "entry_reason": "거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 2.4배)"
     },
     {
       "strategy": "Shin_60MA_Bounce",
@@ -263,6 +253,30 @@
   ],
   "recent_trades": [
     {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-NEWT",
+      "direction": "LONG",
+      "entry_price": 104.0,
+      "exit_price": 101.0,
+      "pnl_pct": -2.88,
+      "exit_reason": "손절 (현재가 101.0000 ≤ SL 101.9200)",
+      "entry_time": "2026-04-06 20:06:50",
+      "exit_time": "2026-04-07 05:30:55",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-NEWT",
+      "direction": "LONG",
+      "entry_price": 104.0,
+      "exit_price": 101.0,
+      "pnl_pct": -2.88,
+      "exit_reason": "손절 (현재가 101.0000 ≤ SL 101.4000)",
+      "entry_time": "2026-04-06 20:06:50",
+      "exit_time": "2026-04-07 05:30:55",
+      "status": "LOSS"
+    },
+    {
       "strategy": "Shin_60MA_Bounce",
       "symbol": "KRW-SHIB",
       "direction": "LONG",
@@ -356,30 +370,6 @@
       "exit_reason": "손절 (현재가 9.9600 ≥ SL 9.8777)",
       "entry_time": "2026-04-06 06:21:06",
       "exit_time": "2026-04-06 10:41:44",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Volume",
-      "symbol": "KRW-CARV",
-      "direction": "LONG",
-      "entry_price": 89.6,
-      "exit_price": 86.0,
-      "pnl_pct": -4.02,
-      "exit_reason": "손절 (현재가 86.0000 ≤ SL 87.3600)",
-      "entry_time": "2026-04-05 14:07:40",
-      "exit_time": "2026-04-06 06:20:59",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-CARV",
-      "direction": "LONG",
-      "entry_price": 89.3,
-      "exit_price": 86.0,
-      "pnl_pct": -3.7,
-      "exit_reason": "손절 (현재가 86.0000 ≤ SL 87.5140)",
-      "entry_time": "2026-04-05 17:53:23",
-      "exit_time": "2026-04-06 06:20:59",
       "status": "LOSS"
     }
   ]
