@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-06 15:23:38",
-  "total_trades": 8,
-  "open_positions": 3,
-  "closed_trades": 5,
+  "last_updated": "2026-04-07 15:04:21",
+  "total_trades": 9,
+  "open_positions": 1,
+  "closed_trades": 8,
   "wins": 1,
-  "losses": 4,
-  "win_rate": 20.0,
-  "avg_pnl_pct": -3.42,
-  "total_pnl_pct": -17.08,
+  "losses": 7,
+  "win_rate": 12.5,
+  "avg_pnl_pct": -3.9,
+  "total_pnl_pct": -31.18,
   "best_trade": {
     "symbol": "KRW-ALGO",
     "pnl_pct": 4.42,
@@ -24,27 +24,9 @@
   },
   "open_position_list": [
     {
-      "symbol": "KRW-WET",
-      "entry_date": "2026-04-04",
-      "entry_price": 163.0,
-      "entry_cycle": "1~2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": -4.29
-    },
-    {
-      "symbol": "KRW-ALGO",
-      "entry_date": "2026-04-06",
-      "entry_price": 186.0,
-      "entry_cycle": "1~2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": 0.0
-    },
-    {
-      "symbol": "KRW-RENDER",
-      "entry_date": "2026-04-06",
-      "entry_price": 2919.0,
+      "symbol": "KRW-KERNEL",
+      "entry_date": "2026-04-07",
+      "entry_price": 167.0,
       "entry_cycle": "1~2번",
       "entry_score": 8,
       "dual_strong": false,
