@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-08 00:05",
+  "updated_at": "2026-04-08 06:09",
   "stats": {
     "total_conversations": 10,
     "dev_completed": 0,
@@ -11,7 +11,9 @@
     "status": "active",
     "notes": [
       "첫 출근일: 2026-04-02",
-      "회사 설립 단계. 아직 다른 에이전트 없음.",
+      "DEV 부서 구성 완료 (2026-04-07): Planner, Generator, Evaluator 3개 에이전트 독립 운영 중",
+      "DEV 에이전트 연결 방법: 응답에 [DEV_TASK: 작업내용] 마커를 포함하면 Redis 큐를 통해 DEV Planner에게 자동 전달됨",
+      "DEV 작업 처리 순서: CEO가 [DEV_TASK] 마커 → Planner(계획) → Generator(코드생성) → Evaluator(검토) → 자동 배포",
       "현재 운영 중인 서비스: SpaceEum 매매 시스템 (spaceeum-ai-lab)"
     ]
   },
@@ -43,6 +45,38 @@
     }
   },
   "activity": [
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
+      "text": "트레이딩 상세 페이지 거래내역 확인 요청! 🔍  ---  DEV팀에 바로 전달합니다!  ---   📋 DEV팀에 보낸 오더 내용  | 항목 | 내용 | |------|------| | 대상 | 트레이딩 상세 페이지 거래내역 | | 확인 1 | 데이터 소스(JSON/API) 연결 정상 여부 | | 확인 2 | HTML ↔ 데이터 바인딩 로직 | | 확인 3 ...",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "트레이딩 상세 페이지 거래내역이 실제 데이터와 잘 연결되는지 확인해줘",
+      "time": ""
+    },
+    {
+      "type": "ceo_response",
+      "agent": "CEO 에이전트",
+      "icon": "🏢",
+      "color": "var(--accent)",
+      "text": "DEV 부서 연결 확인! 🔍  ---   메모 업데이트 확인 ✅  확인했습니다! 제 기억에 이미 기록되어 있네요:  | 항목 | 상태 | |------|------| | DEV 부서 구성 | ✅ 완료 (2026-04-07) | | 연결 방법 | ✅ `` 마커 | | 전달 경로 | ✅ Redis 큐 → DEV Planner 자동 전달 | | 에이전트 | ✅ ...",
+      "time": ""
+    },
+    {
+      "type": "user_message",
+      "agent": "최대표",
+      "icon": "💬",
+      "color": "var(--accent4)",
+      "text": "DEV 부서 구성 완료, [DEV_TASK] 마커로 연결했다. 확인해봐",
+      "time": ""
+    },
     {
       "type": "ceo_response",
       "agent": "CEO 에이전트",
@@ -89,38 +123,6 @@
       "icon": "💬",
       "color": "var(--accent4)",
       "text": "지금 dev 부서의 플레너에게 ai-trading관련 오더를 전달하면 프로세서로 진행된다  Ceo가 하지말고 오더전달하고 답을 받으면된다  확인해봐 지금 dev 부서는 출근해서 놀고있다",
-      "time": ""
-    },
-    {
-      "type": "ceo_response",
-      "agent": "CEO 에이전트",
-      "icon": "🏢",
-      "color": "var(--accent)",
-      "text": "넵! 대기합니다! 🫡  언제든 말씀만 주세요~ 기다리고 있겠습니다! 😄👍",
-      "time": ""
-    },
-    {
-      "type": "user_message",
-      "agent": "최대표",
-      "icon": "💬",
-      "color": "var(--accent4)",
-      "text": "일단 대기하자 생각해보고 알려줄게",
-      "time": ""
-    },
-    {
-      "type": "ceo_response",
-      "agent": "CEO 에이전트",
-      "icon": "🏢",
-      "color": "var(--accent)",
-      "text": "넵! 바로 시작합니다! 🚀  ---   작업: ai-trading.html 목록 + 상세 페이지 분리  ---   📋 작업 계획  | 단계 | 내용 | |------|------| | 1️⃣ | 현재 `ai-trading.html` 구조 파악 | | 2️⃣ | **목록 페이지** (ai-trading.html) → 코인 리스트만 보여주기 | | 3️⃣ | ...",
-      "time": ""
-    },
-    {
-      "type": "user_message",
-      "agent": "최대표",
-      "icon": "💬",
-      "color": "var(--accent4)",
-      "text": "Ceo가 지금바로작업 시작해",
       "time": ""
     }
   ]
