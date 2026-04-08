@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-09 07:09:24",
-  "total_trades": 7,
+  "last_updated": "2026-04-09 07:51:31",
+  "total_trades": 9,
   "open_positions": 5,
-  "closed_trades": 2,
+  "closed_trades": 4,
   "wins": 0,
-  "losses": 2,
+  "losses": 4,
   "win_rate": 0.0,
-  "avg_pnl_pct": -1.18,
-  "total_pnl_pct": -2.35,
+  "avg_pnl_pct": -2.3,
+  "total_pnl_pct": -9.21,
   "best_trade": {
     "symbol": "KRW-NEAR",
     "pnl_pct": -0.1,
@@ -16,22 +16,13 @@
     "exit_date": "2026-04-09"
   },
   "worst_trade": {
-    "symbol": "KRW-TAO",
-    "pnl_pct": -2.25,
-    "exit_reason": "매도신호 (4번 + 종이격 3일 연속 감소)",
+    "symbol": "KRW-RENDER",
+    "pnl_pct": -3.94,
+    "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
     "entry_date": "2026-04-08",
     "exit_date": "2026-04-09"
   },
   "open_position_list": [
-    {
-      "symbol": "KRW-SEI",
-      "entry_date": "2026-04-08",
-      "entry_price": 85.6,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": -2.57
-    },
     {
       "symbol": "KRW-GMT",
       "entry_date": "2026-04-08",
@@ -40,15 +31,6 @@
       "entry_score": 9,
       "dual_strong": false,
       "current_pnl_pct": -1.26
-    },
-    {
-      "symbol": "KRW-RENDER",
-      "entry_date": "2026-04-08",
-      "entry_price": 3119.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": -3.49
     },
     {
       "symbol": "KRW-LSK",
@@ -65,6 +47,24 @@
       "entry_price": 157.0,
       "entry_cycle": "2번",
       "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-AERGO",
+      "entry_date": "2026-04-09",
+      "entry_price": 80.6,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-TOKAMAK",
+      "entry_date": "2026-04-09",
+      "entry_price": 728.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
       "dual_strong": false,
       "current_pnl_pct": 0.0
     }
