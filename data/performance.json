@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-07 15:04:21",
-  "total_trades": 9,
-  "open_positions": 1,
-  "closed_trades": 8,
+  "last_updated": "2026-04-08 15:04:27",
+  "total_trades": 11,
+  "open_positions": 2,
+  "closed_trades": 9,
   "wins": 1,
-  "losses": 7,
-  "win_rate": 12.5,
-  "avg_pnl_pct": -3.9,
-  "total_pnl_pct": -31.18,
+  "losses": 8,
+  "win_rate": 11.1,
+  "avg_pnl_pct": -4.8,
+  "total_pnl_pct": -43.16,
   "best_trade": {
     "symbol": "KRW-ALGO",
     "pnl_pct": 4.42,
@@ -24,10 +24,19 @@
   },
   "open_position_list": [
     {
-      "symbol": "KRW-KERNEL",
-      "entry_date": "2026-04-07",
-      "entry_price": 167.0,
-      "entry_cycle": "1~2번",
+      "symbol": "KRW-RENDER",
+      "entry_date": "2026-04-08",
+      "entry_price": 3088.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": true,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-KAITO",
+      "entry_date": "2026-04-08",
+      "entry_price": 654.0,
+      "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
       "current_pnl_pct": 0.0
