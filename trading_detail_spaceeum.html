@@ -126,7 +126,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 <div class="page-hero">
   <div class="hero-badge"><span class="badge-dot"></span>60일 신고가 매매</div>
   <h1><span>60일 신고가 매매</span></h1>
-  <p>60일 신고가 발생 + 9개 조건 스코어링<br>매수 조건 8개 이상 만족 시 자동 진입 (60일 신고가 발생 필수 포함)</p>
+  <p>60일 신고가 발생 + 9개 조건 스코어링<br>8개 이상 만족 + <strong style="color:var(--accent2)">2번 주기</strong>에서만 진입 · 5번 발생 시 즉시 매도</p>
   <a href="ai-trading.html" class="back-btn">← 대시보드로 돌아가기</a>
 </div>
 
@@ -173,32 +173,32 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       <div class="cycle-card c12">
         <div class="cycle-num">1번</div>
         <div class="cycle-zone">🚀 상승 전환</div>
-        <div class="cycle-desc">종이격 음→양 전환. MA60이 하락에서 상승으로 방향을 바꾸는 시점</div>
-        <span class="cycle-action">적극 매수</span>
+        <div class="cycle-desc">종이격 음→양 전환. MA60이 하락에서 상승으로 방향을 바꾸는 시점. 5번으로 청산된 종목의 재진입 허용 주기</div>
+        <span class="cycle-action">재진입 대기 해제</span>
       </div>
       <div class="cycle-card c12">
         <div class="cycle-num">2번</div>
         <div class="cycle-zone">📈 상승 가속</div>
-        <div class="cycle-desc">종이격 양수 + 계속 증가 중. MA60 상승 속도가 빨라지는 구간</div>
-        <span class="cycle-action">매수 유지</span>
+        <div class="cycle-desc">종이격 양수 + 계속 증가 중. MA60 상승 속도가 빨라지는 구간. STRONG BUY + 2번 자리에서만 진입</div>
+        <span class="cycle-action">✅ 매수 진입</span>
       </div>
       <div class="cycle-card c34">
         <div class="cycle-num">3번</div>
         <div class="cycle-zone">⚡ 45도 피크</div>
-        <div class="cycle-desc">종이격 최고점 도달. MA60 상승 속도가 가장 빠른 시점. 종이격 3일 연속 감소 시 매도</div>
+        <div class="cycle-desc">종이격 최고점 도달 (1회만 발생). MA60 상승 속도가 가장 빠른 시점. 다음 4번 2회 연속 시 매도 준비</div>
         <span class="cycle-action">익절 준비</span>
       </div>
       <div class="cycle-card c34">
         <div class="cycle-num">4번</div>
         <div class="cycle-zone">⚠️ 상승 둔화</div>
-        <div class="cycle-desc">종이격 양수지만 계속 감소 중. 상승 에너지 소진. 종이격 3일 연속 감소 시 매도</div>
-        <span class="cycle-action">익절</span>
+        <div class="cycle-desc">종이격 양수지만 계속 감소 중. 3번→4번→4번 (종이격 3일 연속 감소) 확인 시 매도 실행</div>
+        <span class="cycle-action">🔴 2회 연속 → 매도</span>
       </div>
       <div class="cycle-card c56">
         <div class="cycle-num">5번</div>
         <div class="cycle-zone">🔻 하락 전환</div>
-        <div class="cycle-desc">종이격 양→음 전환. MA60이 상승에서 하락으로 방향을 바꾸는 시점. 종이격 3일 연속 감소 시 매도</div>
-        <span class="cycle-action">매도</span>
+        <div class="cycle-desc">종이격 양→음 전환. MA60이 상승에서 하락으로 방향 전환. 발생 즉시 매도 + 1번 발생 전까지 재진입 금지</div>
+        <span class="cycle-action">🔴 즉시 매도</span>
       </div>
       <div class="cycle-card c56">
         <div class="cycle-num">6번</div>
