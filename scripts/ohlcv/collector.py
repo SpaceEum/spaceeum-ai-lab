@@ -2,30 +2,26 @@
 """
 SpaceEum OHLCV 수집기
 업비트 KRW 마켓 1달 거래량 상위 200개 × 6개 타임프레임
-Google Drive에 parquet 저장 / 매일 00:00 KST 자동 실행
+GitHub 레포 data/ohlcv/ 에 parquet 저장 / 매일 00:00 KST 자동 실행
 """
 
 import os
-import io
 import json
 import time
-import base64
 import requests
 import pandas as pd
 import urllib.request
 import urllib.parse
 from datetime import datetime, timezone, timedelta
-
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaIoBaseUpload, MediaIoBaseDownload
+from pathlib import Path
 
 # ── 상수 ──────────────────────────────────────────────────────
 
 KST = timezone(timedelta(hours=9))
 UPBIT_BASE = "https://api.upbit.com/v1"
 TOP_N = 200
-TICKER_LIST_FILE = "ticker_list.json"
+DATA_DIR = Path("data/ohlcv")
+TICKER_LIST_FILE = DATA_DIR / "ticker_list.json"
 
 TIMEFRAMES = {
     "15min": {"unit": "minutes", "value": 15,  "folder": "15min_upbit"},
@@ -47,121 +43,57 @@ TF_MINUTES = {
 }
 
 
-# ── Google Drive ──────────────────────────────────────────────
+# ── 로컬 파일 I/O ─────────────────────────────────────────────
 
-def get_gdrive_service():
-    """서비스 계정으로 Google Drive API 인증"""
-    creds_raw = os.environ.get("GOOGLE_CREDENTIALS_JSON", "")
-    if not creds_raw:
-        raise RuntimeError("GOOGLE_CREDENTIALS_JSON 환경변수 없음")
-    try:
-        creds_data = json.loads(base64.b64decode(creds_raw).decode())
-    except Exception:
-        creds_data = json.loads(creds_raw)
-
-    creds = service_account.Credentials.from_service_account_info(
-        creds_data,
-        scopes=["https://www.googleapis.com/auth/drive"]
-    )
-    return build("drive", "v3", credentials=creds, cache_discovery=False)
+def get_tf_dir(tf_key):
+    """타임프레임 폴더 경로 반환 + 생성"""
+    d = DATA_DIR / TIMEFRAMES[tf_key]["folder"]
+    d.mkdir(parents=True, exist_ok=True)
+    return d
 
 
-def get_or_create_folder(service, name, parent_id):
-    """폴더 조회 또는 생성, folder_id 반환"""
-    q = (
-        f"name='{name}' "
-        f"and mimeType='application/vnd.google-apps.folder' "
-        f"and '{parent_id}' in parents "
-        f"and trashed=false"
-    )
-    res = service.files().list(q=q, fields="files(id)").execute()
-    files = res.get("files", [])
-    if files:
-        return files[0]["id"]
-
-    meta = {
-        "name": name,
-        "mimeType": "application/vnd.google-apps.folder",
-        "parents": [parent_id],
-    }
-    f = service.files().create(body=meta, fields="id").execute()
-    print(f"  [Drive] 폴더 생성: {name}")
-    return f["id"]
+def load_df(tf_key, market):
+    """로컬 parquet → DataFrame (없으면 빈 DataFrame)"""
+    safe = market.replace("-", "_")
+    path = get_tf_dir(tf_key) / f"{safe}.parquet"
+    if path.exists():
+        return pd.read_parquet(path, engine="pyarrow")
+    return pd.DataFrame()
 
 
-def get_file_id(service, filename, folder_id):
-    """폴더 내 파일 ID 조회 (없으면 None)"""
-    q = f"name='{filename}' and '{folder_id}' in parents and trashed=false"
-    res = service.files().list(q=q, fields="files(id)").execute()
-    files = res.get("files", [])
-    return files[0]["id"] if files else None
+def save_df(df, tf_key, market):
+    """DataFrame → 로컬 parquet"""
+    safe = market.replace("-", "_")
+    path = get_tf_dir(tf_key) / f"{safe}.parquet"
+    df.to_parquet(path, index=False, engine="pyarrow")
 
 
-def upload_df(service, df, filename, folder_id):
-    """DataFrame → parquet → Google Drive 업로드"""
-    buf = io.BytesIO()
-    df.to_parquet(buf, index=False, engine="pyarrow")
-    buf.seek(0)
-
-    file_id = get_file_id(service, filename, folder_id)
-    media = MediaIoBaseUpload(buf, mimetype="application/octet-stream", resumable=True)
-
-    if file_id:
-        service.files().update(fileId=file_id, media_body=media).execute()
-    else:
-        meta = {"name": filename, "parents": [folder_id]}
-        service.files().create(body=meta, media_body=media, fields="id").execute()
+def delete_local(tf_key, market):
+    """로컬 parquet 파일 삭제"""
+    safe = market.replace("-", "_")
+    path = get_tf_dir(tf_key) / f"{safe}.parquet"
+    if path.exists():
+        path.unlink()
+        print(f"  [삭제] {path.name}")
 
 
-def download_df(service, filename, folder_id):
-    """Google Drive → parquet → DataFrame (없으면 빈 DataFrame)"""
-    file_id = get_file_id(service, filename, folder_id)
-    if not file_id:
-        return pd.DataFrame()
-
-    buf = io.BytesIO()
-    req = service.files().get_media(fileId=file_id)
-    downloader = MediaIoBaseDownload(buf, req)
-    done = False
-    while not done:
-        _, done = downloader.next_chunk()
-    buf.seek(0)
-    return pd.read_parquet(buf, engine="pyarrow")
+def load_ticker_list():
+    """저장된 티커 목록 로드 (없으면 빈 리스트)"""
+    if TICKER_LIST_FILE.exists():
+        with open(TICKER_LIST_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+        return data.get("tickers", [])
+    return []
 
 
-def delete_file(service, filename, folder_id):
-    """Google Drive 파일 삭제"""
-    file_id = get_file_id(service, filename, folder_id)
-    if file_id:
-        service.files().delete(fileId=file_id).execute()
-        print(f"  [Drive] 삭제: {filename}")
-
-
-def upload_json(service, data, filename, folder_id):
-    """dict → JSON → Google Drive 업로드"""
-    buf = io.BytesIO(json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8"))
-    file_id = get_file_id(service, filename, folder_id)
-    media = MediaIoBaseUpload(buf, mimetype="application/json", resumable=False)
-    if file_id:
-        service.files().update(fileId=file_id, media_body=media).execute()
-    else:
-        meta = {"name": filename, "parents": [folder_id]}
-        service.files().create(body=meta, media_body=media, fields="id").execute()
-
-
-def download_json(service, filename, folder_id):
-    """Google Drive JSON → dict (없으면 None)"""
-    file_id = get_file_id(service, filename, folder_id)
-    if not file_id:
-        return None
-    buf = io.BytesIO()
-    req = service.files().get_media(fileId=file_id)
-    downloader = MediaIoBaseDownload(buf, req)
-    done = False
-    while not done:
-        _, done = downloader.next_chunk()
-    buf.seek(0)
-    return json.loads(buf.read().decode("utf-8"))
+def save_ticker_list(tickers, now_kst):
+    """티커 목록 저장"""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with open(TICKER_LIST_FILE, "w", encoding="utf-8") as f:
+        json.dump(
+            {"tickers": tickers, "updated_at": now_kst.strftime("%Y-%m-%d %H:%M KST")},
+            f, ensure_ascii=False, indent=2
+        )
 
 
 # ── Upbit API ─────────────────────────────────────────────────
@@ -364,12 +296,9 @@ def fetch_incremental(market, tf_key, last_dt):
 
 # ── 단일 티커 × 타임프레임 수집 ──────────────────────────────
 
-def collect_ticker(service, market, tf_key, folder_id):
-    """기존 데이터 다운로드 → 신규 수집 → 업로드, 행 수 반환"""
-    safe_market = market.replace("-", "_")
-    filename = f"{safe_market}_{tf_key}.parquet"
-
-    existing = download_df(service, filename, folder_id)
+def collect_ticker(market, tf_key):
+    """기존 데이터 로드 → 신규 수집 → 저장, 행 수 반환"""
+    existing = load_df(tf_key, market)
 
     if existing.empty:
         df = fetch_all_history(market, tf_key)
@@ -392,7 +321,7 @@ def collect_ticker(service, market, tf_key, folder_id):
     df = filter_incomplete(df, tf_key)
 
     if not df.empty:
-        upload_df(service, df, filename, folder_id)
+        save_df(df, tf_key, market)
 
     return len(df)
 
@@ -430,18 +359,11 @@ def main():
     errors = []
     delisted_removed = []
 
-    # ── Google Drive 인증 + 폴더 구조 초기화
-    print("[Drive] 인증 및 폴더 초기화...")
-    service = get_gdrive_service()
-
-    root_folder_id = os.environ.get("GDRIVE_ROOT_FOLDER_ID", "").strip()
-    if not root_folder_id:
-        raise RuntimeError("GDRIVE_ROOT_FOLDER_ID 환경변수 없음")
-
-    tf_folder_ids = {}
-    for tf_key, tf_info in TIMEFRAMES.items():
-        fid = get_or_create_folder(service, tf_info["folder"], root_folder_id)
-        tf_folder_ids[tf_key] = fid
+    # ── 폴더 초기화
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    for tf_key in TIMEFRAMES:
+        get_tf_dir(tf_key)
+    print("[초기화] data/ohlcv/ 폴더 준비 완료")
 
     # ── 1달 거래량 상위 200개 선정
     all_markets = get_all_krw_markets()
@@ -449,34 +371,27 @@ def main():
     active_set = set(all_markets)
 
     # ── 폐지 티커 처리 (이전 목록에 있었지만 업비트에서 사라진 것)
-    prev_data = download_json(service, TICKER_LIST_FILE, root_folder_id)
-    prev_tickers = prev_data.get("tickers", []) if prev_data else []
+    prev_tickers = load_ticker_list()
 
     for ticker in prev_tickers:
         if ticker not in active_set:
             print(f"[폐지] {ticker} 감지 → 파일 삭제")
-            safe = ticker.replace("-", "_")
-            for tf_key, fid in tf_folder_ids.items():
-                delete_file(service, f"{safe}_{tf_key}.parquet", fid)
+            for tf_key in TIMEFRAMES:
+                delete_local(tf_key, ticker)
             delisted_removed.append(ticker)
 
     # 현재 티커 목록 저장
-    upload_json(
-        service,
-        {"tickers": current_tickers, "updated_at": now_kst.strftime("%Y-%m-%d %H:%M KST")},
-        TICKER_LIST_FILE,
-        root_folder_id,
-    )
+    save_ticker_list(current_tickers, now_kst)
 
     # ── 데이터 수집 (200 티커 × 6 타임프레임)
     total_tasks = len(current_tickers) * len(TIMEFRAMES)
     done = 0
 
     for market in current_tickers:
-        for tf_key, tf_info in TIMEFRAMES.items():
+        for tf_key in TIMEFRAMES:
             done += 1
             try:
-                rows = collect_ticker(service, market, tf_key, tf_folder_ids[tf_key])
+                rows = collect_ticker(market, tf_key)
                 print(f"[{done}/{total_tasks}] ✓ {market} {tf_key} ({rows}행)")
             except Exception as e:
                 err_msg = f"{market} {tf_key}: {e}"
@@ -487,7 +402,7 @@ def main():
     elapsed = int(time.time() - start_time)
     status = "success" if not errors else "partial"
 
-    # ── 상태 JSON 저장 (repo data/ 폴더 → 홈페이지에서 읽음)
+    # ── 상태 JSON 저장 (홈페이지에서 읽음)
     status_data = {
         "last_updated": now_kst.strftime("%Y-%m-%d %H:%M KST"),
         "status": status,
