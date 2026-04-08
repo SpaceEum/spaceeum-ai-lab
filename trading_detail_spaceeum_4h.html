@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>60일 신고가 매매 (4H) — SpaceEum</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060910; --bg2: #0a0f1a; --bg3: #0f1624;
+  --border: #1a2535; --accent: #a78bfa; --accent2: #00ff88;
+  --text: #e8f0fe; --text2: #7a8fa6; --red: #ff4d6d; --yellow: #ffb800;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image:linear-gradient(rgba(167,139,250,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.02) 1px,transparent 1px);
+  background-size:50px 50px; pointer-events:none; z-index:0;
+}
+header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(6,9,16,0.9); backdrop-filter:blur(24px); }
+.header-inner { max-width:1200px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.logo-img { height:36px; width:auto; }
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+nav { display:flex; align-items:center; gap:28px; }
+nav a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:1px; transition:color 0.2s; }
+nav a:hover { color:var(--accent); }
+nav a.active { color:var(--accent); }
+.nav-cta { padding:8px 20px; border:1px solid #a78bfa; border-radius:6px; color:#a78bfa!important; font-family:'Space Mono',monospace; font-size:12px!important; }
+.nav-cta:hover { background:#a78bfa!important; color:var(--bg)!important; }
+
+.page-hero { padding:140px 32px 60px; position:relative; z-index:1; text-align:center; }
+.page-hero::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:400px; background:radial-gradient(circle,rgba(167,139,250,0.06) 0%,transparent 65%); pointer-events:none; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border:1px solid rgba(167,139,250,0.3); border-radius:20px; background:rgba(167,139,250,0.05); font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:2px; margin-bottom:24px; }
+.badge-dot { width:6px; height:6px; background:var(--accent); border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.page-hero h1 { font-family:'Orbitron',monospace; font-size:clamp(24px,3.5vw,44px); font-weight:900; line-height:1.2; margin-bottom:16px; }
+.page-hero h1 span { background:linear-gradient(135deg,#a78bfa,#c4b5fd); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.page-hero p { font-size:15px; color:var(--text2); line-height:1.8; max-width:600px; margin:0 auto 24px; }
+.back-btn { display:inline-flex; align-items:center; gap:8px; padding:8px 20px; border:1px solid var(--border); border-radius:8px; color:var(--text2); text-decoration:none; font-family:'Space Mono',monospace; font-size:11px; transition:all 0.2s; }
+.back-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+section { position:relative; z-index:1; padding:60px 32px; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; display:block; }
+.section-title { font-family:'Orbitron',monospace; font-size:clamp(18px,2vw,24px); font-weight:700; margin-bottom:8px; }
+.section-desc { font-size:14px; color:var(--text2); line-height:1.8; margin-bottom:40px; }
+
+/* 스탯 */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:48px; }
+.stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; }
+.stat-num { font-family:'Orbitron',monospace; font-size:26px; font-weight:700; display:block; margin-bottom:6px; }
+.stat-num.pos { color:var(--accent2); }
+.stat-num.neg { color:var(--red); }
+.stat-num.blue { color:var(--accent); }
+.stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
+
+/* 4H 타임프레임 배지 */
+.tf-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border:1px solid rgba(167,139,250,0.4); border-radius:8px; background:rgba(167,139,250,0.08); font-family:'Space Mono',monospace; font-size:11px; color:#a78bfa; letter-spacing:2px; margin-bottom:32px; }
+
+/* 주기 설명 */
+.cycle-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:48px; }
+@media(max-width:1024px){ .cycle-grid{ grid-template-columns:repeat(2,1fr); } }
+.cycle-card { border-radius:12px; padding:20px; border:1px solid; }
+.c12 { background:rgba(167,139,250,0.06); border-color:rgba(167,139,250,0.3); }
+.c34 { background:rgba(255,77,109,0.06); border-color:rgba(255,77,109,0.3); }
+.c56 { background:rgba(255,184,0,0.05); border-color:rgba(255,184,0,0.3); }
+.c78 { background:rgba(0,212,255,0.05); border-color:rgba(0,212,255,0.25); }
+.cycle-num { font-family:'Orbitron',monospace; font-size:22px; font-weight:900; margin-bottom:6px; }
+.c12 .cycle-num { color:#a78bfa; } .c34 .cycle-num { color:var(--red); }
+.c56 .cycle-num { color:var(--yellow); } .c78 .cycle-num { color:#00d4ff; }
+.cycle-zone { font-size:12px; font-weight:700; margin-bottom:8px; }
+.cycle-desc { font-size:12px; color:var(--text2); line-height:1.6; }
+.cycle-action { margin-top:10px; padding:4px 10px; border-radius:4px; font-size:10px; font-weight:700; font-family:'Space Mono',monospace; display:inline-block; }
+.c12 .cycle-action { background:rgba(167,139,250,0.2); color:#a78bfa; }
+.c34 .cycle-action { background:rgba(255,77,109,0.15); color:var(--red); }
+.c56 .cycle-action { background:rgba(255,184,0,0.1); color:var(--yellow); }
+.c78 .cycle-action { background:rgba(0,212,255,0.1); color:#00d4ff; }
+
+/* 테이블 */
+.table-wrap { overflow-x:auto; margin-bottom:40px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { padding:12px 16px; text-align:left; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--text2); border-bottom:1px solid var(--border); text-transform:uppercase; }
+tbody td { padding:12px 16px; border-bottom:1px solid rgba(26,37,53,0.8); vertical-align:middle; }
+tbody tr:hover { background:rgba(167,139,250,0.02); }
+.table-title { font-family:'Orbitron',monospace; font-size:14px; font-weight:700; color:var(--accent); margin-bottom:16px; }
+.pos { color:var(--accent2)!important; font-weight:700; }
+.neg { color:var(--red)!important; font-weight:700; }
+.cycle-badge { padding:3px 8px; border-radius:4px; font-size:10px; font-weight:700; font-family:'Space Mono',monospace; }
+.cb-12 { background:rgba(167,139,250,0.2); color:#a78bfa; }
+.cb-34 { background:rgba(255,77,109,0.15); color:var(--red); }
+.empty { text-align:center; padding:40px; color:var(--text2); font-family:'Space Mono',monospace; font-size:12px; }
+
+footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px; background:var(--bg2); }
+.footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-copy { font-size:12px; color:var(--text2); font-family:'Space Mono',monospace; }
+.footer-slogan { font-size:12px; color:var(--text2); font-style:italic; }
+
+.reveal { opacity:0; transform:translateY(20px); transition:all 0.6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:768px) {
+  .header-inner{padding:0 16px;}
+  nav a:not(.nav-cta){display:none;}
+  section{padding:40px 16px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .cycle-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){
+  .cycle-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo"><img src="logo_full.png" alt="공간이음 로고" class="logo-img"></a>
+    <nav>
+      <a href="/#services">사업영역</a>
+      <a href="/ai-trading.html" class="active">AI 트레이딩</a>
+      <a href="/#vision">비전</a>
+      <a href="/#contact" class="nav-cta">연락하기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="hero-badge"><span class="badge-dot"></span>60일 신고가 매매 · 4H</div>
+  <h1><span>60일 신고가 매매</span><br>4시간봉</h1>
+  <p>4시간봉 60봉 기준 신고가 + 9개 조건 스코어링<br>단기 사이클 포착에 특화된 독립 페이퍼트레이딩 시스템</p>
+  <a href="ai-trading.html" class="back-btn">← 대시보드로 돌아가기</a>
+</div>
+
+<section style="padding-top:0;">
+  <div class="section-inner">
+
+    <div class="tf-badge">⏱ 타임프레임: 4시간봉 (4H) · 60봉 기준 지표</div>
+
+    <span class="section-label">PERFORMANCE</span>
+    <h2 class="section-title">성과 요약</h2>
+    <p class="section-desc" id="sp4h-updated-text">데이터 로딩 중...</p>
+
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <span class="stat-num blue" id="stat-total">-</span>
+        <span class="stat-label">총 거래 횟수</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num pos" id="stat-wins">-</span>
+        <span class="stat-label">수익 거래</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num neg" id="stat-losses">-</span>
+        <span class="stat-label">손실 거래</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num pos" id="stat-winrate">-</span>
+        <span class="stat-label">승률</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" id="stat-avgpnl">-</span>
+        <span class="stat-label">평균 수익률</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num blue" id="stat-open">-</span>
+        <span class="stat-label">오픈 포지션</span>
+      </div>
+    </div>
+
+    <!-- 주기 설명 -->
+    <span class="section-label">CYCLE GUIDE</span>
+    <h2 class="section-title">60MA 8등분 주기 (4H 기준)</h2>
+    <p class="section-desc">4시간봉 60개 이동평균선을 8구간으로 나눠 매수·매도 타점을 구분합니다</p>
+
+    <div class="cycle-grid reveal">
+      <div class="cycle-card c12">
+        <div class="cycle-num">1번</div>
+        <div class="cycle-zone">🚀 상승 전환</div>
+        <div class="cycle-desc">종이격 음→양 전환. 4H MA60이 하락에서 상승으로 방향을 바꾸는 시점</div>
+        <span class="cycle-action">적극 매수</span>
+      </div>
+      <div class="cycle-card c12">
+        <div class="cycle-num">2번</div>
+        <div class="cycle-zone">📈 상승 가속</div>
+        <div class="cycle-desc">종이격 양수 + 계속 증가 중. 4H MA60 상승 속도가 빨라지는 구간</div>
+        <span class="cycle-action">매수 유지</span>
+      </div>
+      <div class="cycle-card c34">
+        <div class="cycle-num">3번</div>
+        <div class="cycle-zone">⚡ 45도 피크</div>
+        <div class="cycle-desc">종이격 최고점 도달. 4H MA60 상승 속도가 가장 빠른 시점. 종이격 3봉 연속 감소 시 매도</div>
+        <span class="cycle-action">익절 준비</span>
+      </div>
+      <div class="cycle-card c34">
+        <div class="cycle-num">4번</div>
+        <div class="cycle-zone">⚠️ 상승 둔화</div>
+        <div class="cycle-desc">종이격 양수지만 계속 감소 중. 상승 에너지 소진. 종이격 3봉 연속 감소 시 매도</div>
+        <span class="cycle-action">익절</span>
+      </div>
+      <div class="cycle-card c56">
+        <div class="cycle-num">5번</div>
+        <div class="cycle-zone">🔻 하락 전환</div>
+        <div class="cycle-desc">종이격 양→음 전환. 4H MA60이 상승에서 하락으로 방향을 바꾸는 시점. 종이격 3봉 연속 감소 시 매도</div>
+        <span class="cycle-action">매도</span>
+      </div>
+      <div class="cycle-card c56">
+        <div class="cycle-num">6번</div>
+        <div class="cycle-zone">📉 하락 가속</div>
+        <div class="cycle-desc">종이격 음수 + 계속 감소. 4H MA60 하락 속도가 빨라지는 구간</div>
+        <span class="cycle-action">관망</span>
+      </div>
+      <div class="cycle-card c78">
+        <div class="cycle-num">7번</div>
+        <div class="cycle-zone">🔄 하락 피크</div>
+        <div class="cycle-desc">종이격 음수 최저점 도달. 4H MA60 하락 속도가 가장 빠른 시점. 바닥 신호</div>
+        <span class="cycle-action">매수 준비</span>
+      </div>
+      <div class="cycle-card c78">
+        <div class="cycle-num">8번</div>
+        <div class="cycle-zone">🌱 바닥권</div>
+        <div class="cycle-desc">종이격 음수지만 증가 중. 4H MA60 하락 속도 둔화. 분할 매수 시작 구간</div>
+        <span class="cycle-action">분할 매수</span>
+      </div>
+    </div>
+
+    <!-- 오픈 포지션 -->
+    <span class="section-label">OPEN POSITIONS</span>
+    <h2 class="section-title">현재 보유 포지션</h2>
+    <div class="table-wrap reveal">
+      <div class="table-title" id="open-count">보유 포지션 — 개</div>
+      <table>
+        <thead><tr>
+          <th>종목</th><th>진입 주기</th><th>진입가</th><th>진입일</th><th>스코어</th><th>현재 수익</th>
+        </tr></thead>
+        <tbody id="open-tbody"><tr><td colspan="6" class="empty">로딩 중...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- 거래 내역 -->
+    <span class="section-label">TRADE HISTORY</span>
+    <h2 class="section-title">완료 거래 내역</h2>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr>
+          <th>종목</th><th>진입일</th><th>청산일</th><th>청산 사유</th><th>수익률</th>
+        </tr></thead>
+        <tbody id="closed-tbody"><tr><td colspan="5" class="empty">로딩 중...</td></tr></tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2025 SpaceEum. AI-powered trading research.</span>
+    <span class="footer-slogan">페이퍼 트레이딩 — 실제 투자 아님</span>
+  </div>
+</footer>
+
+<script>
+async function loadData() {
+  try {
+    const res = await fetch('data/performance_4h.json');
+    if (!res.ok) return;
+    const d = await res.json();
+
+    document.getElementById('sp4h-updated-text').textContent = '마지막 업데이트: ' + (d.last_updated || '-');
+    document.getElementById('stat-total').textContent = d.total_trades ?? '-';
+    document.getElementById('stat-wins').textContent = d.wins ?? '-';
+    document.getElementById('stat-losses').textContent = d.losses ?? '-';
+
+    const wr = d.win_rate;
+    const wrEl = document.getElementById('stat-winrate');
+    wrEl.textContent = wr != null ? wr.toFixed(1) + '%' : '-';
+    wrEl.className = 'stat-num ' + (wr >= 50 ? 'pos' : 'neg');
+
+    const pnl = d.avg_pnl_pct;
+    const pnlEl = document.getElementById('stat-avgpnl');
+    pnlEl.textContent = pnl != null ? (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%' : '-';
+    pnlEl.className = 'stat-num ' + (pnl >= 0 ? 'pos' : 'neg');
+
+    document.getElementById('stat-open').textContent = d.open_positions ?? '-';
+
+    // 오픈 포지션
+    const opens = d.open_position_list || [];
+    document.getElementById('open-count').textContent = `보유 포지션 — ${opens.length}개`;
+    const openTbody = document.getElementById('open-tbody');
+    if (opens.length === 0) {
+      openTbody.innerHTML = '<tr><td colspan="6" class="empty">현재 오픈 포지션 없음</td></tr>';
+    } else {
+      openTbody.innerHTML = opens.map(p => {
+        const pnl = p.current_pnl_pct || 0;
+        const cycleClass = ['1번','2번'].includes(p.entry_cycle) ? 'cb-12' : ['3번','4번'].includes(p.entry_cycle) ? 'cb-34' : '';
+        return `<tr>
+          <td><strong style="font-family:'Orbitron',monospace;font-size:12px">${p.symbol}</strong></td>
+          <td><span class="cycle-badge ${cycleClass}">${p.entry_cycle || '-'}</span></td>
+          <td style="font-family:'Space Mono',monospace">${p.entry_price?.toLocaleString() ?? '-'}</td>
+          <td style="color:var(--text2);font-size:12px">${p.entry_date || '-'}</td>
+          <td style="font-family:'Space Mono',monospace;color:var(--accent)">${p.entry_score ?? '-'}</td>
+          <td class="${pnl >= 0 ? 'pos' : (pnl < 0 ? 'neg' : '')}" style="font-family:'Space Mono',monospace">
+            ${pnl === 0 ? '-' : (pnl > 0 ? '+' : '') + pnl.toFixed(2) + '%'}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    // 완료 거래 내역
+    const closedTbody = document.getElementById('closed-tbody');
+    const trades = [];
+    if (d.best_trade) trades.push({ ...d.best_trade, is_best: true });
+    if (d.worst_trade && d.worst_trade.symbol !== d.best_trade?.symbol) trades.push(d.worst_trade);
+
+    if (d.closed_trades === 0 || trades.length === 0) {
+      closedTbody.innerHTML = '<tr><td colspan="5" class="empty">완료된 거래 없음</td></tr>';
+    } else {
+      closedTbody.innerHTML = trades.map(t => {
+        const pnl = t.pnl_pct || 0;
+        return `<tr>
+          <td><strong style="font-family:'Orbitron',monospace;font-size:12px">${t.symbol}</strong></td>
+          <td style="color:var(--text2);font-size:12px">${t.entry_date || '-'}</td>
+          <td style="color:var(--text2);font-size:12px">${t.exit_date || '-'}</td>
+          <td style="font-size:12px;color:var(--text2)">${t.exit_reason || '-'}</td>
+          <td class="${pnl >= 0 ? 'pos' : 'neg'}" style="font-family:'Space Mono',monospace">
+            ${(pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%'}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+  } catch(e) {
+    console.error('데이터 로드 오류:', e);
+  }
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+loadData();
+</script>
+</body>
+</html>

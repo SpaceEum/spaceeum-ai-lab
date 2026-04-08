@@ -31,6 +31,8 @@ SELL_SCORE_THRESHOLD = 5
 OUTPUT_PATH = "data/scan_latest.json"
 TRADES_PATH = "data/paper_trades.json"
 PERF_PATH = "data/performance.json"
+TRADES_4H_PATH = "data/paper_trades_4h.json"
+PERF_4H_PATH = "data/performance_4h.json"
 
 INITIAL_CAPITAL = 10_000_000
 TRADE_UNIT = 2_000_000
@@ -361,6 +363,7 @@ def analyze_ticker(ticker):
                 'macd_signal': result_4h['macd_signal'] if result_4h else None,
                 'obv_signal': result_4h['obv_signal'] if result_4h else None,
                 'satisfied_conditions': result_4h['satisfied_conditions'] if result_4h else [],
+                'jongi_gaps': result_4h['jongi_gaps'] if result_4h else [],
             },
             # 멀티 타임프레임
             'dual_strong': dual_strong,
@@ -390,7 +393,7 @@ def save_trades(data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def update_performance(trades_data):
+def update_performance(trades_data, perf_path=None):
     trades = trades_data['trades']
     closed = [t for t in trades if t['status'] == 'CLOSED']
     open_pos = [t for t in trades if t['status'] == 'OPEN']
@@ -436,7 +439,8 @@ def update_performance(trades_data):
     }
 
     os.makedirs('data', exist_ok=True)
-    with open(PERF_PATH, 'w', encoding='utf-8') as f:
+    save_path = perf_path if perf_path else PERF_PATH
+    with open(save_path, 'w', encoding='utf-8') as f:
         json.dump(perf, f, indent=2, ensure_ascii=False)
     return perf
 
@@ -547,6 +551,139 @@ def run_paper_trading(scan_results, today):
     return update_performance(trades_data)
 
 
+# ── STEP 6-B: 4H 전용 페이퍼 트레이딩 ───────────────
+
+def load_trades_4h():
+    if os.path.exists(TRADES_4H_PATH):
+        with open(TRADES_4H_PATH, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {
+        "initial_capital": INITIAL_CAPITAL,
+        "trade_unit": TRADE_UNIT,
+        "max_positions": MAX_POSITIONS,
+        "trades": []
+    }
+
+
+def save_trades_4h(data):
+    os.makedirs('data', exist_ok=True)
+    with open(TRADES_4H_PATH, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def run_paper_trading_4h(scan_results, today):
+    """4H 봉 기준 독립 페이퍼 트레이딩 (60봉 = 60개 4H 캔들)"""
+    log("=== 4H 페이퍼 트레이딩 업데이트 시작 ===")
+    trades_data = load_trades_4h()
+    trades = trades_data['trades']
+
+    # 4H 신호 맵 구성: symbol → 4H 결과
+    scan_map_4h = {}
+    for r in scan_results:
+        tf4h = r.get('tf_4h', {})
+        if tf4h and tf4h.get('signal'):
+            scan_map_4h[r['symbol']] = {
+                'symbol': r['symbol'],
+                'current_price': r['current_price'],
+                'signal': tf4h['signal'],
+                'score': tf4h['score'],
+                'cycle_zone': tf4h['cycle_zone'],
+                'jongi_gaps': tf4h.get('jongi_gaps', []),
+            }
+
+    # ── 오픈 포지션 청산 조건 체크 ────────────────
+    closed_count = 0
+    for trade in trades:
+        if trade['status'] != 'OPEN':
+            continue
+        symbol = trade['symbol']
+        entry_price = trade['entry_price']
+        try:
+            current_price = pyupbit.get_current_price(symbol)
+            time.sleep(0.1)
+        except Exception:
+            continue
+        if not current_price:
+            continue
+
+        pnl_pct = (current_price - entry_price) / entry_price * 100
+        trade['current_pnl_pct'] = round(pnl_pct, 2)
+
+        today_result = scan_map_4h.get(symbol)
+        exit_reason = None
+
+        if pnl_pct <= STOP_LOSS_PCT:
+            exit_reason = f"손절 ({pnl_pct:.1f}%)"
+        elif pnl_pct >= TAKE_PROFIT_PCT:
+            exit_reason = f"익절 ({pnl_pct:.1f}%)"
+        elif today_result and today_result['cycle_zone'] in ['3번', '4번', '5번']:
+            jongi_gaps = today_result.get('jongi_gaps', [])
+            if is_jongi_decreasing_3days(jongi_gaps):
+                exit_reason = f"매도신호 ({today_result['cycle_zone']} + 종이격 3일 연속 감소)"
+        elif today_result and today_result['cycle_zone'] == '5번':
+            exit_reason = "하락전환 (5번 구간 진입)"
+        elif today_result is None or today_result['score'] < SELL_SCORE_THRESHOLD:
+            score_now = today_result['score'] if today_result else 0
+            exit_reason = f"매도신호 (점수 하락: {score_now}점)"
+
+        if exit_reason:
+            trade['status'] = 'CLOSED'
+            trade['exit_date'] = today
+            trade['exit_price'] = current_price
+            trade['exit_reason'] = exit_reason
+            trade['exit_cycle'] = today_result['cycle_zone'] if today_result else '알수없음'
+            trade['pnl_pct'] = round(pnl_pct, 2)
+            trade['pnl_krw'] = round(TRADE_UNIT * pnl_pct / 100)
+            log(f"  ✅ [4H] 청산: {symbol} | {exit_reason} | PnL: {pnl_pct:+.2f}%")
+            closed_count += 1
+
+    # ── 신규 매수: 4H STRONG BUY + 1~2번 자리 ─────
+    open_positions = [t for t in trades if t['status'] == 'OPEN']
+    open_symbols = {t['symbol'] for t in open_positions}
+    new_entries = 0
+
+    if len(open_positions) < MAX_POSITIONS:
+        candidates = [
+            r for r in scan_map_4h.values()
+            if r['signal'] == 'STRONG BUY'
+            and r['cycle_zone'] in ['1번', '2번']
+            and r['symbol'] not in open_symbols
+        ]
+        candidates.sort(key=lambda x: x['score'], reverse=True)
+
+        for c in candidates:
+            if len(open_positions) >= MAX_POSITIONS:
+                break
+            trade_id = f"4H_{today}_{c['symbol']}"
+            if any(t['id'] == trade_id for t in trades):
+                continue
+
+            entry_reason = f"4H STRONG BUY({c['score']}/9) + {c['cycle_zone']}"
+            new_trade = {
+                "id": trade_id,
+                "symbol": c['symbol'],
+                "status": "OPEN",
+                "entry_date": today,
+                "entry_price": c['current_price'],
+                "entry_score": c['score'],
+                "entry_cycle": c['cycle_zone'],
+                "entry_reason": entry_reason,
+                "exit_date": None, "exit_price": None,
+                "exit_reason": None, "exit_cycle": None,
+                "pnl_pct": None, "pnl_krw": None, "current_pnl_pct": 0.0,
+            }
+            trades.append(new_trade)
+            open_positions.append(new_trade)
+            open_symbols.add(c['symbol'])
+            new_entries += 1
+            log(f"  🟢 [4H] 매수: {c['symbol']} | 4H {c['score']}/9 | {c['cycle_zone']} | {c['current_price']:,.0f}원")
+
+    log(f"4H 페이퍼 트레이딩: 청산 {closed_count}건 | 신규 매수 {new_entries}건 | 오픈 {len([t for t in trades if t['status']=='OPEN'])}건")
+    trades_data['trades'] = trades
+    save_trades_4h(trades_data)
+    return update_performance(trades_data, perf_path=PERF_4H_PATH)
+
+
 # ── STEP 7: 전체 스캔 실행 ────────────────────────
 def run_scan():
     today = datetime.now(KST).strftime("%Y-%m-%d")
@@ -587,6 +724,7 @@ def run_scan():
     os.makedirs('data', exist_ok=True)
     all_scan = strong_buy + buy_signals + watch_signals
     perf = run_paper_trading(all_scan, today)
+    perf_4h = run_paper_trading_4h(all_scan, today)
 
     result_data = {
         'date': today,
@@ -609,6 +747,13 @@ def run_scan():
             'win_rate': perf['win_rate'],
             'avg_pnl_pct': perf['avg_pnl_pct'],
             'open_list': perf.get('open_position_list', []),
+        },
+        'paper_trading_4h': {
+            'open_positions': perf_4h['open_positions'],
+            'total_trades': perf_4h['total_trades'],
+            'win_rate': perf_4h['win_rate'],
+            'avg_pnl_pct': perf_4h['avg_pnl_pct'],
+            'open_list': perf_4h.get('open_position_list', []),
         },
     }
 

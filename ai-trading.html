@@ -59,7 +59,8 @@ section { position:relative; z-index:1; padding:60px 32px 80px; }
 .summary-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
 
 /* 매매법 카드 그리드 */
-.strategy-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
+.strategy-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+@media(max-width:1024px){ .strategy-grid{ grid-template-columns:repeat(2,1fr); } }
 
 .strategy-card {
   background:var(--bg2);
@@ -131,6 +132,21 @@ section { position:relative; z-index:1; padding:60px 32px 80px; }
 .strategy-card.shin:hover .card-detail-btn {
   background:rgba(0,255,136,0.12);
 }
+.strategy-card.sp4h:hover {
+  border-color:rgba(167,139,250,0.4);
+  box-shadow:0 16px 48px rgba(167,139,250,0.08);
+}
+.strategy-card.sp4h::before {
+  background:radial-gradient(circle at top left, rgba(167,139,250,0.04), transparent 60%);
+}
+.tag-sp4h { background:rgba(167,139,250,0.1); color:#a78bfa; border:1px solid rgba(167,139,250,0.3); }
+.strategy-card.sp4h .card-detail-btn {
+  border-color:rgba(167,139,250,0.4); color:#a78bfa;
+  background:rgba(167,139,250,0.05);
+}
+.strategy-card.sp4h:hover .card-detail-btn {
+  background:rgba(167,139,250,0.12);
+}
 .card-updated { font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); }
 
 /* 전략 미니 배지 (신창환 카드) */
@@ -153,6 +169,9 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   .summary-bar{grid-template-columns:repeat(3,1fr);}
   .strategy-grid{grid-template-columns:1fr;}
   .card-stats{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:1024px) and (min-width:769px){
+  .strategy-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:480px) {
   .summary-bar{grid-template-columns:1fr;}
@@ -181,7 +200,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     AI TRADING DASHBOARD · LIVE
   </div>
   <h1>페이퍼 <span>트레이딩</span> 대시보드</h1>
-  <p>AI가 실시간으로 운영하는 매매 전략 현황을 확인하세요.<br>2개의 독립 매매 시스템이 24시간 작동 중입니다.</p>
+  <p>AI가 실시간으로 운영하는 매매 전략 현황을 확인하세요.<br>3개의 독립 매매 시스템이 24시간 작동 중입니다.</p>
 </div>
 
 <section style="padding-top:0;">
@@ -190,7 +209,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <!-- 상단 요약 -->
     <div class="summary-bar reveal" id="summary-bar">
       <div class="summary-item">
-        <span class="summary-num" id="total-systems">2</span>
+        <span class="summary-num" id="total-systems">3</span>
         <span class="summary-label">운영 중 매매 시스템</span>
       </div>
       <div class="summary-item">
@@ -203,7 +222,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       </div>
     </div>
 
-    <!-- 매매법 카드 2개 -->
+    <!-- 매매법 카드 3개 -->
     <div class="strategy-grid">
 
       <!-- 카드 1: 공간이음 매매법 -->
@@ -234,7 +253,35 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         </div>
       </a>
 
-      <!-- 카드 2: 신창환 60MA -->
+      <!-- 카드 2: 60일 신고가 매매 (4H) -->
+      <a href="trading_detail_spaceeum_4h.html" class="strategy-card sp4h reveal">
+        <div class="card-header">
+          <span class="card-tag tag-sp4h">SPACEEUM 4H</span>
+          <span class="card-status"><span class="status-dot" style="background:#a78bfa;"></span>LIVE</span>
+        </div>
+        <div class="card-title">60일 신고가<br>매매 (4H)</div>
+        <div class="card-desc">4시간봉 60봉 기준 신고가 + 9개 조건 스코어링<br>단기 사이클 포착에 특화된 독립 시스템</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp4h-winrate">-</span>
+            <span class="card-stat-label">승률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp4h-pnl">-</span>
+            <span class="card-stat-label">평균수익</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num blue" id="sp4h-positions">-</span>
+            <span class="card-stat-label">보유포지션</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-detail-btn">상세 보기 →</span>
+          <span class="card-updated" id="sp4h-updated">-</span>
+        </div>
+      </a>
+
+      <!-- 카드 3: 신창환 60MA -->
       <a href="trading_detail_shin60ma.html" class="strategy-card shin reveal">
         <div class="card-header">
           <span class="card-tag tag-shin">SHIN 60MA</span>
@@ -297,6 +344,20 @@ async function loadDashboard() {
       document.getElementById('sp-updated').textContent = upd ? upd.slice(0, 10) : '-';
     }
 
+    // 60일 신고가 매매 4H 데이터
+    const sp4hRes = await fetch('data/performance_4h.json');
+    if (sp4hRes.ok) {
+      const sp4h = await sp4hRes.json();
+      document.getElementById('sp4h-winrate').textContent = sp4h.win_rate != null ? sp4h.win_rate.toFixed(1) + '%' : '-';
+      const pnl4h = sp4h.avg_pnl_pct;
+      const pnl4hEl = document.getElementById('sp4h-pnl');
+      pnl4hEl.textContent = pnl4h != null ? (pnl4h >= 0 ? '+' : '') + pnl4h.toFixed(2) + '%' : '-';
+      pnl4hEl.className = 'card-stat-num ' + (pnl4h >= 0 ? 'pos' : 'neg');
+      document.getElementById('sp4h-positions').textContent = sp4h.open_positions ?? '-';
+      const upd4h = sp4h.last_updated || '';
+      document.getElementById('sp4h-updated').textContent = upd4h ? upd4h.slice(0, 10) : '-';
+    }
+
     // 신창환 60MA 데이터
     const shinRes = await fetch('data/shin_performance.json');
     if (shinRes.ok) {
@@ -318,8 +379,9 @@ async function loadDashboard() {
 
       // 상단 총 포지션
       const spPositions = parseInt(document.getElementById('sp-positions').textContent) || 0;
+      const sp4hPositions = parseInt(document.getElementById('sp4h-positions').textContent) || 0;
       const shinPositions = summary.open_positions || 0;
-      document.getElementById('total-positions').textContent = spPositions + shinPositions;
+      document.getElementById('total-positions').textContent = spPositions + sp4hPositions + shinPositions;
       document.getElementById('last-updated').textContent = upd ? upd.slice(0, 10) : '-';
     }
   } catch(e) {
