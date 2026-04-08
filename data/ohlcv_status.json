@@ -1,0 +1,10 @@
+{
+  "last_updated": "-",
+  "status": "pending",
+  "tickers": 0,
+  "timeframes": ["15min", "1H", "4H", "1D", "1W", "1M"],
+  "total_files": 0,
+  "delisted_removed": [],
+  "errors": [],
+  "duration_sec": 0
+}

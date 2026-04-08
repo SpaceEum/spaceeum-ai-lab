@@ -153,6 +153,33 @@ section { position:relative; z-index:1; padding:60px 32px 80px; }
 .strategy-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; }
 .strat-tag { padding:3px 10px; border-radius:4px; font-family:'Space Mono',monospace; font-size:10px; background:rgba(0,255,136,0.08); color:var(--accent2); border:1px solid rgba(0,255,136,0.2); }
 
+/* OHLCV 상태 섹션 */
+.ohlcv-section { margin-top: 60px; }
+.ohlcv-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.ohlcv-title { font-family:'Orbitron',monospace; font-size:14px; font-weight:700; color:var(--text); letter-spacing:2px; }
+.ohlcv-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+.ohlcv-card.status-success { border-color:rgba(0,255,136,0.25); }
+.ohlcv-card.status-partial  { border-color:rgba(255,184,0,0.25); }
+.ohlcv-card.status-failed   { border-color:rgba(255,77,109,0.25); }
+.ohlcv-card.status-pending  { border-color:var(--border); }
+.ohlcv-info { display:flex; align-items:center; gap:16px; }
+.ohlcv-dot { width:8px; height:8px; border-radius:50%; background:var(--text2); flex-shrink:0; }
+.ohlcv-dot.success { background:var(--accent2); animation:pulse 2s infinite; }
+.ohlcv-dot.partial  { background:var(--yellow); animation:pulse 2s infinite; }
+.ohlcv-dot.failed   { background:var(--red); }
+.ohlcv-status-text { font-family:'Space Mono',monospace; font-size:12px; color:var(--accent2); font-weight:700; }
+.ohlcv-status-text.partial { color:var(--yellow); }
+.ohlcv-status-text.failed  { color:var(--red); }
+.ohlcv-status-text.pending { color:var(--text2); }
+.ohlcv-meta { font-size:12px; color:var(--text2); }
+.ohlcv-meta span { color:var(--text); font-weight:500; }
+.ohlcv-stats { display:flex; gap:28px; flex-wrap:wrap; }
+.ohlcv-stat { text-align:center; }
+.ohlcv-stat-num { font-family:'Orbitron',monospace; font-size:18px; font-weight:700; color:var(--accent); display:block; }
+.ohlcv-stat-label { font-size:10px; color:var(--text2); letter-spacing:1px; text-transform:uppercase; margin-top:2px; display:block; }
+.ohlcv-tfs { display:flex; gap:6px; flex-wrap:wrap; }
+.ohlcv-tf { padding:3px 10px; border-radius:4px; font-family:'Space Mono',monospace; font-size:10px; background:rgba(0,212,255,0.08); color:var(--accent); border:1px solid rgba(0,212,255,0.2); }
+
 footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px; background:var(--bg2); }
 .footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
 .footer-copy { font-size:12px; color:var(--text2); font-family:'Space Mono',monospace; }
@@ -317,6 +344,39 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       </a>
 
     </div>
+
+    <!-- OHLCV 데이터 현황 -->
+    <div class="ohlcv-section reveal" id="ohlcv-section">
+      <div class="ohlcv-header">
+        <span class="ohlcv-title">OHLCV DATA</span>
+        <span style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;">업비트 KRW 거래량 상위 200 · 6개 타임프레임</span>
+      </div>
+      <div class="ohlcv-card" id="ohlcv-card">
+        <div class="ohlcv-info">
+          <span class="ohlcv-dot" id="ohlcv-dot"></span>
+          <div>
+            <div class="ohlcv-status-text" id="ohlcv-status-text">로딩 중...</div>
+            <div class="ohlcv-meta">마지막 업데이트: <span id="ohlcv-last-updated">-</span></div>
+          </div>
+        </div>
+        <div class="ohlcv-stats">
+          <div class="ohlcv-stat">
+            <span class="ohlcv-stat-num" id="ohlcv-tickers">-</span>
+            <span class="ohlcv-stat-label">수집 티커</span>
+          </div>
+          <div class="ohlcv-stat">
+            <span class="ohlcv-stat-num" id="ohlcv-files">-</span>
+            <span class="ohlcv-stat-label">총 파일</span>
+          </div>
+          <div class="ohlcv-stat">
+            <span class="ohlcv-stat-num" id="ohlcv-errors">-</span>
+            <span class="ohlcv-stat-label">오류</span>
+          </div>
+        </div>
+        <div class="ohlcv-tfs" id="ohlcv-tfs"></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -328,6 +388,49 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 </footer>
 
 <script>
+async function loadOhlcvStatus() {
+  try {
+    const res = await fetch('data/ohlcv_status.json');
+    if (!res.ok) return;
+    const d = await res.json();
+
+    const card = document.getElementById('ohlcv-card');
+    const dot  = document.getElementById('ohlcv-dot');
+    const statusText = document.getElementById('ohlcv-status-text');
+
+    const statusMap = {
+      success: { label: 'LIVE · 정상',  cls: 'success' },
+      partial: { label: 'PARTIAL · 일부 오류', cls: 'partial' },
+      failed:  { label: 'ERROR · 실패', cls: 'failed' },
+      pending: { label: 'PENDING · 대기', cls: 'pending' },
+    };
+    const s = statusMap[d.status] || statusMap.pending;
+
+    card.className = `ohlcv-card status-${d.status}`;
+    dot.className  = `ohlcv-dot ${s.cls}`;
+    statusText.className = `ohlcv-status-text ${s.cls}`;
+    statusText.textContent = s.label;
+
+    document.getElementById('ohlcv-last-updated').textContent = d.last_updated || '-';
+    document.getElementById('ohlcv-tickers').textContent = d.tickers || '-';
+    document.getElementById('ohlcv-files').textContent   = d.total_files || '-';
+
+    const errEl = document.getElementById('ohlcv-errors');
+    errEl.textContent = d.errors ? d.errors.length : '-';
+    if (d.errors && d.errors.length > 0) errEl.style.color = 'var(--red)';
+
+    const tfsEl = document.getElementById('ohlcv-tfs');
+    (d.timeframes || []).forEach(tf => {
+      const span = document.createElement('span');
+      span.className = 'ohlcv-tf';
+      span.textContent = tf;
+      tfsEl.appendChild(span);
+    });
+  } catch(e) {
+    console.error('OHLCV 상태 로드 오류:', e);
+  }
+}
+
 async function loadDashboard() {
   try {
     // 공간이음 매매법 데이터
@@ -399,6 +502,7 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 loadDashboard();
+loadOhlcvStatus();
 </script>
 </body>
 </html>
