@@ -118,20 +118,13 @@ class PaperTrader:
             should_close = False
             exit_reason = ""
 
-            if direction == "LONG":
-                if current_price <= sl:
-                    should_close = True
-                    exit_reason = f"손절 (현재가 {current_price:.4f} ≤ SL {sl:.4f})"
-                elif current_price >= tp:
-                    should_close = True
-                    exit_reason = f"익절 (현재가 {current_price:.4f} ≥ TP {tp:.4f})"
-            else:  # SHORT
-                if current_price >= sl:
-                    should_close = True
-                    exit_reason = f"손절 (현재가 {current_price:.4f} ≥ SL {sl:.4f})"
-                elif current_price <= tp:
-                    should_close = True
-                    exit_reason = f"익절 (현재가 {current_price:.4f} ≤ TP {tp:.4f})"
+            # 현물 매수만 — 손절/익절 모두 현재가 기준 하락/상승
+            if current_price <= sl:
+                should_close = True
+                exit_reason = f"손절 (현재가 {current_price:.4f} ≤ SL {sl:.4f})"
+            elif tp and current_price >= tp:
+                should_close = True
+                exit_reason = f"익절 (현재가 {current_price:.4f} ≥ TP {tp:.4f})"
 
             if should_close:
                 result = close_trade(trade["id"], current_price, exit_reason)
@@ -190,13 +183,13 @@ class PaperTrader:
                         current_price, result["reason"], result["indicators"]
                     )
 
-                # 매매 진입
-                if result["signal"] in ("LONG", "SHORT"):
+                # 매수 진입
+                if result["signal"] == "BUY":
                     size_usdt = PAPER_BALANCE * POSITION_SIZE_PCT
                     trade_id = open_trade(
                         strategy=strategy.name,
                         symbol=symbol,
-                        direction=result["signal"],
+                        direction="BUY",
                         entry_price=result["entry"],
                         stop_loss=result["stop_loss"],
                         take_profit=result["take_profit"],
@@ -206,11 +199,18 @@ class PaperTrader:
                         indicators=result["indicators"]
                     )
 
-                    direction_emoji = "🟢" if result["signal"] == "LONG" else "🔴"
-                    print(f"  {direction_emoji} [{strategy.name}] {symbol} "
-                          f"{result['signal']} 진입 @ {result['entry']:.4f} "
+                    print(f"  🟢 [{strategy.name}] {symbol} "
+                          f"매수 @ {result['entry']:.4f} "
                           f"| SL:{result['stop_loss']:.4f} TP:{result['take_profit']:.4f}")
                     print(f"     이유: {result['reason']}")
+
+                # SELL 신호 = 보유 포지션 청산
+                elif result["signal"] == "SELL":
+                    key = f"{strategy.name}_{symbol}"
+                    matching = [t for t in open_trades if f"{t['strategy']}_{t['symbol']}" == key]
+                    for t in matching:
+                        close_trade(t["id"], current_price, result["reason"])
+                        print(f"  🔴 [{strategy.name}] {symbol} 매도 청산 @ {current_price:.4f} | {result['reason']}")
 
                     strategy_open[strategy.name] = strategy_open.get(strategy.name, 0) + 1
                     symbol_open.add(key)

@@ -65,7 +65,7 @@ def calc_volume_ma(volumes: list, period: int = 20) -> list:
 # ──────────────────────────────────────────────────────────
 
 class BaseStrategy:
-    """모든 전략의 기본 클래스"""
+    """모든 전략의 기본 클래스 (업비트 현물 기준 — 매수/매도만)"""
 
     name = "BaseStrategy"
     description = "기본 전략"
@@ -81,7 +81,7 @@ class BaseStrategy:
         candles: [{"time", "open", "high", "low", "close", "volume"}, ...]
 
         반환값:
-          {"signal": "LONG"|"SHORT"|"NONE",
+          {"signal": "BUY"|"SELL"|"NONE",
            "reason": str,
            "entry": float,
            "stop_loss": float,
@@ -100,20 +100,23 @@ class BaseStrategy:
             "indicators": indicators or {}
         }
 
-    def _signal(self, direction: str, entry: float, reason: str, indicators: dict = None) -> dict:
-        if direction == "LONG":
-            sl = round(entry * (1 - self.STOP_LOSS_PCT), 6)
-            tp = round(entry * (1 + self.TAKE_PROFIT_PCT), 6)
-        else:  # SHORT
-            sl = round(entry * (1 + self.STOP_LOSS_PCT), 6)
-            tp = round(entry * (1 - self.TAKE_PROFIT_PCT), 6)
-
+    def _buy_signal(self, entry: float, reason: str, indicators: dict = None) -> dict:
         return {
-            "signal": direction,
+            "signal": "BUY",
             "reason": reason,
             "entry": entry,
-            "stop_loss": sl,
-            "take_profit": tp,
+            "stop_loss": round(entry * (1 - self.STOP_LOSS_PCT), 6),
+            "take_profit": round(entry * (1 + self.TAKE_PROFIT_PCT), 6),
+            "indicators": indicators or {}
+        }
+
+    def _sell_signal(self, entry: float, reason: str, indicators: dict = None) -> dict:
+        return {
+            "signal": "SELL",
+            "reason": reason,
+            "entry": entry,
+            "stop_loss": None,
+            "take_profit": None,
             "indicators": indicators or {}
         }
 
@@ -124,20 +127,14 @@ class BaseStrategy:
 
 class Shin60MABasic(BaseStrategy):
     """
-    신창환 60이평선 기본 돌파 전략
+    신창환 60이평선 기본 돌파 전략 (업비트 현물)
 
-    원리:
-    - 청송촌놈 신창환의 핵심 원칙: 60이평선이 지지/저항
-    - 캔들이 60MA 위로 돌파(종가) = 매수 신호
-    - 캔들이 60MA 아래로 이탈(종가) = 매도/공매도 신호
-
-    진입 조건:
-    - LONG : 직전 캔들 종가 < 60MA  AND  현재 캔들 종가 > 60MA (상향 돌파)
-    - SHORT: 직전 캔들 종가 > 60MA  AND  현재 캔들 종가 < 60MA (하향 이탈)
+    매수: 직전 종가 < 60MA → 현재 종가 > 60MA (상향 돌파)
+    매도: 직전 종가 > 60MA → 현재 종가 < 60MA (60MA 이탈 청산)
     """
 
     name = "Shin_60MA_Basic"
-    description = "60MA 기본 돌파 전략 - 캔들이 60이평선 위/아래 돌파 시 진입"
+    description = "60MA 기본 돌파 전략 - 60이평선 상향 돌파 시 매수, 이탈 시 매도"
     STOP_LOSS_PCT = 0.02
     TAKE_PROFIT_PCT = 0.04
 
@@ -148,11 +145,8 @@ class Shin60MABasic(BaseStrategy):
         closes = [c["close"] for c in candles]
         ma60 = calc_ma(closes, 60)
 
-        cur = candles[-1]
-        prev = candles[-2]
-
-        cur_close = cur["close"]
-        prev_close = prev["close"]
+        cur_close = candles[-1]["close"]
+        prev_close = candles[-2]["close"]
         cur_ma60 = ma60[-1]
         prev_ma60 = ma60[-2]
 
@@ -165,19 +159,19 @@ class Shin60MABasic(BaseStrategy):
             "직전종가": round(prev_close, 6)
         }
 
-        # 롱 진입: 60MA 상향 돌파
+        # 매수: 60MA 상향 돌파
         if prev_close < prev_ma60 and cur_close > cur_ma60:
-            return self._signal(
-                "LONG", cur_close,
+            return self._buy_signal(
+                cur_close,
                 f"60MA 상향 돌파 (종가 {cur_close:.4f} > MA60 {cur_ma60:.4f})",
                 indicators
             )
 
-        # 숏 진입: 60MA 하향 이탈
+        # 매도: 60MA 아래로 이탈 (보유 중 청산 신호)
         if prev_close > prev_ma60 and cur_close < cur_ma60:
-            return self._signal(
-                "SHORT", cur_close,
-                f"60MA 하향 이탈 (종가 {cur_close:.4f} < MA60 {cur_ma60:.4f})",
+            return self._sell_signal(
+                cur_close,
+                f"60MA 이탈 청산 (종가 {cur_close:.4f} < MA60 {cur_ma60:.4f})",
                 indicators
             )
 
@@ -190,42 +184,23 @@ class Shin60MABasic(BaseStrategy):
 
 class Shin60MABounce(BaseStrategy):
     """
-    신창환 60이평선 눌림목/반등 전략 (핵심 전략)
+    신창환 60이평선 눌림목 반등 전략 — 핵심 (업비트 현물)
 
-    원리:
-    - 신창환의 핵심: "60이평선은 지지선이다"
-    - 상승 추세에서 가격이 60MA까지 내려왔다가 반등할 때 매수
-    - 하락 추세에서 가격이 60MA까지 올라왔다가 반락할 때 공매도
-
-    진입 조건:
-    LONG:
-    - 최근 3개 캔들 중 하나의 저가가 60MA에 근접(±0.5%)
-    - 현재 캔들 종가가 60MA 위에 있음
-    - 현재 캔들이 양봉 (종가 > 시가)
-    - 5MA > 60MA (상승 추세 확인)
-
-    SHORT:
-    - 최근 3개 캔들 중 하나의 고가가 60MA에 근접(±0.5%)
-    - 현재 캔들 종가가 60MA 아래에 있음
-    - 현재 캔들이 음봉 (종가 < 시가)
-    - 5MA < 60MA (하락 추세 확인)
+    매수: 상승추세(MA5>MA60) + 최근 3봉 중 저가가 60MA 0.8% 이내 터치 + 양봉 반등
+    매도: 손절(-2.5%) or 익절(+6%)
     """
 
     name = "Shin_60MA_Bounce"
-    description = "60MA 눌림목/반등 전략 - 60이평선 지지/저항 반등 진입 (신창환 핵심)"
+    description = "60MA 눌림목 반등 전략 - 상승추세에서 60MA 지지 반등 시 매수 (신창환 핵심)"
     STOP_LOSS_PCT = 0.025
     TAKE_PROFIT_PCT = 0.06
-    TOUCH_RANGE = 0.008  # MA에 0.8% 이내 근접 = 터치로 판단
+    TOUCH_RANGE = 0.008
 
     def analyze(self, candles: list) -> dict:
         if len(candles) < 62:
             return self._no_signal()
 
         closes = [c["close"] for c in candles]
-        opens = [c["open"] for c in candles]
-        highs = [c["high"] for c in candles]
-        lows = [c["low"] for c in candles]
-
         ma60 = calc_ma(closes, 60)
         ma5 = calc_ma(closes, 5)
 
@@ -244,44 +219,26 @@ class Shin60MABounce(BaseStrategy):
             "현재종가": round(cur_close, 6)
         }
 
-        # 최근 3 캔들 중 MA60에 터치한 적 있는지 확인
-        touched_from_below = False  # 저가로 MA60 터치
-        touched_from_above = False  # 고가로 MA60 터치
-
+        # 최근 3봉 중 저가가 60MA에 터치했는지 확인
+        touched_from_below = False
         for i in range(-4, -1):
             c = candles[i]
             m = ma60[i]
             if m is None:
                 continue
-            # 아래에서 터치 (저가가 MA60 근처)
             if abs(c["low"] - m) / m <= self.TOUCH_RANGE and c["close"] > m:
                 touched_from_below = True
-            # 위에서 터치 (고가가 MA60 근처)
-            if abs(c["high"] - m) / m <= self.TOUCH_RANGE and c["close"] < m:
-                touched_from_above = True
 
-        is_bullish = cur_close > cur_open  # 양봉
-        is_bearish = cur_close < cur_open  # 음봉
+        is_bullish = cur_close > cur_open
 
-        # LONG: 상승 추세 + 60MA 눌림 반등
-        if (cur_ma5 > cur_ma60 and        # 상승 추세
-            cur_close > cur_ma60 and       # 60MA 위에 있음
-            touched_from_below and          # 최근 60MA 터치
-            is_bullish):                    # 양봉으로 반등
-            return self._signal(
-                "LONG", cur_close,
+        # 매수: 상승추세 + 60MA 눌림 반등
+        if (cur_ma5 > cur_ma60 and
+                cur_close > cur_ma60 and
+                touched_from_below and
+                is_bullish):
+            return self._buy_signal(
+                cur_close,
                 f"60MA 눌림 반등 (상승추세, MA60={cur_ma60:.4f} 지지 후 양봉 반등)",
-                indicators
-            )
-
-        # SHORT: 하락 추세 + 60MA 반락
-        if (cur_ma5 < cur_ma60 and        # 하락 추세
-            cur_close < cur_ma60 and       # 60MA 아래에 있음
-            touched_from_above and          # 최근 60MA 터치
-            is_bearish):                    # 음봉으로 반락
-            return self._signal(
-                "SHORT", cur_close,
-                f"60MA 저항 반락 (하락추세, MA60={cur_ma60:.4f} 저항 후 음봉 반락)",
                 indicators
             )
 
@@ -294,20 +251,14 @@ class Shin60MABounce(BaseStrategy):
 
 class Shin60MACross(BaseStrategy):
     """
-    신창환 20MA × 60MA 골든크로스/데드크로스 전략
+    신창환 20MA × 60MA 골든/데드크로스 전략 (업비트 현물)
 
-    원리:
-    - 신창환: "20이평선이 60이평선을 상향 돌파 = 중기 골든크로스 = 강한 매수 신호"
-    - 20MA가 60MA 위로 골든크로스 = LONG
-    - 20MA가 60MA 아래로 데드크로스 = SHORT
-
-    진입 조건:
-    LONG : 전봉에서 MA20 < MA60  AND  현봉에서 MA20 > MA60
-    SHORT: 전봉에서 MA20 > MA60  AND  현봉에서 MA20 < MA60
+    매수: 전봉 MA20 < MA60 → 현봉 MA20 > MA60 (골든크로스)
+    매도: 전봉 MA20 > MA60 → 현봉 MA20 < MA60 (데드크로스 — 보유 청산)
     """
 
     name = "Shin_60MA_Cross"
-    description = "20MA×60MA 골든/데드크로스 전략 - 중기 추세 전환 포착"
+    description = "20MA×60MA 골든/데드크로스 전략 - 중기 추세 전환 매수, 반전 시 매도"
     STOP_LOSS_PCT = 0.03
     TAKE_PROFIT_PCT = 0.08
 
@@ -332,23 +283,21 @@ class Shin60MACross(BaseStrategy):
         indicators = {
             "MA20": round(cur_ma20, 6),
             "MA60": round(cur_ma60, 6),
-            "MA20_prev": round(prev_ma20, 6),
-            "MA60_prev": round(prev_ma60, 6)
         }
 
-        # 골든크로스: MA20이 MA60을 상향 돌파
+        # 매수: 골든크로스
         if prev_ma20 < prev_ma60 and cur_ma20 > cur_ma60:
-            return self._signal(
-                "LONG", cur_close,
-                f"골든크로스 발생! MA20({cur_ma20:.4f}) > MA60({cur_ma60:.4f}) 상향 돌파",
+            return self._buy_signal(
+                cur_close,
+                f"골든크로스 발생 MA20({cur_ma20:.4f}) > MA60({cur_ma60:.4f})",
                 indicators
             )
 
-        # 데드크로스: MA20이 MA60을 하향 이탈
+        # 매도: 데드크로스 (보유 청산)
         if prev_ma20 > prev_ma60 and cur_ma20 < cur_ma60:
-            return self._signal(
-                "SHORT", cur_close,
-                f"데드크로스 발생! MA20({cur_ma20:.4f}) < MA60({cur_ma60:.4f}) 하향 이탈",
+            return self._sell_signal(
+                cur_close,
+                f"데드크로스 청산 MA20({cur_ma20:.4f}) < MA60({cur_ma60:.4f})",
                 indicators
             )
 
@@ -361,24 +310,17 @@ class Shin60MACross(BaseStrategy):
 
 class Shin60MARSI(BaseStrategy):
     """
-    신창환 60MA + RSI 복합 전략
+    신창환 60MA + RSI 복합 전략 (업비트 현물)
 
-    원리:
-    - 60MA 추세 방향 확인 + RSI 과매수/과매도로 타이밍 포착
-    - 60MA 위에서 RSI가 40 미만(과매도) → 반등 매수
-    - 60MA 아래에서 RSI가 60 초과(과매수) → 반락 공매도
-
-    진입 조건:
-    LONG : 종가 > MA60 AND RSI < 40 (과매도 반등)
-    SHORT: 종가 < MA60 AND RSI > 60 (과매수 반락)
+    매수: 종가 > MA60 AND RSI < 40 (상승추세에서 과매도 반등 타이밍)
+    매도: 손절(-2%) or 익절(+5%)
     """
 
     name = "Shin_60MA_RSI"
-    description = "60MA + RSI 복합 전략 - 추세 방향 + 과매수/과매도 타이밍"
+    description = "60MA + RSI 복합 전략 - 상승추세 안에서 RSI 과매도 반등 시 매수"
     STOP_LOSS_PCT = 0.02
     TAKE_PROFIT_PCT = 0.05
     RSI_OVERSOLD = 40
-    RSI_OVERBOUGHT = 60
 
     def analyze(self, candles: list) -> dict:
         if len(candles) < 75:
@@ -401,19 +343,11 @@ class Shin60MARSI(BaseStrategy):
             "현재종가": round(cur_close, 6)
         }
 
-        # LONG: 60MA 위 + RSI 과매도 (반등 타이밍)
+        # 매수: 60MA 위 + RSI 과매도 반등
         if cur_close > cur_ma60 and cur_rsi < self.RSI_OVERSOLD:
-            return self._signal(
-                "LONG", cur_close,
-                f"60MA 위({cur_ma60:.4f}) + RSI 과매도({cur_rsi:.1f} < {self.RSI_OVERSOLD}) → 반등 매수",
-                indicators
-            )
-
-        # SHORT: 60MA 아래 + RSI 과매수 (반락 타이밍)
-        if cur_close < cur_ma60 and cur_rsi > self.RSI_OVERBOUGHT:
-            return self._signal(
-                "SHORT", cur_close,
-                f"60MA 아래({cur_ma60:.4f}) + RSI 과매수({cur_rsi:.1f} > {self.RSI_OVERBOUGHT}) → 반락 매도",
+            return self._buy_signal(
+                cur_close,
+                f"60MA 위 + RSI 과매도({cur_rsi:.1f} < {self.RSI_OVERSOLD}) 반등 매수",
                 indicators
             )
 
@@ -426,22 +360,17 @@ class Shin60MARSI(BaseStrategy):
 
 class Shin60MAVolume(BaseStrategy):
     """
-    신창환 60MA + 거래량 급등 전략
+    신창환 60MA + 거래량 급등 전략 (업비트 현물)
 
-    원리:
-    - 신창환: "거래량을 동반한 돌파가 진짜 돌파"
-    - 60MA 위/아래에서 거래량 급등하며 강한 캔들 발생 시 진입
-
-    진입 조건:
-    LONG : 종가 > MA60 AND 현재 거래량 > 20기간 평균 거래량 × 1.5 AND 양봉
-    SHORT: 종가 < MA60 AND 현재 거래량 > 20기간 평균 거래량 × 1.5 AND 음봉
+    매수: 종가 > MA60 AND 거래량 > 20봉 평균의 1.5배 AND 양봉
+    매도: 손절(-2.5%) or 익절(+6%)
     """
 
     name = "Shin_60MA_Volume"
-    description = "60MA + 거래량 급등 전략 - 거래량 수반 강한 돌파 포착"
+    description = "60MA + 거래량 급등 전략 - 거래량 수반 60MA 위 양봉 돌파 시 매수"
     STOP_LOSS_PCT = 0.025
     TAKE_PROFIT_PCT = 0.06
-    VOLUME_MULTIPLIER = 1.5  # 평균 거래량의 1.5배 이상
+    VOLUME_MULTIPLIER = 1.5
 
     def analyze(self, candles: list) -> dict:
         if len(candles) < 65:
@@ -463,34 +392,19 @@ class Shin60MAVolume(BaseStrategy):
         if None in [cur_ma60, cur_vol_ma]:
             return self._no_signal()
 
-        is_bullish = cur_close > cur_open
-        is_bearish = cur_close < cur_open
         vol_ratio = cur_vol / cur_vol_ma if cur_vol_ma > 0 else 0
+        is_bullish = cur_close > cur_open
 
         indicators = {
             "MA60": round(cur_ma60, 6),
-            "현재거래량": round(cur_vol, 2),
-            "평균거래량": round(cur_vol_ma, 2),
             "거래량비율": round(vol_ratio, 2)
         }
 
-        # LONG: 60MA 위 + 거래량 급증 + 양봉
-        if (cur_close > cur_ma60 and
-            vol_ratio >= self.VOLUME_MULTIPLIER and
-            is_bullish):
-            return self._signal(
-                "LONG", cur_close,
-                f"거래량 급증 양봉 상승 (MA60 위, 거래량 평균대비 {vol_ratio:.1f}배)",
-                indicators
-            )
-
-        # SHORT: 60MA 아래 + 거래량 급증 + 음봉
-        if (cur_close < cur_ma60 and
-            vol_ratio >= self.VOLUME_MULTIPLIER and
-            is_bearish):
-            return self._signal(
-                "SHORT", cur_close,
-                f"거래량 급증 음봉 하락 (MA60 아래, 거래량 평균대비 {vol_ratio:.1f}배)",
+        # 매수: 60MA 위 + 거래량 급증 + 양봉
+        if cur_close > cur_ma60 and vol_ratio >= self.VOLUME_MULTIPLIER and is_bullish:
+            return self._buy_signal(
+                cur_close,
+                f"거래량 급증 양봉 (MA60 위, 거래량 평균대비 {vol_ratio:.1f}배)",
                 indicators
             )
 
