@@ -5,7 +5,7 @@ SpaceEum AI Lab - 업비트 KRW 멀티 타임프레임 스캔 (1D + 4H)
 
 1D: MA60 = 60일 이평 | 4H: MA60 = 60개 4시간봉 (= 약 10일)
 
-매수 조건: STRONG BUY(8점+) + 1~2번 자리  (1D 기준)
+매수 조건: STRONG BUY(8점+) + 60일 신고가 발생 필수 포함 + 1~2번 자리  (1D 기준)
   → 1D + 4H 동시 STRONG BUY = 최강 매수 타점
 매도 조건: 손절(-7%) | 익절(+15%) | 3~4번 자리 도달 | 다음날 스캔 5점 이하
 """
@@ -169,7 +169,7 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
         above_cloud = current_price > max(span_a, span_b)
         is_positive_cloud = span_a > span_b
 
-        # ── 60봉 신고가 근처 ──────────────────────
+        # ── 60일 신고가 발생 ──────────────────────
         is_new_high = current_price >= max(closes[-60:]) * 0.99
 
         # ── 볼린저 밴드 ───────────────────────────
@@ -190,7 +190,7 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
             '거래량_증가': volume_increasing,
             '정배열_전환선_10이평_기준선': ma9 > ma10 > ma26,
             '구름대_위_및_양운': above_cloud and is_positive_cloud,
-            f'{timeframe_label}_신고가_근처': is_new_high,
+            f'{timeframe_label}_신고가_발생': is_new_high,
         }
 
         satisfied = [k for k, v in conditions.items() if v]
@@ -199,8 +199,14 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
         if score < MIN_SCORE:
             return None
 
-        if score >= STRONG_SCORE:
+        # 60일 신고가 발생 여부 (필수 조건)
+        new_high_key = f'{timeframe_label}_신고가_발생'
+        new_high_satisfied = conditions.get(new_high_key, False)
+
+        if score >= STRONG_SCORE and new_high_satisfied:
             signal = 'STRONG BUY'
+        elif score >= STRONG_SCORE:
+            signal = 'BUY'  # 8점 이상이지만 신고가 미발생 → BUY로 낮춤
         elif score >= BUY_SCORE:
             signal = 'BUY'
         else:
