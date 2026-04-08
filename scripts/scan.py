@@ -205,10 +205,20 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
         volume_increasing = sum(volumes[-5:]) / 5 > sum(volumes[-25:-5]) / 20
 
         # ── 일목균형표 ────────────────────────────
+        # 오늘 생성된 선행스팬 (26봉 후 구름에 그려짐) → 양운 판단용
         span_a = (ma9 + ma26) / 2
         span_b = (max(highs[-52:]) + min(lows[-52:])) / 2
-        above_cloud = current_price > max(span_a, span_b)
-        is_positive_cloud = span_a > span_b
+        is_positive_cloud = span_a > span_b  # 양운: 오늘 생성된 선행스팬A > B
+
+        # 현재 보이는 구름 = 26일 전에 계산된 선행스팬 → 구름대 위 판단용
+        if n >= 78:
+            ma9_26ago  = sum(closes[-35:-26]) / 9
+            ma26_26ago = sum(closes[-52:-26]) / 26
+            span_a_cloud = (ma9_26ago + ma26_26ago) / 2
+            span_b_cloud = (max(highs[-78:-26]) + min(lows[-78:-26])) / 2
+            above_cloud = current_price > max(span_a_cloud, span_b_cloud)
+        else:
+            above_cloud = current_price > max(span_a, span_b)  # 데이터 부족 시 fallback
 
         # ── 60일 신고가 발생 ──────────────────────
         is_new_high = current_price >= max(closes[-60:]) * 0.99
