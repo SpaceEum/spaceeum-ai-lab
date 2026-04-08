@@ -1,15 +1,27 @@
 {
-  "last_updated": "2026-04-08 17:20:33",
-  "total_trades": 5,
+  "last_updated": "2026-04-09 01:23:30",
+  "total_trades": 6,
   "open_positions": 5,
-  "closed_trades": 0,
+  "closed_trades": 1,
   "wins": 0,
-  "losses": 0,
-  "win_rate": 0,
-  "avg_pnl_pct": 0,
-  "total_pnl_pct": 0,
-  "best_trade": null,
-  "worst_trade": null,
+  "losses": 1,
+  "win_rate": 0.0,
+  "avg_pnl_pct": -2.25,
+  "total_pnl_pct": -2.25,
+  "best_trade": {
+    "symbol": "KRW-TAO",
+    "pnl_pct": -2.25,
+    "exit_reason": "매도신호 (4번 + 종이격 3일 연속 감소)",
+    "entry_date": "2026-04-08",
+    "exit_date": "2026-04-09"
+  },
+  "worst_trade": {
+    "symbol": "KRW-TAO",
+    "pnl_pct": -2.25,
+    "exit_reason": "매도신호 (4번 + 종이격 3일 연속 감소)",
+    "entry_date": "2026-04-08",
+    "exit_date": "2026-04-09"
+  },
   "open_position_list": [
     {
       "symbol": "KRW-SEI",
@@ -18,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -1.29
     },
     {
       "symbol": "KRW-NEAR",
@@ -27,16 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
-    },
-    {
-      "symbol": "KRW-TAO",
-      "entry_date": "2026-04-08",
-      "entry_price": 511500.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -0.15
     },
     {
       "symbol": "KRW-GMT",
@@ -45,12 +48,21 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -1.89
     },
     {
       "symbol": "KRW-RENDER",
       "entry_date": "2026-04-08",
       "entry_price": 3119.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": -2.12
+    },
+    {
+      "symbol": "KRW-LSK",
+      "entry_date": "2026-04-09",
+      "entry_price": 192.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
