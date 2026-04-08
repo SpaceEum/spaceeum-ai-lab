@@ -291,10 +291,11 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
 # ── STEP 5: 개별 티커 1D + 4H 분석 ──────────────
 def analyze_ticker(ticker):
     try:
-        # ── 1D 분석 ──────────────────────────────
-        df_1d = get_ohlcv(ticker, count=90, interval="day")
+        # ── 1D 분석 (완성된 봉만 사용 — 마지막 형성 중 봉 제거) ──
+        df_1d = get_ohlcv(ticker, count=92, interval="day")
         result_1d = None
-        if df_1d is not None and len(df_1d) >= 65:
+        if df_1d is not None and len(df_1d) > 65:
+            df_1d = df_1d.iloc[:-1]  # 현재 형성 중인 봉 제거
             result_1d = analyze_ohlcv(
                 ticker,
                 df_1d['close'].tolist(),
@@ -306,12 +307,11 @@ def analyze_ticker(ticker):
 
         time.sleep(0.05)
 
-        # ── 4H 분석 ──────────────────────────────
-        # 60 4H봉 = 60 × 4h = 10일
-        # 분석에 필요한 최소 캔들: MA60(60) + 여유(30) = 90개
-        df_4h = get_ohlcv(ticker, count=120, interval="minute240")
+        # ── 4H 분석 (완성된 봉만 사용 — 마지막 형성 중 봉 제거) ──
+        df_4h = get_ohlcv(ticker, count=122, interval="minute240")
         result_4h = None
-        if df_4h is not None and len(df_4h) >= 65:
+        if df_4h is not None and len(df_4h) > 65:
+            df_4h = df_4h.iloc[:-1]  # 현재 형성 중인 봉 제거
             result_4h = analyze_ohlcv(
                 ticker,
                 df_4h['close'].tolist(),
@@ -325,7 +325,8 @@ def analyze_ticker(ticker):
         if result_1d is None:
             return None
 
-        current_price = df_1d['close'].tolist()[-1]
+        # 실제 현재가 (완성된 봉 종가와 다를 수 있음 — 매수 시 이 가격으로 진입)
+        current_price = pyupbit.get_current_price(ticker) or df_1d['close'].tolist()[-1]
 
         # 1D+4H 동시 STRONG BUY 여부
         dual_strong = (
@@ -378,11 +379,16 @@ def analyze_ticker(ticker):
 def load_trades():
     if os.path.exists(TRADES_PATH):
         with open(TRADES_PATH, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            data = json.load(f)
+        # 구버전 호환: waiting_for_cycle1 필드 없으면 추가
+        if 'waiting_for_cycle1' not in data:
+            data['waiting_for_cycle1'] = []
+        return data
     return {
         "initial_capital": INITIAL_CAPITAL,
         "trade_unit": TRADE_UNIT,
         "max_positions": MAX_POSITIONS,
+        "waiting_for_cycle1": [],
         "trades": []
     }
 
@@ -476,15 +482,17 @@ def run_paper_trading(scan_results, today):
             exit_reason = f"손절 ({pnl_pct:.1f}%)"
         elif pnl_pct >= TAKE_PROFIT_PCT:
             exit_reason = f"익절 ({pnl_pct:.1f}%)"
-        elif today_result and today_result['cycle_zone'] in ['3번', '4번', '5번']:
+        elif today_result and today_result['cycle_zone'] == '5번':
+            # 5번 즉시 매도 + 재진입 대기 목록 등록
+            exit_reason = "하락전환 (5번 구간 진입)"
+            if symbol not in trades_data['waiting_for_cycle1']:
+                trades_data['waiting_for_cycle1'].append(symbol)
+                log(f"  [대기등록] {symbol} — 1번 발생 전까지 재진입 금지")
+        elif today_result and today_result['cycle_zone'] == '4번':
+            # 3번→4번→4번 (종이격 3일 연속 감소) 시 매도
             jongi_gaps = today_result.get('jongi_gaps', [])
             if is_jongi_decreasing_3days(jongi_gaps):
-                exit_reason = f"매도신호 ({today_result['cycle_zone']} + 종이격 3일 연속 감소)"
-        elif today_result and today_result['cycle_zone'] == '5번':
-            exit_reason = "하락전환 (5번 구간 진입)"
-        elif today_result is None or today_result['score'] < SELL_SCORE_THRESHOLD:
-            score_now = today_result['score'] if today_result else 0
-            exit_reason = f"매도신호 (점수 하락: {score_now}점)"
+                exit_reason = "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)"
 
         if exit_reason:
             trade['status'] = 'CLOSED'
@@ -497,7 +505,14 @@ def run_paper_trading(scan_results, today):
             log(f"  ✅ 청산: {symbol} | {exit_reason} | PnL: {pnl_pct:+.2f}%")
             closed_count += 1
 
-    # ── 신규 매수: 1D STRONG BUY + 1~2번 자리 ─────
+    # ── 1번 발생 종목은 대기 목록에서 해제 ────────
+    waiting = trades_data['waiting_for_cycle1']
+    for result in scan_results:
+        if result['cycle_zone'] == '1번' and result['symbol'] in waiting:
+            waiting.remove(result['symbol'])
+            log(f"  [대기해제] {result['symbol']} — 1번 발생, 재진입 허용")
+
+    # ── 신규 매수: 1D STRONG BUY + 2번 자리 ───────
     open_positions = [t for t in trades if t['status'] == 'OPEN']
     open_symbols = {t['symbol'] for t in open_positions}
     new_entries = 0
@@ -506,8 +521,9 @@ def run_paper_trading(scan_results, today):
         candidates = [
             r for r in scan_results
             if r['signal'] == 'STRONG BUY'
-            and r['cycle_zone'] in ['1번', '2번']
+            and r['cycle_zone'] == '2번'               # 2번만 진입
             and r['symbol'] not in open_symbols
+            and r['symbol'] not in trades_data['waiting_for_cycle1']  # 5번 대기 종목 제외
         ]
         # 1D+4H 동시 STRONG BUY 우선 정렬
         candidates.sort(key=lambda x: (x.get('dual_strong', False), x['score']), reverse=True)
@@ -556,11 +572,15 @@ def run_paper_trading(scan_results, today):
 def load_trades_4h():
     if os.path.exists(TRADES_4H_PATH):
         with open(TRADES_4H_PATH, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            data = json.load(f)
+        if 'waiting_for_cycle1' not in data:
+            data['waiting_for_cycle1'] = []
+        return data
     return {
         "initial_capital": INITIAL_CAPITAL,
         "trade_unit": TRADE_UNIT,
         "max_positions": MAX_POSITIONS,
+        "waiting_for_cycle1": [],
         "trades": []
     }
 
@@ -607,15 +627,15 @@ def run_paper_trading_4h(scan_results_4h, today):
             exit_reason = f"손절 ({pnl_pct:.1f}%)"
         elif pnl_pct >= TAKE_PROFIT_PCT:
             exit_reason = f"익절 ({pnl_pct:.1f}%)"
-        elif today_result and today_result['cycle_zone'] in ['3번', '4번', '5번']:
-            jongi_gaps = today_result.get('jongi_gaps', [])
-            if is_jongi_decreasing_3days(jongi_gaps):
-                exit_reason = f"매도신호 ({today_result['cycle_zone']} + 종이격 3일 연속 감소)"
         elif today_result and today_result['cycle_zone'] == '5번':
             exit_reason = "하락전환 (5번 구간 진입)"
-        elif today_result is None or today_result['score'] < SELL_SCORE_THRESHOLD:
-            score_now = today_result['score'] if today_result else 0
-            exit_reason = f"매도신호 (점수 하락: {score_now}점)"
+            if symbol not in trades_data['waiting_for_cycle1']:
+                trades_data['waiting_for_cycle1'].append(symbol)
+                log(f"  [대기등록] {symbol} — 1번 발생 전까지 재진입 금지")
+        elif today_result and today_result['cycle_zone'] == '4번':
+            jongi_gaps = today_result.get('jongi_gaps', [])
+            if is_jongi_decreasing_3days(jongi_gaps):
+                exit_reason = "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)"
 
         if exit_reason:
             trade['status'] = 'CLOSED'
@@ -628,7 +648,14 @@ def run_paper_trading_4h(scan_results_4h, today):
             log(f"  ✅ [4H] 청산: {symbol} | {exit_reason} | PnL: {pnl_pct:+.2f}%")
             closed_count += 1
 
-    # ── 신규 매수: 4H STRONG BUY + 1~2번 자리 ─────
+    # ── 1번 발생 종목은 대기 목록에서 해제 ────────
+    waiting = trades_data['waiting_for_cycle1']
+    for result in scan_map_4h.values():
+        if result['cycle_zone'] == '1번' and result['symbol'] in waiting:
+            waiting.remove(result['symbol'])
+            log(f"  [대기해제] {result['symbol']} — 1번 발생, 재진입 허용")
+
+    # ── 신규 매수: 4H STRONG BUY + 2번 자리 ───────
     open_positions = [t for t in trades if t['status'] == 'OPEN']
     open_symbols = {t['symbol'] for t in open_positions}
     new_entries = 0
@@ -637,8 +664,9 @@ def run_paper_trading_4h(scan_results_4h, today):
         candidates = [
             r for r in scan_map_4h.values()
             if r['signal'] == 'STRONG BUY'
-            and r['cycle_zone'] in ['1번', '2번']
+            and r['cycle_zone'] == '2번'               # 2번만 진입
             and r['symbol'] not in open_symbols
+            and r['symbol'] not in trades_data['waiting_for_cycle1']  # 5번 대기 종목 제외
         ]
         candidates.sort(key=lambda x: x['score'], reverse=True)
 
@@ -761,9 +789,10 @@ def run_scan_4h():
 
     for i, ticker in enumerate(tickers):
         try:
-            df_4h = get_ohlcv(ticker, count=120, interval="minute240")
-            if df_4h is None or len(df_4h) < 65:
+            df_4h = get_ohlcv(ticker, count=122, interval="minute240")
+            if df_4h is None or len(df_4h) <= 65:
                 continue
+            df_4h = df_4h.iloc[:-1]  # 현재 형성 중인 봉 제거
 
             result = analyze_ohlcv(
                 ticker,
@@ -775,9 +804,10 @@ def run_scan_4h():
             )
 
             if result:
+                current_price = pyupbit.get_current_price(ticker) or df_4h['close'].tolist()[-1]
                 signals_4h.append({
                     'symbol': ticker,
-                    'current_price': df_4h['close'].tolist()[-1],
+                    'current_price': current_price,
                     'signal': result['signal'],
                     'score': result['score'],
                     'cycle_zone': result['cycle_zone'],
