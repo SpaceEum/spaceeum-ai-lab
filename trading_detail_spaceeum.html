@@ -58,6 +58,7 @@ section { position:relative; z-index:1; padding:60px 32px; }
 
 /* 주기 설명 */
 .cycle-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:48px; }
+@media(max-width:1024px){ .cycle-grid{ grid-template-columns:repeat(2,1fr); } }
 .cycle-card { border-radius:12px; padding:20px; border:1px solid; }
 .c12 { background:rgba(167,139,250,0.06); border-color:rgba(167,139,250,0.3); }
 .c34 { background:rgba(255,77,109,0.06); border-color:rgba(255,77,109,0.3); }
@@ -170,28 +171,52 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
 
     <div class="cycle-grid reveal">
       <div class="cycle-card c12">
-        <div class="cycle-num">1~2번</div>
-        <div class="cycle-zone">매수 핵심 구간</div>
-        <div class="cycle-desc">60MA 아래에서 반등 시작. 가장 안전한 매수 타점</div>
+        <div class="cycle-num">1번</div>
+        <div class="cycle-zone">🚀 상승 전환</div>
+        <div class="cycle-desc">종이격 음→양 전환. MA60이 하락에서 상승으로 방향을 바꾸는 시점</div>
         <span class="cycle-action">적극 매수</span>
       </div>
+      <div class="cycle-card c12">
+        <div class="cycle-num">2번</div>
+        <div class="cycle-zone">📈 상승 가속</div>
+        <div class="cycle-desc">종이격 양수 + 계속 증가 중. MA60 상승 속도가 빨라지는 구간</div>
+        <span class="cycle-action">매수 유지</span>
+      </div>
       <div class="cycle-card c34">
-        <div class="cycle-num">3~4번</div>
-        <div class="cycle-zone">꼭지 경고 구간</div>
-        <div class="cycle-desc">60MA 위 과열 구간. 기존 보유자는 익절 고려</div>
+        <div class="cycle-num">3번</div>
+        <div class="cycle-zone">⚡ 45도 피크</div>
+        <div class="cycle-desc">종이격 최고점 도달. MA60 상승 속도가 가장 빠른 시점. 종이격 3일 연속 감소 시 매도</div>
         <span class="cycle-action">익절 준비</span>
       </div>
+      <div class="cycle-card c34">
+        <div class="cycle-num">4번</div>
+        <div class="cycle-zone">⚠️ 상승 둔화</div>
+        <div class="cycle-desc">종이격 양수지만 계속 감소 중. 상승 에너지 소진. 종이격 3일 연속 감소 시 매도</div>
+        <span class="cycle-action">익절</span>
+      </div>
       <div class="cycle-card c56">
-        <div class="cycle-num">5~6번</div>
-        <div class="cycle-zone">하락 전환 구간</div>
-        <div class="cycle-desc">하락 추세 진입. 신규 매수 자제, 보유 최소화</div>
+        <div class="cycle-num">5번</div>
+        <div class="cycle-zone">🔻 하락 전환</div>
+        <div class="cycle-desc">종이격 양→음 전환. MA60이 상승에서 하락으로 방향을 바꾸는 시점. 종이격 3일 연속 감소 시 매도</div>
+        <span class="cycle-action">매도</span>
+      </div>
+      <div class="cycle-card c56">
+        <div class="cycle-num">6번</div>
+        <div class="cycle-zone">📉 하락 가속</div>
+        <div class="cycle-desc">종이격 음수 + 계속 감소. MA60 하락 속도가 빨라지는 구간</div>
         <span class="cycle-action">관망</span>
       </div>
       <div class="cycle-card c78">
-        <div class="cycle-num">7~8번</div>
-        <div class="cycle-zone">바닥 준비 구간</div>
-        <div class="cycle-desc">하락 마무리 단계. 분할 매수 준비 시작</div>
-        <span class="cycle-action">분할 매수 준비</span>
+        <div class="cycle-num">7번</div>
+        <div class="cycle-zone">🔄 하락 피크</div>
+        <div class="cycle-desc">종이격 음수 최저점 도달. MA60 하락 속도가 가장 빠른 시점. 바닥 신호</div>
+        <span class="cycle-action">매수 준비</span>
+      </div>
+      <div class="cycle-card c78">
+        <div class="cycle-num">8번</div>
+        <div class="cycle-zone">🌱 바닥권</div>
+        <div class="cycle-desc">종이격 음수지만 증가 중. MA60 하락 속도 둔화. 분할 매수 시작 구간</div>
+        <span class="cycle-action">분할 매수</span>
       </div>
     </div>
 

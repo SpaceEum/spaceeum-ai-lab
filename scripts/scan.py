@@ -62,30 +62,71 @@ def get_ohlcv(ticker, count, interval):
 # ── STEP 3: 60MA 8등분 주기 판단 ─────────────────
 def get_cycle_zone(jongi_gaps):
     """
-    jongi_gaps: 최근 종이격 리스트 [oldest → newest] (최소 2개)
-    1~2번: MA60 상승 + 종이격 증가 (상승 초기 → 최적 매수 타점)
-    3~4번: MA60 상승 + 종이격 감소 (고점권 → 꼭지 경고)
-    5~6번: MA60 하락 + 더 악화    (하락 중 → 관망)
-    7~8번: MA60 하락 + 완만해짐   (바닥권 → 매수 준비)
+    jongi_gaps: 최근 종이격 리스트 [oldest → newest] (최소 3개 권장)
+
+    1번: 종이격 음→양 전환 (MA60 방향 전환, 상승 시작) ← 매수 진입
+    2번: 종이격 양수 + 증가 중 (상승 가속)             ← 매수 진입
+    3번: 종이격 양수 + 직전이 최고점 (45도 기울기, 피크) ← 익절 준비
+    4번: 종이격 양수 + 이미 감소 중 (상승 둔화)         ← 익절
+    5번: 종이격 양→음 전환 (MA60 방향 전환, 하락 시작)   ← 매도
+    6번: 종이격 음수 + 감소 중 (하락 가속)              ← 관망
+    7번: 종이격 음수 + 직전이 최저점 (하락 피크)         ← 매수 준비
+    8번: 종이격 음수 + 증가 중 (하락 둔화)              ← 매수 준비
     """
     if len(jongi_gaps) < 2:
         return "판단불가"
-    latest = jongi_gaps[-1]
-    prev = jongi_gaps[-2]
-    if latest > 0:
-        return "1~2번" if latest >= prev else "3~4번"
+
+    c = jongi_gaps[-1]    # 오늘
+    p = jongi_gaps[-2]    # 어제
+    pp = jongi_gaps[-3] if len(jongi_gaps) >= 3 else None
+
+    # 1번: 음→양 전환
+    if p <= 0 and c > 0:
+        return "1번"
+    # 5번: 양→음 전환
+    elif p >= 0 and c < 0:
+        return "5번"
+    # 양수 구간
+    elif c > 0:
+        if c >= p:
+            return "2번"  # 종이격 증가 중 (상승 가속)
+        else:
+            # 3번: 직전이 피크 (pp < p > c)
+            if pp is not None and pp < p:
+                return "3번"
+            else:
+                return "4번"  # 이미 감소 중
+    # 음수 구간
     else:
-        return "7~8번" if abs(latest) <= abs(prev) else "5~6번"
+        if c <= p:
+            return "6번"  # 하락 가속
+        else:
+            # 7번: 직전이 바닥 (pp > p < c)
+            if pp is not None and pp > p:
+                return "7번"
+            else:
+                return "8번"  # 이미 회복 중
 
 
 def get_cycle_label(zone):
     return {
-        "1~2번": "📈 상승초기",
-        "3~4번": "⚠️ 고점경고",
-        "5~6번": "📉 하락중",
-        "7~8번": "🔄 바닥권",
+        "1번": "🚀 상승전환",
+        "2번": "📈 상승가속",
+        "3번": "⚡ 45도 피크",
+        "4번": "⚠️ 상승둔화",
+        "5번": "🔻 하락전환",
+        "6번": "📉 하락가속",
+        "7번": "🔄 하락피크",
+        "8번": "🌱 바닥권",
         "판단불가": "❓ 판단불가",
     }.get(zone, zone)
+
+
+def is_jongi_decreasing_3days(jongi_gaps):
+    """종이격 3일 연속 감소 여부"""
+    if len(jongi_gaps) < 3:
+        return False
+    return jongi_gaps[-3] > jongi_gaps[-2] > jongi_gaps[-1]
 
 
 # ── STEP 4: 공통 기술적 분석 함수 ────────────────
@@ -229,6 +270,7 @@ def analyze_ohlcv(ticker, closes, volumes, highs, lows, timeframe_label):
             'bb_position': bb_pos,
             'price_vs_ma60_pct': round((current_price - ma60) / ma60 * 100, 2),
             'satisfied_conditions': satisfied,
+            'jongi_gaps': jongi_gaps,
         }
     except Exception as e:
         return None
@@ -420,8 +462,12 @@ def run_paper_trading(scan_results, today):
             exit_reason = f"손절 ({pnl_pct:.1f}%)"
         elif pnl_pct >= TAKE_PROFIT_PCT:
             exit_reason = f"익절 ({pnl_pct:.1f}%)"
-        elif today_result and today_result['cycle_zone'] == '3~4번':
-            exit_reason = "꼭지경고 (3~4번 자리 진입)"
+        elif today_result and today_result['cycle_zone'] in ['3번', '4번', '5번']:
+            jongi_gaps = today_result.get('jongi_gaps', [])
+            if is_jongi_decreasing_3days(jongi_gaps):
+                exit_reason = f"매도신호 ({today_result['cycle_zone']} + 종이격 3일 연속 감소)"
+        elif today_result and today_result['cycle_zone'] == '5번':
+            exit_reason = "하락전환 (5번 구간 진입)"
         elif today_result is None or today_result['score'] < SELL_SCORE_THRESHOLD:
             score_now = today_result['score'] if today_result else 0
             exit_reason = f"매도신호 (점수 하락: {score_now}점)"
@@ -446,7 +492,7 @@ def run_paper_trading(scan_results, today):
         candidates = [
             r for r in scan_results
             if r['signal'] == 'STRONG BUY'
-            and r['cycle_zone'] == '1~2번'
+            and r['cycle_zone'] in ['1번', '2번']
             and r['symbol'] not in open_symbols
         ]
         # 1D+4H 동시 STRONG BUY 우선 정렬
