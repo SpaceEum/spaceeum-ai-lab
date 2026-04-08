@@ -52,8 +52,25 @@ def build_scan_message() -> str:
         )
 
         if open_list:
-            msg += "\n\n📋 보유 종목:"
+            msg += "\n\n📋 보유 종목 (1D):"
             for p in open_list[:5]:
+                pnl = p.get("current_pnl_pct", 0) or 0
+                emoji = "📈" if pnl >= 0 else "📉"
+                msg += f"\n{emoji} {p.get('symbol', '')} {pnl:+.1f}%"
+
+        # 4H 결과 추가
+        pt4h = d.get("paper_trading_4h", {})
+        open_list_4h = pt4h.get("open_list", [])
+        msg += (
+            f"\n\n📱 <b>4H 페이퍼 트레이딩</b>\n"
+            f"├ 현재 보유: {pt4h.get('open_positions', 0)}개\n"
+            f"├ 누적 거래: {pt4h.get('total_trades', 0)}건\n"
+            f"├ 승률: {pt4h.get('win_rate', 0)}%\n"
+            f"└ 평균 수익: {pt4h.get('avg_pnl_pct', 0):+.2f}%"
+        )
+        if open_list_4h:
+            msg += "\n\n📋 보유 종목 (4H):"
+            for p in open_list_4h[:5]:
                 pnl = p.get("current_pnl_pct", 0) or 0
                 emoji = "📈" if pnl >= 0 else "📉"
                 msg += f"\n{emoji} {p.get('symbol', '')} {pnl:+.1f}%"
