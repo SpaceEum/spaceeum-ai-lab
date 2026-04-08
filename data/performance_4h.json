@@ -1,0 +1,60 @@
+{
+  "last_updated": "2026-04-08 17:20:33",
+  "total_trades": 5,
+  "open_positions": 5,
+  "closed_trades": 0,
+  "wins": 0,
+  "losses": 0,
+  "win_rate": 0,
+  "avg_pnl_pct": 0,
+  "total_pnl_pct": 0,
+  "best_trade": null,
+  "worst_trade": null,
+  "open_position_list": [
+    {
+      "symbol": "KRW-SEI",
+      "entry_date": "2026-04-08",
+      "entry_price": 85.6,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-NEAR",
+      "entry_date": "2026-04-08",
+      "entry_price": 2005.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-TAO",
+      "entry_date": "2026-04-08",
+      "entry_price": 511500.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-GMT",
+      "entry_date": "2026-04-08",
+      "entry_price": 15.9,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-RENDER",
+      "entry_date": "2026-04-08",
+      "entry_price": 3119.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    }
+  ]
+}
