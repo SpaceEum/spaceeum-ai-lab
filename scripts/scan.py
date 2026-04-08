@@ -571,25 +571,16 @@ def save_trades_4h(data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def run_paper_trading_4h(scan_results, today):
-    """4H 봉 기준 독립 페이퍼 트레이딩 (60봉 = 60개 4H 캔들)"""
+def run_paper_trading_4h(scan_results_4h, today):
+    """4H 봉 기준 독립 페이퍼 트레이딩 (60봉 = 60개 4H 캔들)
+    scan_results_4h: flat list [{symbol, current_price, signal, score, cycle_zone, jongi_gaps}]
+    """
     log("=== 4H 페이퍼 트레이딩 업데이트 시작 ===")
     trades_data = load_trades_4h()
     trades = trades_data['trades']
 
-    # 4H 신호 맵 구성: symbol → 4H 결과
-    scan_map_4h = {}
-    for r in scan_results:
-        tf4h = r.get('tf_4h', {})
-        if tf4h and tf4h.get('signal'):
-            scan_map_4h[r['symbol']] = {
-                'symbol': r['symbol'],
-                'current_price': r['current_price'],
-                'signal': tf4h['signal'],
-                'score': tf4h['score'],
-                'cycle_zone': tf4h['cycle_zone'],
-                'jongi_gaps': tf4h.get('jongi_gaps', []),
-            }
+    # 4H 신호 맵 구성: symbol → 결과
+    scan_map_4h = {r['symbol']: r for r in scan_results_4h}
 
     # ── 오픈 포지션 청산 조건 체크 ────────────────
     closed_count = 0
@@ -724,7 +715,6 @@ def run_scan():
     os.makedirs('data', exist_ok=True)
     all_scan = strong_buy + buy_signals + watch_signals
     perf = run_paper_trading(all_scan, today)
-    perf_4h = run_paper_trading_4h(all_scan, today)
 
     result_data = {
         'date': today,
@@ -748,13 +738,6 @@ def run_scan():
             'avg_pnl_pct': perf['avg_pnl_pct'],
             'open_list': perf.get('open_position_list', []),
         },
-        'paper_trading_4h': {
-            'open_positions': perf_4h['open_positions'],
-            'total_trades': perf_4h['total_trades'],
-            'win_rate': perf_4h['win_rate'],
-            'avg_pnl_pct': perf_4h['avg_pnl_pct'],
-            'open_list': perf_4h.get('open_position_list', []),
-        },
     }
 
     with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
@@ -764,5 +747,61 @@ def run_scan():
     log("=== 완료 ===")
 
 
+# ── STEP 8: 4H 전용 스캔 실행 ────────────────────
+def run_scan_4h():
+    """4시간마다 실행되는 4H 전용 스캔 + 페이퍼 트레이딩"""
+    today = datetime.now(KST).strftime("%Y-%m-%d")
+    now_str = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
+    log(f"=== SpaceEum 4H 스캔 시작: {now_str} ===")
+
+    tickers = get_top_tickers(TOP_N)
+    signals_4h = []
+
+    log(f"{len(tickers)}개 티커 4H 스캔 중...")
+
+    for i, ticker in enumerate(tickers):
+        try:
+            df_4h = get_ohlcv(ticker, count=120, interval="minute240")
+            if df_4h is None or len(df_4h) < 65:
+                continue
+
+            result = analyze_ohlcv(
+                ticker,
+                df_4h['close'].tolist(),
+                df_4h['volume'].tolist(),
+                df_4h['high'].tolist(),
+                df_4h['low'].tolist(),
+                '4H'
+            )
+
+            if result:
+                signals_4h.append({
+                    'symbol': ticker,
+                    'current_price': df_4h['close'].tolist()[-1],
+                    'signal': result['signal'],
+                    'score': result['score'],
+                    'cycle_zone': result['cycle_zone'],
+                    'jongi_gaps': result['jongi_gaps'],
+                })
+        except Exception as e:
+            log(f"오류 ({ticker}): {e}")
+            continue
+
+        if (i + 1) % 50 == 0:
+            log(f"진행: {i + 1}/{len(tickers)} | 4H 신호: {len(signals_4h)}개")
+        time.sleep(0.1)
+
+    strong_4h = [s for s in signals_4h if s['signal'] == 'STRONG BUY']
+    log(f"\n=== 4H 스캔 완료 === STRONG BUY: {len(strong_4h)}개")
+
+    os.makedirs('data', exist_ok=True)
+    run_paper_trading_4h(signals_4h, today)
+    log("=== 4H 완료 ===")
+
+
 if __name__ == '__main__':
-    run_scan()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == '4h':
+        run_scan_4h()
+    else:
+        run_scan()

@@ -1,0 +1,40 @@
+name: 4시간 스캔 - SpaceEum 4H 매매법
+
+on:
+  schedule:
+    # 4시간마다 실행 (UTC 기준 0, 4, 8, 12, 16, 20시)
+    - cron: '0 */4 * * *'
+
+  # 수동 실행 (테스트용)
+  workflow_dispatch:
+
+jobs:
+  scan-4h:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4.2.2
+
+      - name: Python 설치
+        uses: actions/setup-python@v5.4.0
+        with:
+          python-version: '3.11'
+
+      - name: pyupbit 설치
+        run: pip install pyupbit
+
+      - name: 4H 스캔 실행
+        run: python scripts/scan.py 4h
+
+      - name: 4H 결과 저장
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "SpaceEum Bot"
+          git add data/paper_trades_4h.json data/performance_4h.json
+          git diff --staged --quiet || git commit -m "📱 4H 스캔: $(date '+%Y-%m-%d %H:%M') UTC"
+          git pull origin main --rebase
+          git push
