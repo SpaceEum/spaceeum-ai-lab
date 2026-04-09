@@ -84,7 +84,7 @@ def get_git_log(days: int, cwd: str | None = None) -> str:
     try:
         result = subprocess.run(
             ["git", "log", f"--since={days} days ago", "--oneline", "--no-merges"],
-            capture_output=True, text=True, cwd=cwd or Path.home() / "repo"
+            capture_output=True, text=True, cwd=cwd or "."
         )
         return result.stdout.strip()
     except Exception:
@@ -201,9 +201,9 @@ def main():
     print(f"[1] 최근 {args.days}일 JSONL 파일 검색 중...")
     jsonl_files = find_recent_jsonl_files(args.days)
     if not jsonl_files:
-        print("  분석할 세션 파일이 없습니다.")
-        sys.exit(0)
-    print(f"  {len(jsonl_files)}개 파일 발견: {[f.name for f in jsonl_files]}")
+        print("  분석할 세션 파일이 없습니다. (Git 커밋 기록만으로 진행)")
+    else:
+        print(f"  {len(jsonl_files)}개 파일 발견: {[f.name for f in jsonl_files]}")
 
     print("[2] 대화 내용 파싱 중...")
     all_messages = []
@@ -212,15 +212,11 @@ def main():
         all_messages.extend(msgs)
     print(f"  총 {len(all_messages)}개 메시지 추출")
 
-    if not all_messages:
-        print("  유효한 메시지가 없습니다.")
-        sys.exit(0)
-
     convo_lines = []
     for m in all_messages[:30]:
         role = "사용자" if m["role"] == "user" else "Claude"
         convo_lines.append(f"{role}: {m['text'][:300]}")
-    conversations = "\n\n".join(convo_lines)[:3000]
+    conversations = "\n\n".join(convo_lines)[:3000] if convo_lines else "(세션 기록 없음)"
 
     print("[3] Git 커밋 기록 수집 중...")
     git_log = get_git_log(args.days)
@@ -228,6 +224,11 @@ def main():
         print(f"  커밋 {len(git_log.splitlines())}개 발견")
     else:
         print("  커밋 없음 (또는 git 저장소 아님)")
+
+    if not conversations.strip() or conversations == "(세션 기록 없음)":
+        if not git_log:
+            print("  세션 기록도 Git 커밋도 없습니다. 종료합니다.")
+            sys.exit(0)
 
     if args.dry_run:
         print("\n=== [DRY RUN] 파싱 결과 ===")
