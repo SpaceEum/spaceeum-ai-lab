@@ -21,6 +21,11 @@ KST = timezone(timedelta(hours=9))
 UPBIT_BASE = "https://api.upbit.com/v1"
 TOP_N = 200
 DATA_DIR = Path("data/ohlcv")
+
+# 초기 전체 수집 시 최근 N년치만 가져옴 (전체 이력은 너무 오래 걸림)
+HISTORY_YEARS = 2
+# 이 시간(초) 초과 시 수집 중단하고 지금까지 수집한 것만 커밋
+MAX_RUNTIME_SEC = 5 * 3600 + 30 * 60  # 5시간 30분
 TICKER_LIST_FILE = DATA_DIR / "ticker_list.json"
 
 TIMEFRAMES = {
@@ -223,17 +228,18 @@ def filter_incomplete(df, tf_key):
 # ── 데이터 수집 ───────────────────────────────────────────────
 
 def fetch_all_history(market, tf_key):
-    """상장 초기부터 현재까지 전체 이력 수집"""
+    """최근 HISTORY_YEARS년치 이력 수집 (초기 수집 시간 단축)"""
     all_candles = []
     to = None
+    cutoff = datetime.now(KST).replace(tzinfo=None) - timedelta(days=365 * HISTORY_YEARS)
 
-    print(f"  [전체수집] {market} {tf_key} 시작...")
+    print(f"  [전체수집] {market} {tf_key} 최근 {HISTORY_YEARS}년치 시작...", flush=True)
 
-    for _ in range(5000):
+    for _ in range(2000):
         try:
             candles = fetch_candles(market, tf_key, to=to, count=200)
         except Exception as e:
-            print(f"  [오류] {e} — 5초 후 재시도")
+            print(f"  [오류] {e} — 5초 후 재시도", flush=True)
             time.sleep(5)
             continue
 
@@ -245,15 +251,23 @@ def fetch_all_history(market, tf_key):
         if len(candles) < 200:
             break  # 상장 초기에 도달
 
-        to = candles[-1]["candle_date_time_kst"]
+        # cutoff 이전 데이터에 도달하면 중단
+        oldest_str = candles[-1]["candle_date_time_kst"]
+        oldest_dt = datetime.strptime(oldest_str[:19], "%Y-%m-%dT%H:%M:%S")
+        if oldest_dt <= cutoff:
+            break
+
+        to = oldest_str
         time.sleep(0.13)
 
     if not all_candles:
         return pd.DataFrame()
 
     df = candles_to_df(all_candles)
+    # cutoff 이후 데이터만 유지
+    df = df[df["datetime"] >= pd.Timestamp(cutoff)]
     df = df.drop_duplicates("datetime").sort_values("datetime").reset_index(drop=True)
-    print(f"  → {len(df)}행 수집 완료")
+    print(f"  → {len(df)}행 수집 완료", flush=True)
     return df
 
 
@@ -389,15 +403,24 @@ def main():
 
     for market in current_tickers:
         for tf_key in TIMEFRAMES:
+            # 최대 실행 시간 초과 시 조기 종료
+            elapsed_so_far = time.time() - start_time
+            if elapsed_so_far > MAX_RUNTIME_SEC:
+                print(f"\n⏰ 최대 실행 시간({MAX_RUNTIME_SEC//3600}h {(MAX_RUNTIME_SEC%3600)//60}m) 초과 — 수집 중단 후 커밋", flush=True)
+                break
+
             done += 1
             try:
                 rows = collect_ticker(market, tf_key)
-                print(f"[{done}/{total_tasks}] ✓ {market} {tf_key} ({rows}행)")
+                print(f"[{done}/{total_tasks}] ✓ {market} {tf_key} ({rows}행)", flush=True)
             except Exception as e:
                 err_msg = f"{market} {tf_key}: {e}"
-                print(f"[{done}/{total_tasks}] ❌ {err_msg}")
+                print(f"[{done}/{total_tasks}] ❌ {err_msg}", flush=True)
                 errors.append(err_msg)
             time.sleep(0.05)
+        else:
+            continue
+        break  # 내부 루프에서 break 시 외부 루프도 중단
 
     elapsed = int(time.time() - start_time)
     status = "success" if not errors else "partial"
