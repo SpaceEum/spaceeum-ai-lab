@@ -137,7 +137,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -0.12
+      "current_pnl_pct": -0.37
     },
     {
       "id": "4H_2026-04-09_KRW-TOKAMAK",
@@ -188,7 +188,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 1.71
     },
     {
       "id": "4H_2026-04-09_KRW-ARK",
@@ -205,7 +205,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.4
     }
   ],
   "waiting_for_cycle1": []
