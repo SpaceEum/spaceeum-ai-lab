@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-09 15:02:57",
-  "total_trades": 10,
+  "last_updated": "2026-04-09 20:36:07",
+  "total_trades": 12,
   "open_positions": 5,
-  "closed_trades": 5,
+  "closed_trades": 7,
   "wins": 0,
-  "losses": 5,
+  "losses": 7,
   "win_rate": 0.0,
-  "avg_pnl_pct": -2.15,
-  "total_pnl_pct": -10.77,
+  "avg_pnl_pct": -2.26,
+  "total_pnl_pct": -15.85,
   "best_trade": {
     "symbol": "KRW-NEAR",
     "pnl_pct": -0.1,
@@ -24,31 +24,13 @@
   },
   "open_position_list": [
     {
-      "symbol": "KRW-GMT",
-      "entry_date": "2026-04-08",
-      "entry_price": 15.9,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": -3.77
-    },
-    {
-      "symbol": "KRW-ARB",
-      "entry_date": "2026-04-09",
-      "entry_price": 157.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": -3.18
-    },
-    {
       "symbol": "KRW-AERGO",
       "entry_date": "2026-04-09",
       "entry_price": 80.6,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -0.74
+      "current_pnl_pct": -0.12
     },
     {
       "symbol": "KRW-TOKAMAK",
@@ -57,12 +39,30 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -1.37
+      "current_pnl_pct": -2.34
     },
     {
       "symbol": "KRW-BOUNTY",
       "entry_date": "2026-04-09",
       "entry_price": 31.1,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.32
+    },
+    {
+      "symbol": "KRW-NEAR",
+      "entry_date": "2026-04-09",
+      "entry_price": 1986.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-ARK",
+      "entry_date": "2026-04-09",
+      "entry_price": 252.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
