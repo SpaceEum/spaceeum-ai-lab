@@ -22,8 +22,15 @@ UPBIT_BASE = "https://api.upbit.com/v1"
 TOP_N = 200
 DATA_DIR = Path("data/ohlcv")
 
-# 초기 전체 수집 시 최근 N년치만 가져옴 (전체 이력은 너무 오래 걸림)
-HISTORY_YEARS = 2
+# 타임프레임별 초기 수집 기간 (분봉/시간봉은 2년, 일봉 이상은 전체 이력)
+HISTORY_YEARS = {
+    "15min": 2,
+    "1H":    2,
+    "4H":    2,
+    "1D":    None,   # 전체 이력
+    "1W":    None,   # 전체 이력
+    "1M":    None,   # 전체 이력
+}
 # 이 시간(초) 초과 시 수집 중단하고 지금까지 수집한 것만 커밋
 MAX_RUNTIME_SEC = 5 * 3600 + 30 * 60  # 5시간 30분
 TICKER_LIST_FILE = DATA_DIR / "ticker_list.json"
@@ -228,14 +235,16 @@ def filter_incomplete(df, tf_key):
 # ── 데이터 수집 ───────────────────────────────────────────────
 
 def fetch_all_history(market, tf_key):
-    """최근 HISTORY_YEARS년치 이력 수집 (초기 수집 시간 단축)"""
+    """이력 수집 — 분봉/시간봉은 최근 2년, 일봉 이상은 전체 이력"""
     all_candles = []
     to = None
-    cutoff = datetime.now(KST).replace(tzinfo=None) - timedelta(days=365 * HISTORY_YEARS)
+    years = HISTORY_YEARS.get(tf_key)
+    cutoff = datetime.now(KST).replace(tzinfo=None) - timedelta(days=365 * years) if years else None
 
-    print(f"  [전체수집] {market} {tf_key} 최근 {HISTORY_YEARS}년치 시작...", flush=True)
+    label = f"최근 {years}년치" if years else "전체 이력"
+    print(f"  [전체수집] {market} {tf_key} {label} 시작...", flush=True)
 
-    for _ in range(2000):
+    for _ in range(5000):
         try:
             candles = fetch_candles(market, tf_key, to=to, count=200)
         except Exception as e:
@@ -251,10 +260,11 @@ def fetch_all_history(market, tf_key):
         if len(candles) < 200:
             break  # 상장 초기에 도달
 
-        # cutoff 이전 데이터에 도달하면 중단
         oldest_str = candles[-1]["candle_date_time_kst"]
         oldest_dt = datetime.strptime(oldest_str[:19], "%Y-%m-%dT%H:%M:%S")
-        if oldest_dt <= cutoff:
+
+        # cutoff 있으면 그 이전 도달 시 중단
+        if cutoff and oldest_dt <= cutoff:
             break
 
         to = oldest_str
@@ -264,8 +274,8 @@ def fetch_all_history(market, tf_key):
         return pd.DataFrame()
 
     df = candles_to_df(all_candles)
-    # cutoff 이후 데이터만 유지
-    df = df[df["datetime"] >= pd.Timestamp(cutoff)]
+    if cutoff:
+        df = df[df["datetime"] >= pd.Timestamp(cutoff)]
     df = df.drop_duplicates("datetime").sort_values("datetime").reset_index(drop=True)
     print(f"  → {len(df)}행 수집 완료", flush=True)
     return df
