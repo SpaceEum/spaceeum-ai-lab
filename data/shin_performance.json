@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-09 06:09:30",
+  "updated_at": "2026-04-09 10:48:23",
   "summary": {
     "total_closed_trades": 67,
     "total_wins": 23,
     "overall_win_rate": 34.3,
-    "open_positions": 8,
+    "open_positions": 9,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -60,6 +60,16 @@
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-DKA",
+      "direction": "BUY",
+      "entry_price": 9.08,
+      "stop_loss": 8.853,
+      "take_profit": 9.6248,
+      "entry_time": "2026-04-09 10:48:09",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.6배)"
+    },
     {
       "strategy": "Shin_60MA_Bounce",
       "symbol": "KRW-USD1",
