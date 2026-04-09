@@ -25,7 +25,7 @@ jobs:
 
       - name: Run promote script
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY_01 }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           PYTHONIOENCODING: utf-8
           PYTHONUTF8: '1'
