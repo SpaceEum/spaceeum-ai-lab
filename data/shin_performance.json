@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-08 22:10:27",
+  "updated_at": "2026-04-09 00:05:23",
   "summary": {
-    "total_closed_trades": 64,
-    "total_wins": 21,
-    "overall_win_rate": 32.8,
-    "open_positions": 8,
+    "total_closed_trades": 65,
+    "total_wins": 22,
+    "overall_win_rate": 33.8,
+    "open_positions": 9,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -51,15 +51,35 @@
     {
       "name": "Shin_60MA_Basic",
       "initial_balance": 10000.0,
-      "current_balance": -14605.95,
-      "total_trades": 16,
-      "win_trades": 3,
+      "current_balance": -12117.26,
+      "total_trades": 17,
+      "win_trades": 4,
       "loss_trades": 13,
-      "win_rate": 18.8,
-      "total_pnl_pct": -246.06
+      "win_rate": 23.5,
+      "total_pnl_pct": -221.17
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "KRW-USDT",
+      "direction": "BUY",
+      "entry_price": 1490.0,
+      "stop_loss": 1452.75,
+      "take_profit": 1579.4,
+      "entry_time": "2026-04-09 00:05:07",
+      "entry_reason": "60MA 눌림 반등 (상승추세, MA60=1482.8667 지지 후 양봉 반등)"
+    },
+    {
+      "strategy": "Shin_60MA_Bounce",
+      "symbol": "KRW-USDC",
+      "direction": "BUY",
+      "entry_price": 1490.0,
+      "stop_loss": 1452.75,
+      "take_profit": 1579.4,
+      "entry_time": "2026-04-09 00:05:03",
+      "entry_reason": "60MA 눌림 반등 (상승추세, MA60=1483.1000 지지 후 양봉 반등)"
+    },
     {
       "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-KAITO",
@@ -79,16 +99,6 @@
       "take_profit": 1580.46,
       "entry_time": "2026-04-08 19:48:20",
       "entry_reason": "60MA 눌림 반등 (상승추세, MA60=1481.7500 지지 후 양봉 반등)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-CARV",
-      "direction": "BUY",
-      "entry_price": 88.4,
-      "stop_loss": 86.632,
-      "take_profit": 91.936,
-      "entry_time": "2026-04-08 19:48:09",
-      "entry_reason": "60MA 상향 돌파 (종가 88.4000 > MA60 88.0183)"
     },
     {
       "strategy": "Shin_60MA_Volume",
@@ -142,6 +152,18 @@
     }
   ],
   "recent_trades": [
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-CARV",
+      "direction": "BUY",
+      "entry_price": 88.4,
+      "exit_price": 86.2,
+      "pnl_pct": 2.49,
+      "exit_reason": "손절 (현재가 86.2000 ≤ SL 86.6320)",
+      "entry_time": "2026-04-08 19:48:09",
+      "exit_time": "2026-04-09 00:04:54",
+      "status": "WIN"
+    },
     {
       "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-KAITO",
@@ -247,18 +269,6 @@
       "pnl_pct": -3.23,
       "exit_reason": "익절 (현재가 735.0000 ≥ TP 669.2800)",
       "entry_time": "2026-04-05 17:53:46",
-      "exit_time": "2026-04-08 05:31:33",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-JTO",
-      "direction": "SHORT",
-      "entry_price": 411.0,
-      "exit_price": 418.0,
-      "pnl_pct": -1.7,
-      "exit_reason": "손절 (현재가 418.0000 ≤ SL 419.2200)",
-      "entry_time": "2026-04-05 21:06:18",
       "exit_time": "2026-04-08 05:31:33",
       "status": "LOSS"
     }
