@@ -30,7 +30,7 @@ KST = timezone(timedelta(hours=9))
 WEIGHTS = {s.name: 1 for s in ALL_STRATEGIES}
 
 # 임계점: 이 이상일 때 매수 (3~5 사이에서 비교)
-BUY_THRESHOLD = 3
+BUY_THRESHOLD = 2
 
 # 리스크 파라미터
 STOP_LOSS_PCT  = -5.0   # -5% 손절
@@ -42,7 +42,10 @@ CANDLES_PER_YEAR = 365 * 24       # 8,760개
 WARMUP_CANDLES   = 80              # 전략 계산에 필요한 최소 봉 수
 FETCH_BATCH      = 200             # pyupbit 1회 최대 요청 수
 
-OUTPUT_PATH = "data/backtest_result.json"
+# ohlcv parquet 경로 (수집 완료된 경우 API 대신 사용)
+OHLCV_DIR = Path(__file__).parent.parent / "data" / "ohlcv" / "1H_upbit"
+
+OUTPUT_PATH = f"data/backtest_result_threshold{BUY_THRESHOLD}.json"
 
 
 # ── 로그 ──────────────────────────────────────────────────────
@@ -51,8 +54,41 @@ def log(msg):
 
 
 # ── STEP 1: 데이터 수집 ───────────────────────────────────────
+def load_from_parquet(ticker: str) -> list:
+    """로컬 parquet에서 1H 캔들 로드 (ohlcv_update 수집 데이터 사용)"""
+    safe = ticker.replace("-", "_")
+    path = OHLCV_DIR / f"{safe}.parquet"
+    if not path.exists():
+        return []
+    try:
+        import pandas as pd
+        df = pd.read_parquet(path, engine="pyarrow")
+        # 최근 1년치만 사용
+        df = df.tail(CANDLES_PER_YEAR).reset_index(drop=True)
+        return [
+            {
+                "time":   str(row["datetime"]),
+                "open":   row["open"],
+                "high":   row["high"],
+                "low":    row["low"],
+                "close":  row["close"],
+                "volume": row["volume"],
+            }
+            for _, row in df.iterrows()
+        ]
+    except Exception as e:
+        log(f"  parquet 로드 실패 ({ticker}): {e}")
+        return []
+
+
 def fetch_1y_1h(ticker: str) -> list:
-    """티커의 1년치 1H 캔들 가져오기 (페이지네이션)"""
+    """티커의 1년치 1H 캔들 가져오기 — parquet 우선, 없으면 API"""
+    # parquet 우선 시도
+    candles = load_from_parquet(ticker)
+    if candles:
+        return candles
+
+    # parquet 없으면 API에서 직접 수집
     all_candles = []
     to = None
 
