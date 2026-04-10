@@ -1,19 +1,19 @@
 {
-  "last_updated": "2026-04-10 07:05:06",
-  "total_trades": 12,
+  "last_updated": "2026-04-10 15:22:12",
+  "total_trades": 14,
   "open_positions": 5,
-  "closed_trades": 7,
-  "wins": 0,
+  "closed_trades": 9,
+  "wins": 2,
   "losses": 7,
-  "win_rate": 0.0,
-  "avg_pnl_pct": -2.26,
-  "total_pnl_pct": -15.85,
+  "win_rate": 22.2,
+  "avg_pnl_pct": -1.52,
+  "total_pnl_pct": -13.64,
   "best_trade": {
     "symbol": "KRW-NEAR",
-    "pnl_pct": -0.1,
-    "exit_reason": "매도신호 (4번 + 종이격 3일 연속 감소)",
-    "entry_date": "2026-04-08",
-    "exit_date": "2026-04-09"
+    "pnl_pct": 1.81,
+    "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+    "entry_date": "2026-04-09",
+    "exit_date": "2026-04-10"
   },
   "worst_trade": {
     "symbol": "KRW-RENDER",
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -0.12
+      "current_pnl_pct": 0.0
     },
     {
       "symbol": "KRW-TOKAMAK",
@@ -39,7 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -1.65
+      "current_pnl_pct": -2.75
     },
     {
       "symbol": "KRW-BOUNTY",
@@ -51,18 +51,18 @@
       "current_pnl_pct": 0.32
     },
     {
-      "symbol": "KRW-NEAR",
-      "entry_date": "2026-04-09",
-      "entry_price": 1986.0,
+      "symbol": "KRW-JST",
+      "entry_date": "2026-04-10",
+      "entry_price": 104.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 2.06
+      "current_pnl_pct": 0.0
     },
     {
-      "symbol": "KRW-ARK",
-      "entry_date": "2026-04-09",
-      "entry_price": 252.0,
+      "symbol": "KRW-ARB",
+      "entry_date": "2026-04-10",
+      "entry_price": 162.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
