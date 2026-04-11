@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-04-10 15:24:18",
-  "total_trades": 14,
-  "open_positions": 4,
+  "last_updated": "2026-04-11 14:23:41",
+  "total_trades": 15,
+  "open_positions": 5,
   "closed_trades": 10,
   "wins": 1,
   "losses": 9,
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": true,
-      "current_pnl_pct": -1.46
+      "current_pnl_pct": -3.79
     },
     {
       "symbol": "KRW-JST",
@@ -48,12 +48,21 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 6.59
+      "current_pnl_pct": 8.24
     },
     {
       "symbol": "KRW-DKA",
       "entry_date": "2026-04-10",
       "entry_price": 9.02,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-ORDER",
+      "entry_date": "2026-04-11",
+      "entry_price": 92.4,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,

@@ -201,7 +201,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -1.46
+      "current_pnl_pct": -3.79
     },
     {
       "id": "2026-04-08_KRW-KAITO",
@@ -261,7 +261,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 6.59
+      "current_pnl_pct": 8.24
     },
     {
       "id": "2026-04-10_KRW-DKA",
@@ -273,6 +273,26 @@
       "entry_score_4h": 6,
       "entry_cycle": "2번",
       "entry_cycle_4h": "2번",
+      "dual_strong": false,
+      "entry_reason": "STRONG BUY(8/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "id": "2026-04-11_KRW-ORDER",
+      "symbol": "KRW-ORDER",
+      "status": "OPEN",
+      "entry_date": "2026-04-11",
+      "entry_price": 92.4,
+      "entry_score": 8,
+      "entry_score_4h": 6,
+      "entry_cycle": "2번",
+      "entry_cycle_4h": "3번",
       "dual_strong": false,
       "entry_reason": "STRONG BUY(8/9) + 2번",
       "exit_date": null,
