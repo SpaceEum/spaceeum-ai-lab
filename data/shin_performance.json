@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-10 23:55:53",
+  "updated_at": "2026-04-11 05:39:07",
   "summary": {
-    "total_closed_trades": 73,
-    "total_wins": 28,
-    "overall_win_rate": 38.4,
-    "open_positions": 15,
+    "total_closed_trades": 74,
+    "total_wins": 29,
+    "overall_win_rate": 39.2,
+    "open_positions": 14,
     "best_strategy": "Shin_60MA_Volume"
   },
   "strategies": [
@@ -51,25 +51,15 @@
     {
       "name": "Shin_60MA_Basic",
       "initial_balance": 10000.0,
-      "current_balance": -13046.2,
-      "total_trades": 20,
-      "win_trades": 5,
+      "current_balance": -10889.34,
+      "total_trades": 21,
+      "win_trades": 6,
       "loss_trades": 15,
-      "win_rate": 25.0,
-      "total_pnl_pct": -230.46
+      "win_rate": 28.6,
+      "total_pnl_pct": -208.89
     }
   ],
   "open_positions": [
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-PENGU",
-      "direction": "BUY",
-      "entry_price": 10.2,
-      "stop_loss": 9.996,
-      "take_profit": 10.608,
-      "entry_time": "2026-04-10 20:01:47",
-      "entry_reason": "60MA 상향 돌파 (종가 10.2000 > MA60 10.1373)"
-    },
     {
       "strategy": "Shin_60MA_Basic",
       "symbol": "KRW-FIL",
@@ -213,6 +203,18 @@
   ],
   "recent_trades": [
     {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-PENGU",
+      "direction": "BUY",
+      "entry_price": 10.2,
+      "exit_price": 9.98,
+      "pnl_pct": 2.16,
+      "exit_reason": "손절 (현재가 9.9800 ≤ SL 9.9960)",
+      "entry_time": "2026-04-10 20:01:47",
+      "exit_time": "2026-04-11 05:38:39",
+      "status": "WIN"
+    },
+    {
       "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-LPT",
       "direction": "BUY",
@@ -318,18 +320,6 @@
       "exit_reason": "손절 (현재가 86.2000 ≤ SL 86.6320)",
       "entry_time": "2026-04-08 19:48:09",
       "exit_time": "2026-04-09 00:04:54",
-      "status": "WIN"
-    },
-    {
-      "strategy": "Shin_60MA_Volume",
-      "symbol": "KRW-KAITO",
-      "direction": "BUY",
-      "entry_price": 693.0,
-      "exit_price": 673.0,
-      "pnl_pct": 2.89,
-      "exit_reason": "손절 (현재가 673.0000 ≤ SL 675.6750)",
-      "entry_time": "2026-04-08 14:55:25",
-      "exit_time": "2026-04-08 22:09:50",
       "status": "WIN"
     }
   ]
