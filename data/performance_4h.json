@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-11 14:22:36",
-  "total_trades": 17,
+  "last_updated": "2026-04-11 19:04:21",
+  "total_trades": 19,
   "open_positions": 5,
-  "closed_trades": 12,
+  "closed_trades": 14,
   "wins": 3,
-  "losses": 9,
-  "win_rate": 25.0,
-  "avg_pnl_pct": -1.27,
-  "total_pnl_pct": -15.21,
+  "losses": 11,
+  "win_rate": 21.4,
+  "avg_pnl_pct": -1.28,
+  "total_pnl_pct": -17.96,
   "best_trade": {
     "symbol": "KRW-NEAR",
     "pnl_pct": 1.81,
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -0.12
+      "current_pnl_pct": 0.37
     },
     {
       "symbol": "KRW-BOUNTY",
@@ -39,7 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": -0.96
+      "current_pnl_pct": -1.29
     },
     {
       "symbol": "KRW-ARB",
@@ -48,25 +48,25 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 5.56
+      "current_pnl_pct": 4.94
     },
     {
-      "symbol": "KRW-IMX",
+      "symbol": "KRW-AERO",
       "entry_date": "2026-04-11",
-      "entry_price": 220.0,
+      "entry_price": 581.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": -1.36
+      "current_pnl_pct": 0.0
     },
     {
-      "symbol": "KRW-INJ",
+      "symbol": "KRW-TOKAMAK",
       "entry_date": "2026-04-11",
-      "entry_price": 4546.0,
+      "entry_price": 719.0,
       "entry_cycle": "2번",
-      "entry_score": 9,
+      "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -2.05
+      "current_pnl_pct": 0.0
     }
   ]
 }
