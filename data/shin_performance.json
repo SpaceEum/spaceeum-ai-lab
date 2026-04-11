@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-11 21:52:09",
+  "updated_at": "2026-04-11 23:54:32",
   "summary": {
     "total_closed_trades": 75,
     "total_wins": 30,
     "overall_win_rate": 40.0,
-    "open_positions": 13,
+    "open_positions": 15,
     "best_strategy": "Shin_60MA_Volume"
   },
   "strategies": [
@@ -60,6 +60,26 @@
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-NEWT",
+      "direction": "BUY",
+      "entry_price": 104.0,
+      "stop_loss": 101.4,
+      "take_profit": 110.24,
+      "entry_time": "2026-04-11 23:54:30",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.7배)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-USD1",
+      "direction": "BUY",
+      "entry_price": 1484.0,
+      "stop_loss": 1446.9,
+      "take_profit": 1573.04,
+      "entry_time": "2026-04-11 23:54:09",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.6배)"
+    },
     {
       "strategy": "Shin_60MA_Basic",
       "symbol": "KRW-WAXP",
