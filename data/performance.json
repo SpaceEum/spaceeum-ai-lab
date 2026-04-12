@@ -1,19 +1,19 @@
 {
-  "last_updated": "2026-04-11 14:23:41",
-  "total_trades": 15,
-  "open_positions": 5,
-  "closed_trades": 10,
-  "wins": 1,
-  "losses": 9,
-  "win_rate": 10.0,
-  "avg_pnl_pct": -5.48,
-  "total_pnl_pct": -54.78,
+  "last_updated": "2026-04-12 15:15:03",
+  "total_trades": 17,
+  "open_positions": 3,
+  "closed_trades": 14,
+  "wins": 3,
+  "losses": 11,
+  "win_rate": 21.4,
+  "avg_pnl_pct": -2.67,
+  "total_pnl_pct": -37.42,
   "best_trade": {
-    "symbol": "KRW-ALGO",
-    "pnl_pct": 4.42,
-    "exit_reason": "꼭지경고 (3~4번 자리 진입)",
-    "entry_date": "2026-04-03",
-    "exit_date": "2026-04-04"
+    "symbol": "KRW-SAFE",
+    "pnl_pct": 16.48,
+    "exit_reason": "익절 (16.5%)",
+    "entry_date": "2026-04-09",
+    "exit_date": "2026-04-12"
   },
   "worst_trade": {
     "symbol": "KRW-KERNEL",
@@ -24,45 +24,27 @@
   },
   "open_position_list": [
     {
-      "symbol": "KRW-RENDER",
-      "entry_date": "2026-04-08",
-      "entry_price": 3088.0,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": true,
-      "current_pnl_pct": -3.79
-    },
-    {
-      "symbol": "KRW-JST",
-      "entry_date": "2026-04-09",
-      "entry_price": 97.6,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": 6.56
-    },
-    {
-      "symbol": "KRW-SAFE",
-      "entry_date": "2026-04-09",
-      "entry_price": 182.0,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": 8.24
-    },
-    {
       "symbol": "KRW-DKA",
       "entry_date": "2026-04-10",
       "entry_price": 9.02,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
+      "current_pnl_pct": -1.11
+    },
+    {
+      "symbol": "KRW-AERO",
+      "entry_date": "2026-04-12",
+      "entry_price": 557.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
       "current_pnl_pct": 0.0
     },
     {
-      "symbol": "KRW-ORDER",
-      "entry_date": "2026-04-11",
-      "entry_price": 92.4,
+      "symbol": "KRW-XPL",
+      "entry_date": "2026-04-12",
+      "entry_price": 192.0,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
