@@ -324,7 +324,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -1.81
+      "current_pnl_pct": -1.95
     },
     {
       "id": "4H_2026-04-12_KRW-WLD",
@@ -341,7 +341,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -2.92
+      "current_pnl_pct": -2.25
     },
     {
       "id": "4H_2026-04-12_KRW-GMT",
@@ -369,6 +369,23 @@
       "entry_score": 9,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(9/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "id": "4H_2026-04-12_KRW-ORBS",
+      "symbol": "KRW-ORBS",
+      "status": "OPEN",
+      "entry_date": "2026-04-12",
+      "entry_price": 13.8,
+      "entry_score": 8,
+      "entry_cycle": "2번",
+      "entry_reason": "4H STRONG BUY(8/9) + 2번",
       "exit_date": null,
       "exit_price": null,
       "exit_reason": null,
