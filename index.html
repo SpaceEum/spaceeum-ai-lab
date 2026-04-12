@@ -88,30 +88,6 @@ section { position:relative; z-index:1; padding:100px 32px; }
 .service-tags { display:flex; flex-wrap:wrap; gap:8px; }
 .tag { padding:4px 10px; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:4px; font-size:11px; color:var(--text2); font-family:'Space Mono',monospace; }
 
-/* 트레이딩 */
-.trading-section { background:var(--bg); }
-.trading-inner { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-top:60px; }
-@media(max-width:768px){ .trading-inner{grid-template-columns:1fr;} }
-.trading-desc { font-size:15px; color:var(--text2); line-height:1.9; margin-bottom:32px; }
-.trading-features { display:flex; flex-direction:column; gap:16px; }
-.feature-item { display:flex; align-items:flex-start; gap:16px; padding:16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; transition:border-color 0.2s; }
-.feature-item:hover { border-color:rgba(0,212,255,0.3); }
-.feature-dot { width:8px; height:8px; background:var(--accent2); border-radius:50%; margin-top:6px; flex-shrink:0; }
-.feature-text { font-size:14px; line-height:1.6; }
-.feature-text strong { color:var(--accent); display:block; margin-bottom:4px; font-size:13px; }
-.trading-panel { background:var(--bg2); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
-.panel-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border); background:var(--bg3); }
-.panel-title { font-family:'Space Mono',monospace; font-size:12px; color:var(--text2); letter-spacing:2px; }
-.panel-status { display:flex; align-items:center; gap:6px; font-family:'Space Mono',monospace; font-size:10px; color:var(--accent2); }
-.panel-body { padding:20px; }
-.scan-result { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); font-family:'Space Mono',monospace; font-size:12px; }
-.scan-result:last-child { border-bottom:none; }
-.ticker { color:var(--text); font-weight:700; }
-.score { color:var(--text2); }
-.signal-buy { padding:3px 10px; background:rgba(0,255,136,0.1); color:var(--accent2); border:1px solid rgba(0,255,136,0.3); border-radius:4px; font-size:10px; }
-.signal-watch { padding:3px 10px; background:rgba(255,184,0,0.1); color:#ffb800; border:1px solid rgba(255,184,0,0.3); border-radius:4px; font-size:10px; }
-.panel-footer { padding:12px 20px; border-top:1px solid var(--border); background:var(--bg3); font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); text-align:center; }
-
 /* 비전 */
 .vision { background:var(--bg2); }
 .vision-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:60px; }
@@ -245,22 +221,6 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
           <span class="tag">Claude Code</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="trading-section" id="trading">
-  <div class="section-inner">
-    <span class="section-label reveal">AI TRADING LAB</span>
-    <h2 class="section-title reveal">AI 트레이딩 연구소</h2>
-    <p class="trading-desc reveal" style="max-width:680px;">
-      신창환 60일 이동평균 매매법을 AI로 자동화하여 매일 업비트 KRW 마켓을 스캔합니다.<br>
-      9가지 기술적 분석 조건으로 점수화된 매매 신호와 페이퍼 트레이딩 성과를 확인하세요.
-    </p>
-    <div style="margin-top:32px;" class="reveal">
-      <a href="/ai-trading.html" class="btn-primary" style="display:inline-block;font-size:13px;">
-        🔬 AI 트레이딩 연구소 바로가기 →
-      </a>
     </div>
   </div>
 </section>
