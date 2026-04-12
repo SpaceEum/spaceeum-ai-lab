@@ -1,0 +1,1954 @@
+{
+  "run_date": "2026-04-08 22:19:49",
+  "timeframe": "1H",
+  "period": "1년",
+  "threshold": 3,
+  "weights": {
+    "Shin_60MA_Bounce": 1,
+    "Shin_60MA_Basic": 1,
+    "Shin_60MA_Cross": 1,
+    "Shin_60MA_RSI": 1,
+    "Shin_60MA_Volume": 1
+  },
+  "stop_loss_pct": -5.0,
+  "take_profit_pct": 10.0,
+  "total_coins_scanned": 244,
+  "coins_with_trades": 21,
+  "coins_no_trades": 223,
+  "all_trades": 296,
+  "all_wins": 84,
+  "overall_win_rate": 28.4,
+  "overall_avg_pnl": -0.54,
+  "top10_by_avg_pnl": [
+    {
+      "symbol": "KRW-USD1",
+      "trades": 9,
+      "win_rate": 33.3,
+      "avg_pnl": 14.86,
+      "total_pnl": 133.77
+    },
+    {
+      "symbol": "KRW-TREE",
+      "trades": 14,
+      "win_rate": 50.0,
+      "avg_pnl": 3.35,
+      "total_pnl": 46.91
+    },
+    {
+      "symbol": "KRW-DOOD",
+      "trades": 10,
+      "win_rate": 30.0,
+      "avg_pnl": 0.84,
+      "total_pnl": 8.43
+    },
+    {
+      "symbol": "KRW-USDT",
+      "trades": 8,
+      "win_rate": 25.0,
+      "avg_pnl": 0.63,
+      "total_pnl": 5.06
+    },
+    {
+      "symbol": "KRW-HUNT",
+      "trades": 18,
+      "win_rate": 33.3,
+      "avg_pnl": 0.5,
+      "total_pnl": 8.98
+    },
+    {
+      "symbol": "KRW-USDE",
+      "trades": 2,
+      "win_rate": 50.0,
+      "avg_pnl": 0.21,
+      "total_pnl": 0.42
+    },
+    {
+      "symbol": "KRW-BORA",
+      "trades": 19,
+      "win_rate": 36.8,
+      "avg_pnl": 0.09,
+      "total_pnl": 1.73
+    },
+    {
+      "symbol": "KRW-BAT",
+      "trades": 18,
+      "win_rate": 33.3,
+      "avg_pnl": 0.07,
+      "total_pnl": 1.34
+    },
+    {
+      "symbol": "KRW-BEAM",
+      "trades": 17,
+      "win_rate": 35.3,
+      "avg_pnl": -0.19,
+      "total_pnl": -3.21
+    },
+    {
+      "symbol": "KRW-FIL",
+      "trades": 19,
+      "win_rate": 31.6,
+      "avg_pnl": -0.32,
+      "total_pnl": -6.13
+    }
+  ],
+  "top10_by_activity": [
+    {
+      "symbol": "KRW-LSK",
+      "trades": 27,
+      "win_rate": 29.6,
+      "avg_pnl": -1.52
+    },
+    {
+      "symbol": "KRW-CARV",
+      "trades": 20,
+      "win_rate": 25.0,
+      "avg_pnl": -1.42
+    },
+    {
+      "symbol": "KRW-PUNDIX",
+      "trades": 20,
+      "win_rate": 30.0,
+      "avg_pnl": -1.62
+    },
+    {
+      "symbol": "KRW-BORA",
+      "trades": 19,
+      "win_rate": 36.8,
+      "avg_pnl": 0.09
+    },
+    {
+      "symbol": "KRW-FIL",
+      "trades": 19,
+      "win_rate": 31.6,
+      "avg_pnl": -0.32
+    },
+    {
+      "symbol": "KRW-WAXP",
+      "trades": 18,
+      "win_rate": 16.7,
+      "avg_pnl": -3.6
+    },
+    {
+      "symbol": "KRW-BAT",
+      "trades": 18,
+      "win_rate": 33.3,
+      "avg_pnl": 0.07
+    },
+    {
+      "symbol": "KRW-HUNT",
+      "trades": 18,
+      "win_rate": 33.3,
+      "avg_pnl": 0.5
+    },
+    {
+      "symbol": "KRW-BEAM",
+      "trades": 17,
+      "win_rate": 35.3,
+      "avg_pnl": -0.19
+    },
+    {
+      "symbol": "KRW-MOVE",
+      "trades": 16,
+      "win_rate": 18.8,
+      "avg_pnl": -3.28
+    }
+  ],
+  "all_results": [
+    {
+      "symbol": "KRW-WAXP",
+      "total_trades": 18,
+      "wins": 3,
+      "losses": 15,
+      "win_rate": 16.7,
+      "avg_pnl_pct": -3.6,
+      "total_pnl_pct": -64.73,
+      "best_trade_pct": 10.43,
+      "worst_trade_pct": -7.6,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-WAXP",
+          "entry_price": 11.3,
+          "entry_time": "2026-01-31 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 10.7,
+          "exit_time": "2026-02-01 00:00:00",
+          "pnl_pct": -5.31,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-WAXP",
+          "entry_price": 11.2,
+          "entry_time": "2026-02-03 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 10.5,
+          "exit_time": "2026-02-05 10:00:00",
+          "pnl_pct": -6.25,
+          "exit_reason": "손절 (-6.2%)"
+        },
+        {
+          "symbol": "KRW-WAXP",
+          "entry_price": 10.2,
+          "entry_time": "2026-02-11 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 10.1,
+          "exit_time": "2026-02-11 16:00:00",
+          "pnl_pct": -0.98,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-WAXP",
+          "entry_price": 9.36,
+          "entry_time": "2026-02-27 13:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 8.88,
+          "exit_time": "2026-02-28 15:00:00",
+          "pnl_pct": -5.13,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-WAXP",
+          "entry_price": 9.25,
+          "entry_time": "2026-03-01 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 10.2,
+          "exit_time": "2026-03-18 16:00:00",
+          "pnl_pct": 10.27,
+          "exit_reason": "익절 (10.3%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-CARV",
+      "total_trades": 20,
+      "wins": 5,
+      "losses": 15,
+      "win_rate": 25.0,
+      "avg_pnl_pct": -1.42,
+      "total_pnl_pct": -28.45,
+      "best_trade_pct": 13.22,
+      "worst_trade_pct": -8.09,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-CARV",
+          "entry_price": 95.2,
+          "entry_time": "2026-02-12 17:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 90.3,
+          "exit_time": "2026-02-19 17:00:00",
+          "pnl_pct": -5.15,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-CARV",
+          "entry_price": 100.0,
+          "entry_time": "2026-02-21 11:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 93.9,
+          "exit_time": "2026-02-22 10:00:00",
+          "pnl_pct": -6.1,
+          "exit_reason": "손절 (-6.1%)"
+        },
+        {
+          "symbol": "KRW-CARV",
+          "entry_price": 85.5,
+          "entry_time": "2026-03-16 10:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 96.8,
+          "exit_time": "2026-03-18 09:00:00",
+          "pnl_pct": 13.22,
+          "exit_reason": "익절 (13.2%)"
+        },
+        {
+          "symbol": "KRW-CARV",
+          "entry_price": 87.4,
+          "entry_time": "2026-03-21 01:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 83.0,
+          "exit_time": "2026-03-23 06:00:00",
+          "pnl_pct": -5.03,
+          "exit_reason": "손절 (-5.0%)"
+        },
+        {
+          "symbol": "KRW-CARV",
+          "entry_price": 81.9,
+          "entry_time": "2026-03-31 10:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 87.0,
+          "exit_time": "2026-04-08 18:00:00",
+          "pnl_pct": 6.23,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-LSK",
+      "total_trades": 27,
+      "wins": 8,
+      "losses": 19,
+      "win_rate": 29.6,
+      "avg_pnl_pct": -1.52,
+      "total_pnl_pct": -41.08,
+      "best_trade_pct": 11.56,
+      "worst_trade_pct": -9.18,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-LSK",
+          "entry_price": 241.0,
+          "entry_time": "2026-01-31 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 223.0,
+          "exit_time": "2026-01-31 23:00:00",
+          "pnl_pct": -7.47,
+          "exit_reason": "손절 (-7.5%)"
+        },
+        {
+          "symbol": "KRW-LSK",
+          "entry_price": 199.0,
+          "entry_time": "2026-02-11 12:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 222.0,
+          "exit_time": "2026-02-14 16:00:00",
+          "pnl_pct": 11.56,
+          "exit_reason": "익절 (11.6%)"
+        },
+        {
+          "symbol": "KRW-LSK",
+          "entry_price": 185.0,
+          "entry_time": "2026-03-02 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 206.0,
+          "exit_time": "2026-03-17 18:00:00",
+          "pnl_pct": 11.35,
+          "exit_reason": "익절 (11.4%)"
+        },
+        {
+          "symbol": "KRW-LSK",
+          "entry_price": 195.0,
+          "entry_time": "2026-03-22 02:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 185.0,
+          "exit_time": "2026-03-23 04:00:00",
+          "pnl_pct": -5.13,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-LSK",
+          "entry_price": 184.0,
+          "entry_time": "2026-03-31 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 185.0,
+          "exit_time": "2026-04-07 20:00:00",
+          "pnl_pct": 0.54,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-0G",
+      "total_trades": 10,
+      "wins": 2,
+      "losses": 8,
+      "win_rate": 20.0,
+      "avg_pnl_pct": -2.94,
+      "total_pnl_pct": -29.39,
+      "best_trade_pct": 11.32,
+      "worst_trade_pct": -8.24,
+      "candles_used": 4956,
+      "recent_trades": [
+        {
+          "symbol": "KRW-0G",
+          "entry_price": 1280.0,
+          "entry_time": "2026-01-13 23:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1179.0,
+          "exit_time": "2026-01-19 09:00:00",
+          "pnl_pct": -7.89,
+          "exit_reason": "손절 (-7.9%)"
+        },
+        {
+          "symbol": "KRW-0G",
+          "entry_price": 1260.0,
+          "entry_time": "2026-01-22 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1191.0,
+          "exit_time": "2026-01-23 05:00:00",
+          "pnl_pct": -5.48,
+          "exit_reason": "손절 (-5.5%)"
+        },
+        {
+          "symbol": "KRW-0G",
+          "entry_price": 976.0,
+          "entry_time": "2026-02-27 12:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 924.0,
+          "exit_time": "2026-02-28 02:00:00",
+          "pnl_pct": -5.33,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-0G",
+          "entry_price": 859.0,
+          "entry_time": "2026-03-16 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 816.0,
+          "exit_time": "2026-03-19 02:00:00",
+          "pnl_pct": -5.01,
+          "exit_reason": "손절 (-5.0%)"
+        },
+        {
+          "symbol": "KRW-0G",
+          "entry_price": 742.0,
+          "entry_time": "2026-03-31 05:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 801.0,
+          "exit_time": "2026-04-08 18:00:00",
+          "pnl_pct": 7.95,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-BORA",
+      "total_trades": 19,
+      "wins": 7,
+      "losses": 12,
+      "win_rate": 36.8,
+      "avg_pnl_pct": 0.09,
+      "total_pnl_pct": 1.73,
+      "best_trade_pct": 16.04,
+      "worst_trade_pct": -7.28,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-BORA",
+          "entry_price": 73.2,
+          "entry_time": "2025-11-26 10:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 69.1,
+          "exit_time": "2025-12-01 13:00:00",
+          "pnl_pct": -5.6,
+          "exit_reason": "손절 (-5.6%)"
+        },
+        {
+          "symbol": "KRW-BORA",
+          "entry_price": 71.5,
+          "entry_time": "2025-12-07 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 67.3,
+          "exit_time": "2025-12-11 09:00:00",
+          "pnl_pct": -5.87,
+          "exit_reason": "손절 (-5.9%)"
+        },
+        {
+          "symbol": "KRW-BORA",
+          "entry_price": 57.3,
+          "entry_time": "2025-12-28 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 63.1,
+          "exit_time": "2026-01-05 09:00:00",
+          "pnl_pct": 10.12,
+          "exit_reason": "익절 (10.1%)"
+        },
+        {
+          "symbol": "KRW-BORA",
+          "entry_price": 67.4,
+          "entry_time": "2026-01-14 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 67.1,
+          "exit_time": "2026-01-18 20:00:00",
+          "pnl_pct": -0.45,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-BORA",
+          "entry_price": 53.8,
+          "entry_time": "2026-04-01 08:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 54.1,
+          "exit_time": "2026-04-08 18:00:00",
+          "pnl_pct": 0.56,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-PUNDIX",
+      "total_trades": 20,
+      "wins": 6,
+      "losses": 14,
+      "win_rate": 30.0,
+      "avg_pnl_pct": -1.62,
+      "total_pnl_pct": -32.45,
+      "best_trade_pct": 13.81,
+      "worst_trade_pct": -20.87,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-PUNDIX",
+          "entry_price": 293.0,
+          "entry_time": "2026-01-31 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 277.0,
+          "exit_time": "2026-01-31 23:00:00",
+          "pnl_pct": -5.46,
+          "exit_reason": "손절 (-5.5%)"
+        },
+        {
+          "symbol": "KRW-PUNDIX",
+          "entry_price": 249.0,
+          "entry_time": "2026-02-07 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 236.0,
+          "exit_time": "2026-02-11 13:00:00",
+          "pnl_pct": -5.22,
+          "exit_reason": "손절 (-5.2%)"
+        },
+        {
+          "symbol": "KRW-PUNDIX",
+          "entry_price": 241.0,
+          "entry_time": "2026-02-21 21:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 226.0,
+          "exit_time": "2026-02-23 10:00:00",
+          "pnl_pct": -6.22,
+          "exit_reason": "손절 (-6.2%)"
+        },
+        {
+          "symbol": "KRW-PUNDIX",
+          "entry_price": 233.0,
+          "entry_time": "2026-02-26 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 218.0,
+          "exit_time": "2026-02-28 15:00:00",
+          "pnl_pct": -6.44,
+          "exit_reason": "손절 (-6.4%)"
+        },
+        {
+          "symbol": "KRW-PUNDIX",
+          "entry_price": 220.0,
+          "entry_time": "2026-03-09 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 227.0,
+          "exit_time": "2026-03-26 11:00:00",
+          "pnl_pct": 3.18,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-USD1",
+      "total_trades": 9,
+      "wins": 3,
+      "losses": 6,
+      "win_rate": 33.3,
+      "avg_pnl_pct": 14.86,
+      "total_pnl_pct": 133.77,
+      "best_trade_pct": 130.54,
+      "worst_trade_pct": -1.0,
+      "candles_used": 5317,
+      "recent_trades": [
+        {
+          "symbol": "KRW-USD1",
+          "entry_price": 1431.0,
+          "entry_time": "2025-10-07 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 3299.0,
+          "exit_time": "2025-10-11 06:00:00",
+          "pnl_pct": 130.54,
+          "exit_reason": "익절 (130.5%)"
+        },
+        {
+          "symbol": "KRW-USD1",
+          "entry_price": 1505.0,
+          "entry_time": "2025-10-24 11:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1490.0,
+          "exit_time": "2025-12-08 10:00:00",
+          "pnl_pct": -1.0,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USD1",
+          "entry_price": 1490.0,
+          "entry_time": "2025-12-11 13:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1478.0,
+          "exit_time": "2026-02-11 18:00:00",
+          "pnl_pct": -0.81,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USD1",
+          "entry_price": 1472.0,
+          "entry_time": "2026-02-14 17:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1459.0,
+          "exit_time": "2026-03-13 22:00:00",
+          "pnl_pct": -0.88,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USD1",
+          "entry_price": 1464.0,
+          "entry_time": "2026-03-13 23:00:00",
+          "entry_score": 4,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1516.0,
+          "exit_time": "2026-03-30 10:00:00",
+          "pnl_pct": 3.55,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-BAT",
+      "total_trades": 18,
+      "wins": 6,
+      "losses": 12,
+      "win_rate": 33.3,
+      "avg_pnl_pct": 0.07,
+      "total_pnl_pct": 1.34,
+      "best_trade_pct": 14.35,
+      "worst_trade_pct": -6.88,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-BAT",
+          "entry_price": 407.0,
+          "entry_time": "2025-11-30 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 379.0,
+          "exit_time": "2025-12-01 12:00:00",
+          "pnl_pct": -6.88,
+          "exit_reason": "손절 (-6.9%)"
+        },
+        {
+          "symbol": "KRW-BAT",
+          "entry_price": 404.0,
+          "entry_time": "2025-12-11 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 380.0,
+          "exit_time": "2025-12-11 08:00:00",
+          "pnl_pct": -5.94,
+          "exit_reason": "손절 (-5.9%)"
+        },
+        {
+          "symbol": "KRW-BAT",
+          "entry_price": 323.0,
+          "entry_time": "2026-01-04 12:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 306.0,
+          "exit_time": "2026-01-08 17:00:00",
+          "pnl_pct": -5.26,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-BAT",
+          "entry_price": 198.0,
+          "entry_time": "2026-02-12 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 187.0,
+          "exit_time": "2026-02-13 02:00:00",
+          "pnl_pct": -5.56,
+          "exit_reason": "손절 (-5.6%)"
+        },
+        {
+          "symbol": "KRW-BAT",
+          "entry_price": 150.0,
+          "entry_time": "2026-04-01 14:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 142.0,
+          "exit_time": "2026-04-03 00:00:00",
+          "pnl_pct": -5.33,
+          "exit_reason": "손절 (-5.3%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-HUNT",
+      "total_trades": 18,
+      "wins": 6,
+      "losses": 12,
+      "win_rate": 33.3,
+      "avg_pnl_pct": 0.5,
+      "total_pnl_pct": 8.98,
+      "best_trade_pct": 17.01,
+      "worst_trade_pct": -6.61,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-HUNT",
+          "entry_price": 155.0,
+          "entry_time": "2026-02-13 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 153.0,
+          "exit_time": "2026-02-19 03:00:00",
+          "pnl_pct": -1.29,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-HUNT",
+          "entry_price": 151.0,
+          "entry_time": "2026-02-21 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 143.0,
+          "exit_time": "2026-02-23 13:00:00",
+          "pnl_pct": -5.3,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-HUNT",
+          "entry_price": 151.0,
+          "entry_time": "2026-03-15 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 143.0,
+          "exit_time": "2026-03-28 07:00:00",
+          "pnl_pct": -5.3,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-HUNT",
+          "entry_price": 148.0,
+          "entry_time": "2026-04-06 08:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 147.0,
+          "exit_time": "2026-04-06 10:00:00",
+          "pnl_pct": -0.68,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-HUNT",
+          "entry_price": 148.0,
+          "entry_time": "2026-04-06 14:00:00",
+          "entry_score": 4,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 152.0,
+          "exit_time": "2026-04-08 19:00:00",
+          "pnl_pct": 2.7,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-PENGU",
+      "total_trades": 14,
+      "wins": 3,
+      "losses": 11,
+      "win_rate": 21.4,
+      "avg_pnl_pct": -1.44,
+      "total_pnl_pct": -20.18,
+      "best_trade_pct": 15.96,
+      "worst_trade_pct": -6.08,
+      "candles_used": 8374,
+      "recent_trades": [
+        {
+          "symbol": "KRW-PENGU",
+          "entry_price": 18.1,
+          "entry_time": "2025-12-10 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 17.0,
+          "exit_time": "2025-12-09 23:00:00",
+          "pnl_pct": -6.08,
+          "exit_reason": "손절 (-6.1%)"
+        },
+        {
+          "symbol": "KRW-PENGU",
+          "entry_price": 13.3,
+          "entry_time": "2025-12-26 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 12.6,
+          "exit_time": "2026-01-01 01:00:00",
+          "pnl_pct": -5.26,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-PENGU",
+          "entry_price": 10.3,
+          "entry_time": "2026-02-21 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 9.76,
+          "exit_time": "2026-02-22 21:00:00",
+          "pnl_pct": -5.24,
+          "exit_reason": "손절 (-5.2%)"
+        },
+        {
+          "symbol": "KRW-PENGU",
+          "entry_price": 10.1,
+          "entry_time": "2026-03-09 21:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 11.2,
+          "exit_time": "2026-03-13 18:00:00",
+          "pnl_pct": 10.89,
+          "exit_reason": "익절 (10.9%)"
+        },
+        {
+          "symbol": "KRW-PENGU",
+          "entry_price": 10.3,
+          "entry_time": "2026-04-08 07:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 9.98,
+          "exit_time": "2026-04-08 20:00:00",
+          "pnl_pct": -3.11,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-FIL",
+      "total_trades": 19,
+      "wins": 6,
+      "losses": 13,
+      "win_rate": 31.6,
+      "avg_pnl_pct": -0.32,
+      "total_pnl_pct": -6.13,
+      "best_trade_pct": 12.73,
+      "worst_trade_pct": -10.62,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-FIL",
+          "entry_price": 2150.0,
+          "entry_time": "2026-01-04 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 2399.0,
+          "exit_time": "2026-01-06 00:00:00",
+          "pnl_pct": 11.58,
+          "exit_reason": "익절 (11.6%)"
+        },
+        {
+          "symbol": "KRW-FIL",
+          "entry_price": 2250.0,
+          "entry_time": "2026-01-13 23:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 2155.0,
+          "exit_time": "2026-01-19 08:00:00",
+          "pnl_pct": -4.22,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-FIL",
+          "entry_price": 1399.0,
+          "entry_time": "2026-02-22 13:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_RSI"
+          ],
+          "exit_price": 1297.0,
+          "exit_time": "2026-02-23 10:00:00",
+          "pnl_pct": -7.29,
+          "exit_reason": "손절 (-7.3%)"
+        },
+        {
+          "symbol": "KRW-FIL",
+          "entry_price": 1443.0,
+          "entry_time": "2026-03-03 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1367.0,
+          "exit_time": "2026-03-08 13:00:00",
+          "pnl_pct": -5.27,
+          "exit_reason": "손절 (-5.3%)"
+        },
+        {
+          "symbol": "KRW-FIL",
+          "entry_price": 1247.0,
+          "entry_time": "2026-03-31 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1380.0,
+          "exit_time": "2026-04-08 07:00:00",
+          "pnl_pct": 10.67,
+          "exit_reason": "익절 (10.7%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-BEAM",
+      "total_trades": 17,
+      "wins": 6,
+      "losses": 11,
+      "win_rate": 35.3,
+      "avg_pnl_pct": -0.19,
+      "total_pnl_pct": -3.21,
+      "best_trade_pct": 11.21,
+      "worst_trade_pct": -8.47,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-BEAM",
+          "entry_price": 4.99,
+          "entry_time": "2025-12-08 23:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 4.72,
+          "exit_time": "2025-12-11 12:00:00",
+          "pnl_pct": -5.41,
+          "exit_reason": "손절 (-5.4%)"
+        },
+        {
+          "symbol": "KRW-BEAM",
+          "entry_price": 4.54,
+          "entry_time": "2026-01-09 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 4.31,
+          "exit_time": "2026-01-20 17:00:00",
+          "pnl_pct": -5.07,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-BEAM",
+          "entry_price": 3.49,
+          "entry_time": "2026-02-13 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 3.26,
+          "exit_time": "2026-02-19 22:00:00",
+          "pnl_pct": -6.59,
+          "exit_reason": "손절 (-6.6%)"
+        },
+        {
+          "symbol": "KRW-BEAM",
+          "entry_price": 2.75,
+          "entry_time": "2026-03-02 17:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 3.03,
+          "exit_time": "2026-03-11 19:00:00",
+          "pnl_pct": 10.18,
+          "exit_reason": "익절 (10.2%)"
+        },
+        {
+          "symbol": "KRW-BEAM",
+          "entry_price": 2.48,
+          "entry_time": "2026-03-30 23:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 2.73,
+          "exit_time": "2026-04-06 07:00:00",
+          "pnl_pct": 10.08,
+          "exit_reason": "익절 (10.1%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-DOOD",
+      "total_trades": 10,
+      "wins": 3,
+      "losses": 7,
+      "win_rate": 30.0,
+      "avg_pnl_pct": 0.84,
+      "total_pnl_pct": 8.43,
+      "best_trade_pct": 25.93,
+      "worst_trade_pct": -9.04,
+      "candles_used": 4585,
+      "recent_trades": [
+        {
+          "symbol": "KRW-DOOD",
+          "entry_price": 7.16,
+          "entry_time": "2025-12-07 07:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 8.22,
+          "exit_time": "2025-12-07 09:00:00",
+          "pnl_pct": 14.8,
+          "exit_reason": "익절 (14.8%)"
+        },
+        {
+          "symbol": "KRW-DOOD",
+          "entry_price": 7.57,
+          "entry_time": "2025-12-10 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 8.39,
+          "exit_time": "2025-12-12 06:00:00",
+          "pnl_pct": 10.83,
+          "exit_reason": "익절 (10.8%)"
+        },
+        {
+          "symbol": "KRW-DOOD",
+          "entry_price": 10.1,
+          "entry_time": "2025-12-25 10:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 9.42,
+          "exit_time": "2025-12-25 19:00:00",
+          "pnl_pct": -6.73,
+          "exit_reason": "손절 (-6.7%)"
+        },
+        {
+          "symbol": "KRW-DOOD",
+          "entry_price": 4.75,
+          "entry_time": "2026-03-05 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 4.51,
+          "exit_time": "2026-03-05 12:00:00",
+          "pnl_pct": -5.05,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-DOOD",
+          "entry_price": 5.42,
+          "entry_time": "2026-03-16 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 4.93,
+          "exit_time": "2026-03-16 19:00:00",
+          "pnl_pct": -9.04,
+          "exit_reason": "손절 (-9.0%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-WAVES",
+      "total_trades": 13,
+      "wins": 1,
+      "losses": 12,
+      "win_rate": 7.7,
+      "avg_pnl_pct": -4.58,
+      "total_pnl_pct": -59.55,
+      "best_trade_pct": 3.39,
+      "worst_trade_pct": -8.19,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-WAVES",
+          "entry_price": 1152.0,
+          "entry_time": "2025-11-03 08:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1094.0,
+          "exit_time": "2025-11-03 17:00:00",
+          "pnl_pct": -5.03,
+          "exit_reason": "손절 (-5.0%)"
+        },
+        {
+          "symbol": "KRW-WAVES",
+          "entry_price": 1016.0,
+          "entry_time": "2026-01-14 07:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 964.0,
+          "exit_time": "2026-01-19 23:00:00",
+          "pnl_pct": -5.12,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-WAVES",
+          "entry_price": 1015.0,
+          "entry_time": "2026-01-20 23:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 962.0,
+          "exit_time": "2026-01-21 20:00:00",
+          "pnl_pct": -5.22,
+          "exit_reason": "손절 (-5.2%)"
+        },
+        {
+          "symbol": "KRW-WAVES",
+          "entry_price": 1001.0,
+          "entry_time": "2026-01-23 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 989.0,
+          "exit_time": "2026-01-25 07:00:00",
+          "pnl_pct": -1.2,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-WAVES",
+          "entry_price": 695.0,
+          "entry_time": "2026-03-06 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 657.0,
+          "exit_time": "2026-03-23 09:00:00",
+          "pnl_pct": -5.47,
+          "exit_reason": "손절 (-5.5%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-USDC",
+      "total_trades": 6,
+      "wins": 1,
+      "losses": 5,
+      "win_rate": 16.7,
+      "avg_pnl_pct": -0.45,
+      "total_pnl_pct": -2.69,
+      "best_trade_pct": 11.23,
+      "worst_trade_pct": -5.07,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-USDC",
+          "entry_price": 1411.0,
+          "entry_time": "2025-05-15 14:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1339.5,
+          "exit_time": "2025-07-12 07:00:00",
+          "pnl_pct": -5.07,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-USDC",
+          "entry_price": 1354.0,
+          "entry_time": "2025-07-13 22:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1506.0,
+          "exit_time": "2025-10-11 05:00:00",
+          "pnl_pct": 11.23,
+          "exit_reason": "익절 (11.2%)"
+        },
+        {
+          "symbol": "KRW-USDC",
+          "entry_price": 1528.0,
+          "entry_time": "2025-10-18 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1487.0,
+          "exit_time": "2025-12-12 20:00:00",
+          "pnl_pct": -2.68,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDC",
+          "entry_price": 1497.0,
+          "entry_time": "2025-12-13 04:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1473.0,
+          "exit_time": "2026-03-16 00:00:00",
+          "pnl_pct": -1.6,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDC",
+          "entry_price": 1508.0,
+          "entry_time": "2026-03-23 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1483.0,
+          "exit_time": "2026-04-08 21:00:00",
+          "pnl_pct": -1.66,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-MOVE",
+      "total_trades": 16,
+      "wins": 3,
+      "losses": 13,
+      "win_rate": 18.8,
+      "avg_pnl_pct": -3.28,
+      "total_pnl_pct": -52.5,
+      "best_trade_pct": 15.41,
+      "worst_trade_pct": -12.18,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-MOVE",
+          "entry_price": 35.3,
+          "entry_time": "2026-02-07 11:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 33.5,
+          "exit_time": "2026-02-09 01:00:00",
+          "pnl_pct": -5.1,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-MOVE",
+          "entry_price": 31.6,
+          "entry_time": "2026-03-13 20:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 31.0,
+          "exit_time": "2026-03-15 22:00:00",
+          "pnl_pct": -1.9,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-MOVE",
+          "entry_price": 31.3,
+          "entry_time": "2026-03-15 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 29.6,
+          "exit_time": "2026-03-22 10:00:00",
+          "pnl_pct": -5.43,
+          "exit_reason": "손절 (-5.4%)"
+        },
+        {
+          "symbol": "KRW-MOVE",
+          "entry_price": 29.2,
+          "entry_time": "2026-03-24 21:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 27.2,
+          "exit_time": "2026-03-27 19:00:00",
+          "pnl_pct": -6.85,
+          "exit_reason": "손절 (-6.8%)"
+        },
+        {
+          "symbol": "KRW-MOVE",
+          "entry_price": 27.3,
+          "entry_time": "2026-04-01 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 27.5,
+          "exit_time": "2026-04-08 21:00:00",
+          "pnl_pct": 0.73,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-TREE",
+      "total_trades": 14,
+      "wins": 7,
+      "losses": 7,
+      "win_rate": 50.0,
+      "avg_pnl_pct": 3.35,
+      "total_pnl_pct": 46.91,
+      "best_trade_pct": 14.06,
+      "worst_trade_pct": -5.64,
+      "candles_used": 5583,
+      "recent_trades": [
+        {
+          "symbol": "KRW-TREE",
+          "entry_price": 148.0,
+          "entry_time": "2026-01-23 14:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 164.0,
+          "exit_time": "2026-01-25 01:00:00",
+          "pnl_pct": 10.81,
+          "exit_reason": "익절 (10.8%)"
+        },
+        {
+          "symbol": "KRW-TREE",
+          "entry_price": 102.0,
+          "entry_time": "2026-02-25 08:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 114.0,
+          "exit_time": "2026-02-27 19:00:00",
+          "pnl_pct": 11.76,
+          "exit_reason": "익절 (11.8%)"
+        },
+        {
+          "symbol": "KRW-TREE",
+          "entry_price": 99.3,
+          "entry_time": "2026-03-21 04:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 94.2,
+          "exit_time": "2026-03-23 06:00:00",
+          "pnl_pct": -5.14,
+          "exit_reason": "손절 (-5.1%)"
+        },
+        {
+          "symbol": "KRW-TREE",
+          "entry_price": 94.3,
+          "entry_time": "2026-03-31 19:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 89.2,
+          "exit_time": "2026-03-31 14:00:00",
+          "pnl_pct": -5.41,
+          "exit_reason": "손절 (-5.4%)"
+        },
+        {
+          "symbol": "KRW-TREE",
+          "entry_price": 89.5,
+          "entry_time": "2026-03-31 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 84.9,
+          "exit_time": "2026-04-02 13:00:00",
+          "pnl_pct": -5.14,
+          "exit_reason": "손절 (-5.1%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-USDE",
+      "total_trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate": 50.0,
+      "avg_pnl_pct": 0.21,
+      "total_pnl_pct": 0.42,
+      "best_trade_pct": 1.5,
+      "worst_trade_pct": -1.08,
+      "candles_used": 1819,
+      "recent_trades": [
+        {
+          "symbol": "KRW-USDE",
+          "entry_price": 1482.0,
+          "entry_time": "2026-01-20 10:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1466.0,
+          "exit_time": "2026-02-24 13:00:00",
+          "pnl_pct": -1.08,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDE",
+          "entry_price": 1462.0,
+          "entry_time": "2026-03-03 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1484.0,
+          "exit_time": "2026-04-08 21:00:00",
+          "pnl_pct": 1.5,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-AERGO",
+      "total_trades": 15,
+      "wins": 5,
+      "losses": 10,
+      "win_rate": 33.3,
+      "avg_pnl_pct": -0.51,
+      "total_pnl_pct": -7.58,
+      "best_trade_pct": 15.38,
+      "worst_trade_pct": -7.28,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-AERGO",
+          "entry_price": 88.4,
+          "entry_time": "2025-12-13 12:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 102.0,
+          "exit_time": "2025-12-13 20:00:00",
+          "pnl_pct": 15.38,
+          "exit_reason": "익절 (15.4%)"
+        },
+        {
+          "symbol": "KRW-AERGO",
+          "entry_price": 93.5,
+          "entry_time": "2026-01-25 08:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 88.2,
+          "exit_time": "2026-01-25 23:00:00",
+          "pnl_pct": -5.67,
+          "exit_reason": "손절 (-5.7%)"
+        },
+        {
+          "symbol": "KRW-AERGO",
+          "entry_price": 88.3,
+          "entry_time": "2026-02-05 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 82.1,
+          "exit_time": "2026-02-05 17:00:00",
+          "pnl_pct": -7.02,
+          "exit_reason": "손절 (-7.0%)"
+        },
+        {
+          "symbol": "KRW-AERGO",
+          "entry_price": 79.7,
+          "entry_time": "2026-03-10 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 80.0,
+          "exit_time": "2026-03-12 09:00:00",
+          "pnl_pct": 0.38,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-AERGO",
+          "entry_price": 81.9,
+          "entry_time": "2026-03-21 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 80.3,
+          "exit_time": "2026-04-08 21:00:00",
+          "pnl_pct": -1.95,
+          "exit_reason": "백테스트 종료"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-WET",
+      "total_trades": 3,
+      "wins": 0,
+      "losses": 3,
+      "win_rate": 0.0,
+      "avg_pnl_pct": -6.44,
+      "total_pnl_pct": -19.33,
+      "best_trade_pct": -5.34,
+      "worst_trade_pct": -7.43,
+      "candles_used": 2859,
+      "recent_trades": [
+        {
+          "symbol": "KRW-WET",
+          "entry_price": 259.0,
+          "entry_time": "2026-01-02 15:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 242.0,
+          "exit_time": "2026-01-09 17:00:00",
+          "pnl_pct": -6.56,
+          "exit_reason": "손절 (-6.6%)"
+        },
+        {
+          "symbol": "KRW-WET",
+          "entry_price": 175.0,
+          "entry_time": "2026-01-27 16:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 162.0,
+          "exit_time": "2026-01-28 13:00:00",
+          "pnl_pct": -7.43,
+          "exit_reason": "손절 (-7.4%)"
+        },
+        {
+          "symbol": "KRW-WET",
+          "entry_price": 131.0,
+          "entry_time": "2026-02-18 01:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Cross",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 124.0,
+          "exit_time": "2026-02-19 07:00:00",
+          "pnl_pct": -5.34,
+          "exit_reason": "손절 (-5.3%)"
+        }
+      ]
+    },
+    {
+      "symbol": "KRW-USDT",
+      "total_trades": 8,
+      "wins": 2,
+      "losses": 6,
+      "win_rate": 25.0,
+      "avg_pnl_pct": 0.63,
+      "total_pnl_pct": 5.06,
+      "best_trade_pct": 12.75,
+      "worst_trade_pct": -3.77,
+      "candles_used": 8760,
+      "recent_trades": [
+        {
+          "symbol": "KRW-USDT",
+          "entry_price": 1368.5,
+          "entry_time": "2025-07-20 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1543.0,
+          "exit_time": "2025-10-11 06:00:00",
+          "pnl_pct": 12.75,
+          "exit_reason": "익절 (12.8%)"
+        },
+        {
+          "symbol": "KRW-USDT",
+          "entry_price": 1510.0,
+          "entry_time": "2025-10-15 04:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Cross"
+          ],
+          "exit_price": 1500.0,
+          "exit_time": "2025-11-01 03:00:00",
+          "pnl_pct": -0.66,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDT",
+          "entry_price": 1503.0,
+          "entry_time": "2025-11-04 00:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1494.0,
+          "exit_time": "2025-12-02 11:00:00",
+          "pnl_pct": -0.6,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDT",
+          "entry_price": 1498.0,
+          "entry_time": "2025-12-02 09:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1489.0,
+          "exit_time": "2025-12-21 11:00:00",
+          "pnl_pct": -0.6,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        },
+        {
+          "symbol": "KRW-USDT",
+          "entry_price": 1458.0,
+          "entry_time": "2025-12-30 18:00:00",
+          "entry_score": 3,
+          "entry_signals": [
+            "Shin_60MA_Bounce",
+            "Shin_60MA_Basic",
+            "Shin_60MA_Volume"
+          ],
+          "exit_price": 1474.0,
+          "exit_time": "2026-03-16 00:00:00",
+          "pnl_pct": 1.1,
+          "exit_reason": "매도신호 (2개 전략 SELL)"
+        }
+      ]
+    }
+  ]
+}

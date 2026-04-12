@@ -19,9 +19,9 @@ from pathlib import Path
 
 import pyupbit
 
-# shin_agent 경로 추가
+# newhigh_60_day 경로 추가
 sys.path.insert(0, str(Path(__file__).parent))
-from shin_agent.strategies import ALL_STRATEGIES
+from newhigh_60_day.strategies import ALL_STRATEGIES
 
 # ── 설정 ─────────────────────────────────────────────────────
 KST = timezone(timedelta(hours=9))

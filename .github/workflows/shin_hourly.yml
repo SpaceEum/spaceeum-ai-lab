@@ -26,12 +26,12 @@ jobs:
 
       - name: 트레이딩 사이클 실행
         run: |
-          cd scripts/shin_agent
+          cd scripts/newhigh_60_day
           python run_cycle.py
 
       - name: 성과 JSON 생성
         run: |
-          cd scripts/shin_agent
+          cd scripts/newhigh_60_day
           python generate_performance.py
 
       - name: 결과 커밋 & 푸시
