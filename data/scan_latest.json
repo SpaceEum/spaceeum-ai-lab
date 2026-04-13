@@ -1,6 +1,6 @@
 {
   "date": "2026-04-13",
-  "scan_time": "2026-04-13 16:17:15",
+  "scan_time": "2026-04-13 16:31:31",
   "exchange": "Upbit",
   "market": "KRW",
   "timeframes": [
@@ -263,7 +263,7 @@
     },
     {
       "symbol": "KRW-SAFE",
-      "current_price": 228.0,
+      "current_price": 229.0,
       "signal": "BUY",
       "score": 7,
       "max_score": 9,
@@ -316,7 +316,7 @@
     },
     {
       "symbol": "KRW-COMP",
-      "current_price": 30170.0,
+      "current_price": 30220.0,
       "signal": "BUY",
       "score": 7,
       "max_score": 9,
@@ -366,7 +366,7 @@
     },
     {
       "symbol": "KRW-0G",
-      "current_price": 925.0,
+      "current_price": 944.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -418,7 +418,7 @@
     },
     {
       "symbol": "KRW-USD1",
-      "current_price": 1490.0,
+      "current_price": 1492.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -456,7 +456,7 @@
     },
     {
       "symbol": "KRW-KAITO",
-      "current_price": 598.0,
+      "current_price": 599.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -743,7 +743,7 @@
     },
     {
       "symbol": "KRW-SAFE",
-      "current_price": 228.0,
+      "current_price": 229.0,
       "signal": "BUY",
       "score": 7,
       "max_score": 9,
@@ -796,7 +796,7 @@
     },
     {
       "symbol": "KRW-COMP",
-      "current_price": 30170.0,
+      "current_price": 30220.0,
       "signal": "BUY",
       "score": 7,
       "max_score": 9,
@@ -846,7 +846,7 @@
     },
     {
       "symbol": "KRW-0G",
-      "current_price": 925.0,
+      "current_price": 944.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -898,7 +898,7 @@
     },
     {
       "symbol": "KRW-USD1",
-      "current_price": 1490.0,
+      "current_price": 1492.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -936,7 +936,7 @@
     },
     {
       "symbol": "KRW-KAITO",
-      "current_price": 598.0,
+      "current_price": 599.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -974,7 +974,7 @@
     },
     {
       "symbol": "KRW-ANKR",
-      "current_price": 7.66,
+      "current_price": 7.64,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -1050,7 +1050,7 @@
     },
     {
       "symbol": "KRW-NEAR",
-      "current_price": 2057.0,
+      "current_price": 2052.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -1099,7 +1099,7 @@
     },
     {
       "symbol": "KRW-BLUR",
-      "current_price": 31.7,
+      "current_price": 31.8,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -1148,7 +1148,7 @@
     },
     {
       "symbol": "KRW-ARB",
-      "current_price": 167.0,
+      "current_price": 166.0,
       "signal": "BUY",
       "score": 6,
       "max_score": 9,
@@ -1237,7 +1237,7 @@
   "all_watch_signals": [
     {
       "symbol": "KRW-USDC",
-      "current_price": 1492.0,
+      "current_price": 1491.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1274,7 +1274,7 @@
     },
     {
       "symbol": "KRW-WET",
-      "current_price": 163.0,
+      "current_price": 161.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1359,7 +1359,7 @@
     },
     {
       "symbol": "KRW-JTO",
-      "current_price": 472.0,
+      "current_price": 471.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1409,7 +1409,7 @@
     },
     {
       "symbol": "KRW-FF",
-      "current_price": 116.0,
+      "current_price": 115.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1446,7 +1446,7 @@
     },
     {
       "symbol": "KRW-NEO",
-      "current_price": 4039.0,
+      "current_price": 4045.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1483,7 +1483,7 @@
     },
     {
       "symbol": "KRW-ETH",
-      "current_price": 3275000.0,
+      "current_price": 3261000.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1531,7 +1531,7 @@
     },
     {
       "symbol": "KRW-CPOOL",
-      "current_price": 34.8,
+      "current_price": 34.7,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1654,7 +1654,7 @@
     },
     {
       "symbol": "KRW-OPEN",
-      "current_price": 263.0,
+      "current_price": 262.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1765,7 +1765,7 @@
     },
     {
       "symbol": "KRW-RENDER",
-      "current_price": 2793.0,
+      "current_price": 2782.0,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1802,7 +1802,7 @@
     },
     {
       "symbol": "KRW-MBL",
-      "current_price": 1.41,
+      "current_price": 1.4,
       "signal": "WATCH",
       "score": 5,
       "max_score": 9,
@@ -1851,7 +1851,7 @@
         "entry_cycle": "2번",
         "entry_score": 8,
         "dual_strong": false,
-        "current_pnl_pct": 8.54
+        "current_pnl_pct": 9.09
       },
       {
         "symbol": "KRW-AERO",
