@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-04-12 15:15:03",
-  "total_trades": 17,
-  "open_positions": 3,
+  "last_updated": "2026-04-13 16:17:15",
+  "total_trades": 18,
+  "open_positions": 4,
   "closed_trades": 14,
   "wins": 3,
   "losses": 11,
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -1.11
+      "current_pnl_pct": 8.54
     },
     {
       "symbol": "KRW-AERO",
@@ -39,12 +39,21 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -5.21
     },
     {
       "symbol": "KRW-XPL",
       "entry_date": "2026-04-12",
       "entry_price": 192.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
+      "current_pnl_pct": -3.12
+    },
+    {
+      "symbol": "KRW-JST",
+      "entry_date": "2026-04-13",
+      "entry_price": 113.0,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
