@@ -324,7 +324,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -1.25
+      "current_pnl_pct": -1.95
     },
     {
       "id": "4H_2026-04-12_KRW-WLD",
@@ -341,7 +341,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -1.57
+      "current_pnl_pct": -1.35
     },
     {
       "id": "4H_2026-04-12_KRW-GMT",
@@ -392,7 +392,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -1.45
+      "current_pnl_pct": -2.17
     }
   ],
   "waiting_for_cycle1": []
