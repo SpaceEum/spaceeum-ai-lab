@@ -1,1 +1,6 @@
 Lk Project from AI/ichimocu_binance_15m_rev2/logs/
+
+# Python 캐시 (GitHub Actions에서 수정되어 git pull --rebase 충돌 방지)
+__pycache__/
+*.pyc
+*.pyo
