@@ -363,18 +363,18 @@
     {
       "id": "4H_2026-04-12_KRW-JST",
       "symbol": "KRW-JST",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-12",
       "entry_price": 113.0,
       "entry_score": 9,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(9/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
+      "exit_date": "2026-04-15",
+      "exit_price": 114.0,
+      "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+      "exit_cycle": "4번",
+      "pnl_pct": 0.88,
+      "pnl_krw": 17699,
       "current_pnl_pct": 0.88
     },
     {
@@ -409,7 +409,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -2.04
     },
     {
       "id": "4H_2026-04-15_KRW-IN",
@@ -426,7 +426,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.88
     }
   ],
   "waiting_for_cycle1": []

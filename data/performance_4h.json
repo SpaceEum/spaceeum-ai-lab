@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-15 04:58:48",
+  "last_updated": "2026-04-15 07:34:52",
   "total_trades": 25,
-  "open_positions": 5,
-  "closed_trades": 20,
-  "wins": 5,
+  "open_positions": 4,
+  "closed_trades": 21,
+  "wins": 6,
   "losses": 15,
-  "win_rate": 25.0,
-  "avg_pnl_pct": -0.99,
-  "total_pnl_pct": -19.71,
+  "win_rate": 28.6,
+  "avg_pnl_pct": -0.9,
+  "total_pnl_pct": -18.83,
   "best_trade": {
     "symbol": "KRW-ARB",
     "pnl_pct": 1.85,
@@ -33,15 +33,6 @@
       "current_pnl_pct": -1.29
     },
     {
-      "symbol": "KRW-JST",
-      "entry_date": "2026-04-12",
-      "entry_price": 113.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": 0.88
-    },
-    {
       "symbol": "KRW-ORBS",
       "entry_date": "2026-04-12",
       "entry_price": 13.8,
@@ -57,7 +48,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -2.04
     },
     {
       "symbol": "KRW-IN",
@@ -66,7 +57,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.88
     }
   ]
 }
