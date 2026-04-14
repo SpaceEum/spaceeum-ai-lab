@@ -171,7 +171,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -2.57
+      "current_pnl_pct": -1.29
     },
     {
       "id": "4H_2026-04-09_KRW-NEAR",
@@ -324,7 +324,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -0.28
+      "current_pnl_pct": -0.14
     },
     {
       "id": "4H_2026-04-12_KRW-WLD",
@@ -341,7 +341,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 4.49
+      "current_pnl_pct": 2.47
     },
     {
       "id": "4H_2026-04-12_KRW-GMT",
@@ -375,7 +375,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 2.65
+      "current_pnl_pct": 1.77
     },
     {
       "id": "4H_2026-04-12_KRW-ORBS",
@@ -392,7 +392,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -5.07
+      "current_pnl_pct": -4.35
     }
   ],
   "waiting_for_cycle1": []
