@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-14 15:22:41",
+  "last_updated": "2026-04-14 20:43:51",
   "total_trades": 23,
   "open_positions": 5,
   "closed_trades": 18,
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": -2.25
+      "current_pnl_pct": -2.57
     },
     {
       "symbol": "KRW-TOKAMAK",
@@ -48,7 +48,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 5.84
+      "current_pnl_pct": 4.49
     },
     {
       "symbol": "KRW-JST",
@@ -57,7 +57,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 3.54
+      "current_pnl_pct": 2.65
     },
     {
       "symbol": "KRW-ORBS",
@@ -66,7 +66,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -3.62
+      "current_pnl_pct": -5.07
     }
   ]
 }
