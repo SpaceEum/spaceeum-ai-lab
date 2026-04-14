@@ -312,36 +312,36 @@
     {
       "id": "4H_2026-04-11_KRW-TOKAMAK",
       "symbol": "KRW-TOKAMAK",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-11",
       "entry_price": 719.0,
       "entry_score": 8,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(8/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
-      "current_pnl_pct": -0.14
+      "exit_date": "2026-04-15",
+      "exit_price": 717.0,
+      "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+      "exit_cycle": "4번",
+      "pnl_pct": -0.28,
+      "pnl_krw": -5563,
+      "current_pnl_pct": -0.28
     },
     {
       "id": "4H_2026-04-12_KRW-WLD",
       "symbol": "KRW-WLD",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-12",
       "entry_price": 445.0,
       "entry_score": 9,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(9/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
-      "current_pnl_pct": 2.47
+      "exit_date": "2026-04-15",
+      "exit_price": 438.0,
+      "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+      "exit_cycle": "4번",
+      "pnl_pct": -1.57,
+      "pnl_krw": -31461,
+      "current_pnl_pct": -1.57
     },
     {
       "id": "4H_2026-04-12_KRW-GMT",
@@ -375,7 +375,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 1.77
+      "current_pnl_pct": 0.88
     },
     {
       "id": "4H_2026-04-12_KRW-ORBS",
@@ -392,7 +392,41 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -4.35
+      "current_pnl_pct": -5.07
+    },
+    {
+      "id": "4H_2026-04-15_KRW-BIO",
+      "symbol": "KRW-BIO",
+      "status": "OPEN",
+      "entry_date": "2026-04-15",
+      "entry_price": 29.4,
+      "entry_score": 8,
+      "entry_cycle": "2번",
+      "entry_reason": "4H STRONG BUY(8/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "id": "4H_2026-04-15_KRW-IN",
+      "symbol": "KRW-IN",
+      "status": "OPEN",
+      "entry_date": "2026-04-15",
+      "entry_price": 113.0,
+      "entry_score": 8,
+      "entry_cycle": "2번",
+      "entry_reason": "4H STRONG BUY(8/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
     }
   ],
   "waiting_for_cycle1": []

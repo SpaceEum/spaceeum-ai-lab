@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-15 01:00:16",
-  "total_trades": 23,
+  "last_updated": "2026-04-15 04:58:48",
+  "total_trades": 25,
   "open_positions": 5,
-  "closed_trades": 18,
+  "closed_trades": 20,
   "wins": 5,
-  "losses": 13,
-  "win_rate": 27.8,
+  "losses": 15,
+  "win_rate": 25.0,
   "avg_pnl_pct": -0.99,
-  "total_pnl_pct": -17.86,
+  "total_pnl_pct": -19.71,
   "best_trade": {
     "symbol": "KRW-ARB",
     "pnl_pct": 1.85,
@@ -33,31 +33,13 @@
       "current_pnl_pct": -1.29
     },
     {
-      "symbol": "KRW-TOKAMAK",
-      "entry_date": "2026-04-11",
-      "entry_price": 719.0,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": -0.14
-    },
-    {
-      "symbol": "KRW-WLD",
-      "entry_date": "2026-04-12",
-      "entry_price": 445.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": 2.47
-    },
-    {
       "symbol": "KRW-JST",
       "entry_date": "2026-04-12",
       "entry_price": 113.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 1.77
+      "current_pnl_pct": 0.88
     },
     {
       "symbol": "KRW-ORBS",
@@ -66,7 +48,25 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -4.35
+      "current_pnl_pct": -5.07
+    },
+    {
+      "symbol": "KRW-BIO",
+      "entry_date": "2026-04-15",
+      "entry_price": 29.4,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-IN",
+      "entry_date": "2026-04-15",
+      "entry_price": 113.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
     }
   ]
 }
