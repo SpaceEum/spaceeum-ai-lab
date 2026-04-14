@@ -281,7 +281,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 9.09
+      "current_pnl_pct": 9.2
     },
     {
       "id": "2026-04-11_KRW-ORDER",
@@ -321,7 +321,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -5.21
+      "current_pnl_pct": -0.54
     },
     {
       "id": "2026-04-12_KRW-XPL",
@@ -341,7 +341,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -3.12
+      "current_pnl_pct": 9.38
     },
     {
       "id": "2026-04-13_KRW-JST",
@@ -355,6 +355,26 @@
       "entry_cycle_4h": "3번",
       "dual_strong": false,
       "entry_reason": "STRONG BUY(8/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 3.54
+    },
+    {
+      "id": "2026-04-14_KRW-SAFE",
+      "symbol": "KRW-SAFE",
+      "status": "OPEN",
+      "entry_date": "2026-04-14",
+      "entry_price": 227.0,
+      "entry_score": 8,
+      "entry_score_4h": 8,
+      "entry_cycle": "2번",
+      "entry_cycle_4h": "2번",
+      "dual_strong": true,
+      "entry_reason": "★ 1D+4H STRONG BUY(8/9) + 2번",
       "exit_date": null,
       "exit_price": null,
       "exit_reason": null,
