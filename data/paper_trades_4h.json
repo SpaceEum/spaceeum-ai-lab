@@ -392,7 +392,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -4.35
+      "current_pnl_pct": -5.8
     },
     {
       "id": "4H_2026-04-15_KRW-BIO",
@@ -443,7 +443,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.7
     },
     {
       "id": "4H_2026-04-15_KRW-IMX",
@@ -460,7 +460,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.89
     },
     {
       "id": "4H_2026-04-15_KRW-COMP",
@@ -477,7 +477,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": 0.6
     }
   ],
   "waiting_for_cycle1": []
