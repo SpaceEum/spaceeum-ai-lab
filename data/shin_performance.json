@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-04-16 16:12:59",
+  "updated_at": "2026-04-16 20:08:42",
   "summary": {
-    "total_closed_trades": 108,
+    "total_closed_trades": 112,
     "total_wins": 49,
-    "overall_win_rate": 45.4,
-    "open_positions": 17,
+    "overall_win_rate": 43.8,
+    "open_positions": 31,
     "best_strategy": "Shin_60MA_Cross"
   },
   "strategies": [
@@ -41,25 +41,205 @@
     {
       "name": "Shin_60MA_Volume",
       "initial_balance": 10000.0,
-      "current_balance": -59286.89,
-      "total_trades": 37,
+      "current_balance": -65393.76,
+      "total_trades": 38,
       "win_trades": 20,
-      "loss_trades": 17,
-      "win_rate": 54.1,
-      "total_pnl_pct": -692.87
+      "loss_trades": 18,
+      "win_rate": 52.6,
+      "total_pnl_pct": -753.94
     },
     {
       "name": "Shin_60MA_Basic",
       "initial_balance": 10000.0,
-      "current_balance": -92418.88,
-      "total_trades": 39,
+      "current_balance": -108131.17,
+      "total_trades": 42,
       "win_trades": 16,
-      "loss_trades": 23,
-      "win_rate": 41.0,
-      "total_pnl_pct": -1024.19
+      "loss_trades": 26,
+      "win_rate": 38.1,
+      "total_pnl_pct": -1181.31
     }
   ],
   "open_positions": [
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-AAVE",
+      "direction": "BUY",
+      "entry_price": 171700.0,
+      "stop_loss": 168266.0,
+      "take_profit": 178568.0,
+      "entry_time": "2026-04-16 20:08:41",
+      "entry_reason": "60MA 상향 돌파 (종가 171700.0000 > MA60 160611.6667)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-BONK",
+      "direction": "BUY",
+      "entry_price": 0.00973,
+      "stop_loss": 0.009487,
+      "take_profit": 0.010314,
+      "entry_time": "2026-04-16 20:08:40",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 2.9배)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-PEPE",
+      "direction": "BUY",
+      "entry_price": 0.00591,
+      "stop_loss": 0.005762,
+      "take_profit": 0.006265,
+      "entry_time": "2026-04-16 20:08:36",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 2.7배)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-DOGE",
+      "direction": "BUY",
+      "entry_price": 147.0,
+      "stop_loss": 143.325,
+      "take_profit": 155.82,
+      "entry_time": "2026-04-16 20:08:35",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.7배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-CYBER",
+      "direction": "BUY",
+      "entry_price": 812.0,
+      "stop_loss": 795.76,
+      "take_profit": 844.48,
+      "entry_time": "2026-04-16 20:08:33",
+      "entry_reason": "60MA 상향 돌파 (종가 812.0000 > MA60 792.4833)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-CYBER",
+      "direction": "BUY",
+      "entry_price": 812.0,
+      "stop_loss": 791.7,
+      "take_profit": 860.72,
+      "entry_time": "2026-04-16 20:08:33",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 2.2배)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-BIO",
+      "direction": "BUY",
+      "entry_price": 53.9,
+      "stop_loss": 52.5525,
+      "take_profit": 57.134,
+      "entry_time": "2026-04-16 20:08:31",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 11.3배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-LPT",
+      "direction": "BUY",
+      "entry_price": 3304.0,
+      "stop_loss": 3237.92,
+      "take_profit": 3436.16,
+      "entry_time": "2026-04-16 20:08:25",
+      "entry_reason": "60MA 상향 돌파 (종가 3304.0000 > MA60 3290.1167)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-AERGO",
+      "direction": "BUY",
+      "entry_price": 82.0,
+      "stop_loss": 80.36,
+      "take_profit": 85.28,
+      "entry_time": "2026-04-16 20:08:20",
+      "entry_reason": "60MA 상향 돌파 (종가 82.0000 > MA60 81.0467)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-DOOD",
+      "direction": "BUY",
+      "entry_price": 4.88,
+      "stop_loss": 4.7824,
+      "take_profit": 5.0752,
+      "entry_time": "2026-04-16 20:08:16",
+      "entry_reason": "60MA 상향 돌파 (종가 4.8800 > MA60 4.6762)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-DOOD",
+      "direction": "BUY",
+      "entry_price": 4.88,
+      "stop_loss": 4.758,
+      "take_profit": 5.1728,
+      "entry_time": "2026-04-16 20:08:16",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.8배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-FIL",
+      "direction": "BUY",
+      "entry_price": 1481.0,
+      "stop_loss": 1451.38,
+      "take_profit": 1540.24,
+      "entry_time": "2026-04-16 20:08:14",
+      "entry_reason": "60MA 상향 돌파 (종가 1481.0000 > MA60 1354.7000)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-FIL",
+      "direction": "BUY",
+      "entry_price": 1481.0,
+      "stop_loss": 1443.975,
+      "take_profit": 1569.86,
+      "entry_time": "2026-04-16 20:08:14",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 3.0배)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-PENGU",
+      "direction": "BUY",
+      "entry_price": 11.6,
+      "stop_loss": 11.31,
+      "take_profit": 12.296,
+      "entry_time": "2026-04-16 20:08:13",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.5배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-HUNT",
+      "direction": "BUY",
+      "entry_price": 151.0,
+      "stop_loss": 147.98,
+      "take_profit": 157.04,
+      "entry_time": "2026-04-16 20:08:12",
+      "entry_reason": "60MA 상향 돌파 (종가 151.0000 > MA60 148.5500)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-PUNDIX",
+      "direction": "BUY",
+      "entry_price": 230.0,
+      "stop_loss": 225.4,
+      "take_profit": 239.2,
+      "entry_time": "2026-04-16 20:08:10",
+      "entry_reason": "60MA 상향 돌파 (종가 230.0000 > MA60 224.7667)"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-PUNDIX",
+      "direction": "BUY",
+      "entry_price": 230.0,
+      "stop_loss": 224.25,
+      "take_profit": 243.8,
+      "entry_time": "2026-04-16 20:08:10",
+      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 2.2배)"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-LSK",
+      "direction": "BUY",
+      "entry_price": 195.0,
+      "stop_loss": 191.1,
+      "take_profit": 202.8,
+      "entry_time": "2026-04-16 20:08:08",
+      "entry_reason": "60MA 상향 돌파 (종가 195.0000 > MA60 192.2000)"
+    },
     {
       "strategy": "Shin_60MA_Bounce",
       "symbol": "KRW-0G",
@@ -72,16 +252,6 @@
     },
     {
       "strategy": "Shin_60MA_Volume",
-      "symbol": "KRW-BONK",
-      "direction": "BUY",
-      "entry_price": 0.00917,
-      "stop_loss": 0.008941,
-      "take_profit": 0.00972,
-      "entry_time": "2026-04-16 06:16:41",
-      "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.5배)"
-    },
-    {
-      "strategy": "Shin_60MA_Volume",
       "symbol": "KRW-BLAST",
       "direction": "BUY",
       "entry_price": 0.769,
@@ -89,36 +259,6 @@
       "take_profit": 0.81514,
       "entry_time": "2026-04-15 22:29:53",
       "entry_reason": "거래량 급증 양봉 (MA60 위, 거래량 평균대비 1.5배)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-PEPE",
-      "direction": "BUY",
-      "entry_price": 0.00558,
-      "stop_loss": 0.005468,
-      "take_profit": 0.005803,
-      "entry_time": "2026-04-15 19:57:12",
-      "entry_reason": "60MA 상향 돌파 (종가 0.0056 > MA60 0.0053)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-DOGE",
-      "direction": "BUY",
-      "entry_price": 141.0,
-      "stop_loss": 138.18,
-      "take_profit": 146.64,
-      "entry_time": "2026-04-15 19:57:11",
-      "entry_reason": "60MA 상향 돌파 (종가 141.0000 > MA60 139.7833)"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-SHIB",
-      "direction": "BUY",
-      "entry_price": 0.00884,
-      "stop_loss": 0.008663,
-      "take_profit": 0.009194,
-      "entry_time": "2026-04-15 19:57:06",
-      "entry_reason": "60MA 상향 돌파 (종가 0.0088 > MA60 0.0088)"
     },
     {
       "strategy": "Shin_60MA_Basic",
@@ -234,6 +374,54 @@
   "recent_trades": [
     {
       "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-SHIB",
+      "direction": "BUY",
+      "entry_price": 0.00884,
+      "exit_price": 0.00933,
+      "pnl_pct": -5.54,
+      "exit_reason": "익절 (현재가 0.0093 ≥ TP 0.0092)",
+      "entry_time": "2026-04-15 19:57:06",
+      "exit_time": "2026-04-16 20:08:06",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-DOGE",
+      "direction": "BUY",
+      "entry_price": 141.0,
+      "exit_price": 147.0,
+      "pnl_pct": -4.26,
+      "exit_reason": "익절 (현재가 147.0000 ≥ TP 146.6400)",
+      "entry_time": "2026-04-15 19:57:11",
+      "exit_time": "2026-04-16 20:08:06",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
+      "symbol": "KRW-PEPE",
+      "direction": "BUY",
+      "entry_price": 0.00558,
+      "exit_price": 0.00591,
+      "pnl_pct": -5.91,
+      "exit_reason": "익절 (현재가 0.0059 ≥ TP 0.0058)",
+      "entry_time": "2026-04-15 19:57:12",
+      "exit_time": "2026-04-16 20:08:06",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Volume",
+      "symbol": "KRW-BONK",
+      "direction": "BUY",
+      "entry_price": 0.00917,
+      "exit_price": 0.00973,
+      "pnl_pct": -6.11,
+      "exit_reason": "익절 (현재가 0.0097 ≥ TP 0.0097)",
+      "entry_time": "2026-04-16 06:16:41",
+      "exit_time": "2026-04-16 20:08:06",
+      "status": "LOSS"
+    },
+    {
+      "strategy": "Shin_60MA_Basic",
       "symbol": "KRW-BONK",
       "direction": "BUY",
       "entry_price": 0.00898,
@@ -303,54 +491,6 @@
       "entry_time": "2026-04-14 20:13:34",
       "exit_time": "2026-04-15 22:29:38",
       "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-BIO",
-      "direction": "BUY",
-      "entry_price": 38.8,
-      "exit_price": 44.4,
-      "pnl_pct": -14.43,
-      "exit_reason": "익절 (현재가 44.4000 ≥ TP 40.3520)",
-      "entry_time": "2026-04-15 10:47:27",
-      "exit_time": "2026-04-15 22:29:38",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Volume",
-      "symbol": "KRW-BIO",
-      "direction": "BUY",
-      "entry_price": 38.9,
-      "exit_price": 44.4,
-      "pnl_pct": -14.14,
-      "exit_reason": "익절 (현재가 44.4000 ≥ TP 41.2340)",
-      "entry_time": "2026-04-15 15:50:29",
-      "exit_time": "2026-04-15 22:29:38",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-2Z",
-      "direction": "BUY",
-      "entry_price": 116.0,
-      "exit_price": 121.0,
-      "pnl_pct": -4.31,
-      "exit_reason": "익절 (현재가 121.0000 ≥ TP 120.6400)",
-      "entry_time": "2026-04-13 11:59:33",
-      "exit_time": "2026-04-15 19:56:48",
-      "status": "LOSS"
-    },
-    {
-      "strategy": "Shin_60MA_Basic",
-      "symbol": "KRW-TREE",
-      "direction": "BUY",
-      "entry_price": 101.0,
-      "exit_price": 97.4,
-      "pnl_pct": 3.56,
-      "exit_reason": "손절 (현재가 97.4000 ≤ SL 98.9800)",
-      "entry_time": "2026-04-14 10:53:31",
-      "exit_time": "2026-04-15 15:50:03",
-      "status": "WIN"
     }
   ]
 }
