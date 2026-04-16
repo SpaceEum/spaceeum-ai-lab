@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-16 07:31:22",
-  "total_trades": 30,
+  "last_updated": "2026-04-16 15:27:02",
+  "total_trades": 32,
   "open_positions": 5,
-  "closed_trades": 25,
-  "wins": 10,
+  "closed_trades": 27,
+  "wins": 12,
   "losses": 15,
-  "win_rate": 40.0,
-  "avg_pnl_pct": 1.35,
-  "total_pnl_pct": 33.64,
+  "win_rate": 44.4,
+  "avg_pnl_pct": 1.41,
+  "total_pnl_pct": 37.96,
   "best_trade": {
     "symbol": "KRW-IN",
     "pnl_pct": 39.82,
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 0.0
+      "current_pnl_pct": -0.64
     },
     {
       "symbol": "KRW-ORBS",
@@ -39,16 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -4.35
-    },
-    {
-      "symbol": "KRW-COMP",
-      "entry_date": "2026-04-15",
-      "entry_price": 31800.0,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": 4.15
+      "current_pnl_pct": -5.07
     },
     {
       "symbol": "KRW-API3",
@@ -57,12 +48,21 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 1.17
+      "current_pnl_pct": 4.22
     },
     {
-      "symbol": "KRW-YGG",
+      "symbol": "KRW-BEAM",
       "entry_date": "2026-04-16",
-      "entry_price": 58.5,
+      "entry_price": 2.91,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-AKT",
+      "entry_date": "2026-04-16",
+      "entry_price": 724.0,
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
