@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-16 20:44:07",
-  "total_trades": 32,
+  "last_updated": "2026-04-17 02:00:16",
+  "total_trades": 34,
   "open_positions": 5,
-  "closed_trades": 27,
-  "wins": 12,
-  "losses": 15,
-  "win_rate": 44.4,
-  "avg_pnl_pct": 1.41,
-  "total_pnl_pct": 37.96,
+  "closed_trades": 29,
+  "wins": 13,
+  "losses": 16,
+  "win_rate": 44.8,
+  "avg_pnl_pct": 1.48,
+  "total_pnl_pct": 42.88,
   "best_trade": {
     "symbol": "KRW-IN",
     "pnl_pct": 39.82,
@@ -24,31 +24,13 @@
   },
   "open_position_list": [
     {
-      "symbol": "KRW-BOUNTY",
-      "entry_date": "2026-04-09",
-      "entry_price": 31.1,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": -0.96
-    },
-    {
       "symbol": "KRW-ORBS",
       "entry_date": "2026-04-12",
       "entry_price": 13.8,
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -2.9
-    },
-    {
-      "symbol": "KRW-API3",
-      "entry_date": "2026-04-16",
-      "entry_price": 427.0,
-      "entry_cycle": "2번",
-      "entry_score": 9,
-      "dual_strong": false,
-      "current_pnl_pct": 5.62
+      "current_pnl_pct": -3.62
     },
     {
       "symbol": "KRW-BEAM",
@@ -57,7 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 0.34
+      "current_pnl_pct": 1.03
     },
     {
       "symbol": "KRW-AKT",
@@ -66,7 +48,25 @@
       "entry_cycle": "2번",
       "entry_score": 9,
       "dual_strong": false,
-      "current_pnl_pct": 2.21
+      "current_pnl_pct": 3.31
+    },
+    {
+      "symbol": "KRW-PENGU",
+      "entry_date": "2026-04-17",
+      "entry_price": 11.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "symbol": "KRW-DOGE",
+      "entry_date": "2026-04-17",
+      "entry_price": 143.0,
+      "entry_cycle": "2번",
+      "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": 0.0
     }
   ]
 }

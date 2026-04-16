@@ -159,19 +159,19 @@
     {
       "id": "4H_2026-04-09_KRW-BOUNTY",
       "symbol": "KRW-BOUNTY",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-09",
       "entry_price": 31.1,
       "entry_score": 9,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(9/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
-      "current_pnl_pct": -0.96
+      "exit_date": "2026-04-17",
+      "exit_price": 31.1,
+      "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+      "exit_cycle": "4번",
+      "pnl_pct": 0.0,
+      "pnl_krw": 0,
+      "current_pnl_pct": 0.0
     },
     {
       "id": "4H_2026-04-09_KRW-NEAR",
@@ -392,7 +392,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -2.9
+      "current_pnl_pct": -3.62
     },
     {
       "id": "4H_2026-04-15_KRW-BIO",
@@ -482,19 +482,19 @@
     {
       "id": "4H_2026-04-16_KRW-API3",
       "symbol": "KRW-API3",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-16",
       "entry_price": 427.0,
       "entry_score": 9,
       "entry_cycle": "2번",
       "entry_reason": "4H STRONG BUY(9/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
-      "current_pnl_pct": 5.62
+      "exit_date": "2026-04-17",
+      "exit_price": 448.0,
+      "exit_reason": "매도신호 (3번→4번→4번, 종이격 3일 연속 감소)",
+      "exit_cycle": "4번",
+      "pnl_pct": 4.92,
+      "pnl_krw": 98361,
+      "current_pnl_pct": 4.92
     },
     {
       "id": "4H_2026-04-16_KRW-YGG",
@@ -528,7 +528,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 0.34
+      "current_pnl_pct": 1.03
     },
     {
       "id": "4H_2026-04-16_KRW-AKT",
@@ -545,7 +545,41 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 2.21
+      "current_pnl_pct": 3.31
+    },
+    {
+      "id": "4H_2026-04-17_KRW-PENGU",
+      "symbol": "KRW-PENGU",
+      "status": "OPEN",
+      "entry_date": "2026-04-17",
+      "entry_price": 11.0,
+      "entry_score": 9,
+      "entry_cycle": "2번",
+      "entry_reason": "4H STRONG BUY(9/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
+    },
+    {
+      "id": "4H_2026-04-17_KRW-DOGE",
+      "symbol": "KRW-DOGE",
+      "status": "OPEN",
+      "entry_date": "2026-04-17",
+      "entry_price": 143.0,
+      "entry_score": 9,
+      "entry_cycle": "2번",
+      "entry_reason": "4H STRONG BUY(9/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": 0.0
     }
   ],
   "waiting_for_cycle1": []
