@@ -1,13 +1,13 @@
 {
-  "last_updated": "2026-04-15 15:24:57",
-  "total_trades": 20,
+  "last_updated": "2026-04-16 15:26:50",
+  "total_trades": 21,
   "open_positions": 5,
-  "closed_trades": 15,
+  "closed_trades": 16,
   "wins": 3,
-  "losses": 12,
-  "win_rate": 20.0,
-  "avg_pnl_pct": -2.96,
-  "total_pnl_pct": -44.47,
+  "losses": 13,
+  "win_rate": 18.8,
+  "avg_pnl_pct": -4.15,
+  "total_pnl_pct": -66.42,
   "best_trade": {
     "symbol": "KRW-SAFE",
     "pnl_pct": 16.48,
@@ -16,11 +16,11 @@
     "exit_date": "2026-04-12"
   },
   "worst_trade": {
-    "symbol": "KRW-KERNEL",
-    "pnl_pct": -19.13,
-    "exit_reason": "손절 (-19.1%)",
-    "entry_date": "2026-04-04",
-    "exit_date": "2026-04-06"
+    "symbol": "KRW-JST",
+    "pnl_pct": -21.95,
+    "exit_reason": "손절 (-21.9%)",
+    "entry_date": "2026-04-13",
+    "exit_date": "2026-04-16"
   },
   "open_position_list": [
     {
@@ -30,7 +30,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 9.53
+      "current_pnl_pct": 6.21
     },
     {
       "symbol": "KRW-AERO",
@@ -39,7 +39,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": -2.69
+      "current_pnl_pct": 0.18
     },
     {
       "symbol": "KRW-XPL",
@@ -48,16 +48,7 @@
       "entry_cycle": "2번",
       "entry_score": 8,
       "dual_strong": false,
-      "current_pnl_pct": 1.04
-    },
-    {
-      "symbol": "KRW-JST",
-      "entry_date": "2026-04-13",
-      "entry_price": 113.0,
-      "entry_cycle": "2번",
-      "entry_score": 8,
-      "dual_strong": false,
-      "current_pnl_pct": 3.54
+      "current_pnl_pct": 4.69
     },
     {
       "symbol": "KRW-OPEN",
@@ -65,6 +56,15 @@
       "entry_price": 316.0,
       "entry_cycle": "2번",
       "entry_score": 9,
+      "dual_strong": false,
+      "current_pnl_pct": -1.9
+    },
+    {
+      "symbol": "KRW-IN",
+      "entry_date": "2026-04-16",
+      "entry_price": 108.0,
+      "entry_cycle": "2번",
+      "entry_score": 8,
       "dual_strong": false,
       "current_pnl_pct": 0.0
     }

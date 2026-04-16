@@ -281,7 +281,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 9.53
+      "current_pnl_pct": 6.21
     },
     {
       "id": "2026-04-11_KRW-ORDER",
@@ -321,7 +321,7 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": -2.69
+      "current_pnl_pct": 0.18
     },
     {
       "id": "2026-04-12_KRW-XPL",
@@ -341,12 +341,12 @@
       "exit_cycle": null,
       "pnl_pct": null,
       "pnl_krw": null,
-      "current_pnl_pct": 1.04
+      "current_pnl_pct": 4.69
     },
     {
       "id": "2026-04-13_KRW-JST",
       "symbol": "KRW-JST",
-      "status": "OPEN",
+      "status": "CLOSED",
       "entry_date": "2026-04-13",
       "entry_price": 113.0,
       "entry_score": 8,
@@ -355,13 +355,13 @@
       "entry_cycle_4h": "3번",
       "dual_strong": false,
       "entry_reason": "STRONG BUY(8/9) + 2번",
-      "exit_date": null,
-      "exit_price": null,
-      "exit_reason": null,
-      "exit_cycle": null,
-      "pnl_pct": null,
-      "pnl_krw": null,
-      "current_pnl_pct": 3.54
+      "exit_date": "2026-04-16",
+      "exit_price": 88.2,
+      "exit_reason": "손절 (-21.9%)",
+      "exit_cycle": "3번",
+      "pnl_pct": -21.95,
+      "pnl_krw": -438938,
+      "current_pnl_pct": -21.95
     },
     {
       "id": "2026-04-14_KRW-SAFE",
@@ -395,6 +395,26 @@
       "entry_cycle_4h": "3번",
       "dual_strong": false,
       "entry_reason": "STRONG BUY(9/9) + 2번",
+      "exit_date": null,
+      "exit_price": null,
+      "exit_reason": null,
+      "exit_cycle": null,
+      "pnl_pct": null,
+      "pnl_krw": null,
+      "current_pnl_pct": -1.9
+    },
+    {
+      "id": "2026-04-16_KRW-IN",
+      "symbol": "KRW-IN",
+      "status": "OPEN",
+      "entry_date": "2026-04-16",
+      "entry_price": 108.0,
+      "entry_score": 8,
+      "entry_score_4h": 6,
+      "entry_cycle": "2번",
+      "entry_cycle_4h": "4번",
+      "dual_strong": false,
+      "entry_reason": "STRONG BUY(8/9) + 2번",
       "exit_date": null,
       "exit_price": null,
       "exit_reason": null,
