@@ -350,7 +350,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <div class="ohlcv-section reveal" id="ohlcv-section">
       <div class="ohlcv-header">
         <span class="ohlcv-title">OHLCV DATA</span>
-        <span style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;">업비트 KRW 거래량 상위 200 · 6개 타임프레임</span>
+        <span style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;">업비트 200 · 빗썸 400 · 15min/1H/4H/1D</span>
       </div>
       <div class="ohlcv-card" id="ohlcv-card">
         <div class="ohlcv-info">
@@ -363,7 +363,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         <div class="ohlcv-stats">
           <div class="ohlcv-stat">
             <span class="ohlcv-stat-num" id="ohlcv-tickers">-</span>
-            <span class="ohlcv-stat-label">수집 티커</span>
+            <span class="ohlcv-stat-label">총 티커</span>
           </div>
           <div class="ohlcv-stat">
             <span class="ohlcv-stat-num" id="ohlcv-files">-</span>
@@ -376,6 +376,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         </div>
         <div class="ohlcv-tfs" id="ohlcv-tfs"></div>
       </div>
+      <div id="ohlcv-exchanges" style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;"></div>
     </div>
 
   </div>
@@ -400,10 +401,10 @@ async function loadOhlcvStatus() {
     const statusText = document.getElementById('ohlcv-status-text');
 
     const statusMap = {
-      success: { label: 'LIVE · 정상',  cls: 'success' },
+      success: { label: 'LIVE · 정상',        cls: 'success' },
       partial: { label: 'PARTIAL · 일부 오류', cls: 'partial' },
-      failed:  { label: 'ERROR · 실패', cls: 'failed' },
-      pending: { label: 'PENDING · 대기', cls: 'pending' },
+      failed:  { label: 'ERROR · 실패',        cls: 'failed' },
+      pending: { label: 'PENDING · 대기',      cls: 'pending' },
     };
     const s = statusMap[d.status] || statusMap.pending;
 
@@ -413,7 +414,7 @@ async function loadOhlcvStatus() {
     statusText.textContent = s.label;
 
     document.getElementById('ohlcv-last-updated').textContent = d.last_updated || '-';
-    document.getElementById('ohlcv-tickers').textContent = d.tickers || '-';
+    document.getElementById('ohlcv-tickers').textContent = d.total_tickers || d.tickers || '-';
     document.getElementById('ohlcv-files').textContent   = d.total_files || '-';
 
     const errEl = document.getElementById('ohlcv-errors');
@@ -421,12 +422,35 @@ async function loadOhlcvStatus() {
     if (d.errors && d.errors.length > 0) errEl.style.color = 'var(--red)';
 
     const tfsEl = document.getElementById('ohlcv-tfs');
+    tfsEl.innerHTML = '';
     (d.timeframes || []).forEach(tf => {
       const span = document.createElement('span');
       span.className = 'ohlcv-tf';
       span.textContent = tf;
       tfsEl.appendChild(span);
     });
+
+    // 거래소별 카드
+    const exEl = document.getElementById('ohlcv-exchanges');
+    if (exEl && d.exchanges) {
+      exEl.innerHTML = '';
+      const exNames = { upbit: '업비트', bithumb: '빗썸' };
+      Object.entries(d.exchanges).forEach(([exKey, ex]) => {
+        const card = document.createElement('div');
+        card.style.cssText = 'background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;min-width:200px;flex:1;';
+        const tfsHtml = Object.entries(ex.timeframes || {}).map(([tf, info]) =>
+          `<div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px;">
+            <span style="color:var(--text2);font-family:'Space Mono',monospace;">${tf}</span>
+            <span style="color:var(--text);">${info.tickers}종목 · <span style="color:var(--accent2);">${info.last_candle}</span></span>
+          </div>`
+        ).join('');
+        card.innerHTML = `
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;font-family:'Orbitron',monospace;">${exNames[exKey] || exKey.toUpperCase()}</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:6px;">티커 <span style="color:var(--accent);font-weight:600;">${ex.tickers}</span>개 · 파일 <span style="color:var(--text);">${ex.total_files}</span>개</div>
+          ${tfsHtml}`;
+        exEl.appendChild(card);
+      });
+    }
   } catch(e) {
     console.error('OHLCV 상태 로드 오류:', e);
   }
