@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 멀티팩터 매매 — SpaceEum</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060910; --bg2: #0a0f1a; --bg3: #0f1624;
+  --border: #1a2535; --accent: #00d4ff; --accent2: #00ff88;
+  --purple: #a78bfa; --purple-dim: rgba(167,139,250,0.1);
+  --text: #e8f0fe; --text2: #7a8fa6; --red: #ff4d6d; --yellow: #ffb800;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-serif; overflow-x:hidden; }
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image:linear-gradient(rgba(167,139,250,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.02) 1px,transparent 1px);
+  background-size:50px 50px; pointer-events:none; z-index:0;
+}
+header { position:fixed; top:0; left:0; right:0; z-index:1000; border-bottom:1px solid var(--border); background:rgba(6,9,16,0.9); backdrop-filter:blur(24px); }
+.header-inner { max-width:1200px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.logo-img { height:36px; width:auto; }
+.logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+nav { display:flex; align-items:center; gap:28px; }
+nav a { color:var(--text2); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:1px; transition:color 0.2s; }
+nav a:hover { color:var(--purple); }
+nav a.active { color:var(--purple); }
+.nav-cta { padding:8px 20px; border:1px solid var(--purple); border-radius:6px; color:var(--purple)!important; font-family:'Space Mono',monospace; font-size:12px!important; }
+.nav-cta:hover { background:var(--purple)!important; color:var(--bg)!important; }
+
+.page-hero { padding:140px 32px 60px; position:relative; z-index:1; text-align:center; }
+.page-hero::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; height:400px; background:radial-gradient(circle,rgba(167,139,250,0.06) 0%,transparent 65%); pointer-events:none; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border:1px solid rgba(167,139,250,0.3); border-radius:20px; background:rgba(167,139,250,0.05); font-family:'Space Mono',monospace; font-size:11px; color:var(--purple); letter-spacing:2px; margin-bottom:24px; }
+.badge-dot { width:6px; height:6px; background:var(--purple); border-radius:50%; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.page-hero h1 { font-family:'Orbitron',monospace; font-size:clamp(24px,3.5vw,44px); font-weight:900; line-height:1.2; margin-bottom:16px; }
+.page-hero h1 span { background:linear-gradient(135deg,var(--purple),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.page-hero p { font-size:15px; color:var(--text2); line-height:1.8; max-width:600px; margin:0 auto 24px; }
+.back-btn { display:inline-flex; align-items:center; gap:8px; padding:8px 20px; border:1px solid var(--border); border-radius:8px; color:var(--text2); text-decoration:none; font-family:'Space Mono',monospace; font-size:11px; transition:all 0.2s; }
+.back-btn:hover { border-color:var(--purple); color:var(--purple); }
+
+section { position:relative; z-index:1; padding:60px 32px; }
+.section-inner { max-width:1200px; margin:0 auto; }
+.section-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--purple); letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; display:block; }
+.section-title { font-family:'Orbitron',monospace; font-size:clamp(18px,2vw,24px); font-weight:700; margin-bottom:8px; }
+.section-desc { font-size:14px; color:var(--text2); line-height:1.8; margin-bottom:40px; }
+
+/* 스탯 그리드 */
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; margin-bottom:48px; }
+.stat-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:24px; text-align:center; }
+.stat-num { font-family:'Orbitron',monospace; font-size:26px; font-weight:700; display:block; margin-bottom:6px; }
+.stat-num.pos { color:var(--accent2); }
+.stat-num.neg { color:var(--red); }
+.stat-num.purple { color:var(--purple); }
+.stat-num.blue { color:var(--accent); }
+.stat-label { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
+
+/* 모델 정보 카드 */
+.model-card { background:var(--bg2); border:1px solid rgba(167,139,250,0.2); border-radius:16px; padding:28px; margin-bottom:48px; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; }
+.model-item { text-align:center; }
+.model-val { font-family:'Orbitron',monospace; font-size:20px; font-weight:700; color:var(--purple); display:block; margin-bottom:6px; }
+.model-lbl { font-size:11px; color:var(--text2); letter-spacing:2px; text-transform:uppercase; }
+
+/* 테이블 */
+.table-wrap { overflow-x:auto; margin-bottom:40px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { padding:12px 16px; text-align:left; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--text2); border-bottom:1px solid var(--border); text-transform:uppercase; }
+tbody td { padding:12px 16px; border-bottom:1px solid rgba(26,37,53,0.8); vertical-align:middle; }
+tbody tr:hover { background:rgba(167,139,250,0.02); }
+.table-title { font-family:'Orbitron',monospace; font-size:14px; font-weight:700; color:var(--purple); margin-bottom:16px; }
+.empty { text-align:center; padding:40px; color:var(--text2); font-family:'Space Mono',monospace; font-size:12px; }
+
+/* 신호 배지 */
+.sig-buy  { display:inline-block; padding:2px 10px; border-radius:12px; font-family:'Space Mono',monospace; font-size:11px; background:rgba(0,255,136,0.1); color:var(--accent2); border:1px solid rgba(0,255,136,0.3); }
+.sig-sell { display:inline-block; padding:2px 10px; border-radius:12px; font-family:'Space Mono',monospace; font-size:11px; background:rgba(255,77,109,0.1); color:var(--red); border:1px solid rgba(255,77,109,0.3); }
+
+footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:32px; background:var(--bg2); }
+.footer-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.footer-copy { font-size:12px; color:var(--text2); font-family:'Space Mono',monospace; }
+.footer-slogan { font-size:12px; color:var(--text2); font-style:italic; }
+
+.reveal { opacity:0; transform:translateY(20px); transition:all 0.6s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.pos { color:var(--accent2)!important; }
+.neg { color:var(--red)!important; }
+
+@media(max-width:768px) {
+  .header-inner{padding:0 16px;}
+  nav a:not(.nav-cta){display:none;}
+  section{padding:40px 16px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .model-card{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo"><img src="logo_full.png" alt="공간이음 로고" class="logo-img"></a>
+    <nav>
+      <a href="/#services">사업영역</a>
+      <a href="/ai-trading.html" class="active">AI 트레이딩</a>
+      <a href="/#vision">비전</a>
+      <a href="/#contact" class="nav-cta">연락하기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="hero-badge"><span class="badge-dot"></span>AI MULTIFACTOR · XGBoost</div>
+  <h1><span>AI 멀티팩터 매매</span></h1>
+  <p>일목균형표 · MACD · RSI · ADX 등 다중 지표를 XGBoost로 학습<br>BUY / SELL / HOLD 3클래스 확률 기반 자동 매매 시스템</p>
+  <a href="ai-trading.html" class="back-btn">← 대시보드로 돌아가기</a>
+</div>
+
+<section style="padding-top:0;">
+  <div class="section-inner">
+
+    <!-- 종합 성과 -->
+    <span class="section-label">OVERALL PERFORMANCE</span>
+    <h2 class="section-title">종합 성과</h2>
+    <p class="section-desc" id="ai-updated-text">데이터 로딩 중...</p>
+
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <span class="stat-num purple" id="stat-total-trades">-</span>
+        <span class="stat-label">총 거래 횟수</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num pos" id="stat-winrate">-</span>
+        <span class="stat-label">승률</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num pos" id="stat-avg-pnl">-</span>
+        <span class="stat-label">평균 수익률</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num pos" id="stat-total-pnl">-</span>
+        <span class="stat-label">누적 수익률</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num blue" id="stat-balance">-</span>
+        <span class="stat-label">현재 잔고</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num purple" id="stat-open">-</span>
+        <span class="stat-label">오픈 포지션</span>
+      </div>
+    </div>
+
+    <!-- 모델 정보 -->
+    <span class="section-label">AI MODEL</span>
+    <h2 class="section-title">모델 정보</h2>
+    <p class="section-desc">XGBoost 멀티클래스 분류 모델 — Walk-Forward 검증으로 학습</p>
+
+    <div class="model-card reveal">
+      <div class="model-item">
+        <span class="model-val" id="model-accuracy">-</span>
+        <span class="model-lbl">Accuracy</span>
+      </div>
+      <div class="model-item">
+        <span class="model-val" id="model-f1">-</span>
+        <span class="model-lbl">F1 Score</span>
+      </div>
+      <div class="model-item">
+        <span class="model-val" id="model-trained">-</span>
+        <span class="model-lbl">마지막 학습</span>
+      </div>
+      <div class="model-item">
+        <span class="model-val" style="font-size:14px;color:var(--text2)">매주 월요일 03:00</span>
+        <span class="model-lbl">재학습 주기</span>
+      </div>
+    </div>
+
+    <!-- 오픈 포지션 -->
+    <span class="section-label">OPEN POSITIONS</span>
+    <h2 class="section-title">현재 보유 포지션</h2>
+    <div class="table-wrap reveal">
+      <div class="table-title" id="open-count">보유 포지션 — 개</div>
+      <table>
+        <thead><tr>
+          <th>종목</th><th>방향</th><th>진입가</th><th>진입 금액</th><th>진입 시각</th>
+        </tr></thead>
+        <tbody id="open-tbody"><tr><td colspan="5" class="empty">로딩 중...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- 최근 신호 -->
+    <span class="section-label">RECENT SIGNALS</span>
+    <h2 class="section-title">최근 AI 신호</h2>
+    <p class="section-desc">임계값(60%) 이상의 BUY / SELL 신호만 표시</p>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr>
+          <th>종목</th><th>신호</th><th>BUY 확률</th><th>SELL 확률</th><th>신호 시각</th>
+        </tr></thead>
+        <tbody id="signal-tbody"><tr><td colspan="5" class="empty">로딩 중...</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- 최근 거래 내역 -->
+    <span class="section-label">RECENT TRADES</span>
+    <h2 class="section-title">최근 거래 내역</h2>
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr>
+          <th>종목</th><th>방향</th><th>진입가</th><th>청산가</th><th>진입 시각</th><th>청산 시각</th><th>수익률</th>
+        </tr></thead>
+        <tbody id="recent-tbody"><tr><td colspan="7" class="empty">로딩 중...</td></tr></tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2025 SpaceEum. AI-powered trading research.</span>
+    <span class="footer-slogan">페이퍼 트레이딩 — 실제 투자 아님</span>
+  </div>
+</footer>
+
+<script>
+async function loadData() {
+  try {
+    const res = await fetch('data/ai_performance.json?t=' + Date.now());
+    if (!res.ok) return;
+    const d = await res.json();
+
+    document.getElementById('ai-updated-text').textContent = '마지막 업데이트: ' + (d.last_updated || '-');
+
+    // 종합 성과 스탯
+    document.getElementById('stat-total-trades').textContent = d.total_trades ?? '-';
+
+    const wr = d.win_rate;
+    const wrEl = document.getElementById('stat-winrate');
+    wrEl.textContent = wr != null ? wr.toFixed(1) + '%' : '-';
+    wrEl.className = 'stat-num ' + (wr >= 50 ? 'pos' : (d.total_trades > 0 ? 'neg' : 'purple'));
+
+    const avgPnl = d.avg_pnl_pct;
+    const avgEl = document.getElementById('stat-avg-pnl');
+    avgEl.textContent = avgPnl != null ? (avgPnl >= 0 ? '+' : '') + avgPnl.toFixed(2) + '%' : '-';
+    avgEl.className = 'stat-num ' + (avgPnl >= 0 ? 'pos' : (d.total_trades > 0 ? 'neg' : 'purple'));
+
+    const totalPnl = d.total_pnl_pct;
+    const totalEl = document.getElementById('stat-total-pnl');
+    totalEl.textContent = totalPnl != null ? (totalPnl >= 0 ? '+' : '') + totalPnl.toFixed(2) + '%' : '-';
+    totalEl.className = 'stat-num ' + (totalPnl >= 0 ? 'pos' : (d.total_trades > 0 ? 'neg' : 'purple'));
+
+    const bal = d.current_balance;
+    document.getElementById('stat-balance').textContent = bal != null ? Math.floor(bal).toLocaleString() + '원' : '-';
+
+    document.getElementById('stat-open').textContent = (d.open_positions || []).length;
+
+    // 모델 정보
+    const m = d.model || {};
+    document.getElementById('model-accuracy').textContent = m.accuracy ? (m.accuracy * 100).toFixed(1) + '%' : '-';
+    document.getElementById('model-f1').textContent = m.f1_score ? (m.f1_score * 100).toFixed(1) + '%' : '-';
+    document.getElementById('model-trained').textContent = m.trained_at ? m.trained_at.slice(0, 16) : '-';
+
+    // 오픈 포지션
+    const opens = d.open_positions || [];
+    document.getElementById('open-count').textContent = `보유 포지션 — ${opens.length}개`;
+    const openTbody = document.getElementById('open-tbody');
+    if (opens.length === 0) {
+      openTbody.innerHTML = '<tr><td colspan="5" class="empty">현재 오픈 포지션 없음</td></tr>';
+    } else {
+      openTbody.innerHTML = opens.map(p => `<tr>
+        <td><strong style="font-family:'Orbitron',monospace;font-size:12px">${p.symbol}</strong></td>
+        <td><span style="color:var(--accent2)">BUY</span></td>
+        <td style="font-family:'Space Mono',monospace">${(p.entry_price || 0).toLocaleString()}</td>
+        <td style="font-family:'Space Mono',monospace">${Math.floor(p.size_krw || 0).toLocaleString()}원</td>
+        <td style="color:var(--text2);font-size:12px">${(p.entry_time || '').slice(0,16)}</td>
+      </tr>`).join('');
+    }
+
+    // 최근 신호
+    const signals = d.recent_signals || [];
+    const sigTbody = document.getElementById('signal-tbody');
+    if (signals.length === 0) {
+      sigTbody.innerHTML = '<tr><td colspan="5" class="empty">신호 없음</td></tr>';
+    } else {
+      sigTbody.innerHTML = signals.map(s => `<tr>
+        <td><strong style="font-family:'Orbitron',monospace;font-size:12px">${s.symbol}</strong></td>
+        <td><span class="sig-${s.signal.toLowerCase()}">${s.signal}</span></td>
+        <td style="font-family:'Space Mono',monospace;color:var(--accent2)">${((s.prob_buy || 0) * 100).toFixed(1)}%</td>
+        <td style="font-family:'Space Mono',monospace;color:var(--red)">${((s.prob_sell || 0) * 100).toFixed(1)}%</td>
+        <td style="color:var(--text2);font-size:12px">${(s.signal_time || '').slice(0,16)}</td>
+      </tr>`).join('');
+    }
+
+    // 최근 거래 내역
+    const trades = d.recent_trades || [];
+    const tradeTbody = document.getElementById('recent-tbody');
+    if (trades.length === 0) {
+      tradeTbody.innerHTML = '<tr><td colspan="7" class="empty">거래 내역 없음 — 봇이 첫 거래를 기다리는 중</td></tr>';
+    } else {
+      tradeTbody.innerHTML = trades.map(t => {
+        const pnl = t.pnl_pct || 0;
+        return `<tr>
+          <td><strong style="font-family:'Orbitron',monospace;font-size:11px">${t.symbol}</strong></td>
+          <td><span style="color:var(--accent2)">${t.direction}</span></td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px">${(t.entry_price || 0).toLocaleString()}</td>
+          <td style="font-family:'Space Mono',monospace;font-size:12px">${(t.exit_price || 0).toLocaleString()}</td>
+          <td style="color:var(--text2);font-size:11px">${(t.entry_time || '').slice(0,16)}</td>
+          <td style="color:var(--text2);font-size:11px">${(t.exit_time || '').slice(0,16)}</td>
+          <td class="${pnl >= 0 ? 'pos' : 'neg'}" style="font-family:'Space Mono',monospace">
+            ${(pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '%'}
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+  } catch(e) {
+    console.error('데이터 로드 오류:', e);
+  }
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+loadData();
+</script>
+</body>
+</html>
