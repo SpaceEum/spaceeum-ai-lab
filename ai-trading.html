@@ -309,7 +309,36 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         </div>
       </a>
 
-      <!-- 카드 3: 신창환 60MA -->
+      <!-- 카드 3: AI 멀티팩터 -->
+      <div class="strategy-card reveal" style="cursor:default;">
+        <div class="card-header">
+          <span class="card-tag" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.3);">AI MULTI</span>
+          <span class="card-status"><span class="status-dot"></span>LIVE</span>
+        </div>
+        <div class="card-title">AI 멀티팩터<br>매매</div>
+        <div class="card-desc">XGBoost AI가 1H·4H·1D·1W 멀티 타임프레임을 분석<br>BUY / SELL / HOLD 신호 자동 생성</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="ai-winrate">-</span>
+            <span class="card-stat-label">승률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num" id="ai-pnl">-</span>
+            <span class="card-stat-label">평균수익</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num blue" id="ai-positions">-</span>
+            <span class="card-stat-label">보유포지션</span>
+          </div>
+        </div>
+        <div id="ai-recent-signals" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;"></div>
+        <div class="card-footer">
+          <span style="font-size:11px;color:var(--text2);">XGBoost · Walk-Forward 검증</span>
+          <span class="card-updated" id="ai-updated">-</span>
+        </div>
+      </div>
+
+      <!-- 카드 4: 신창환 60MA -->
       <a href="trading_detail_shin60ma.html" class="strategy-card shin reveal">
         <div class="card-header">
           <span class="card-tag tag-shin">SHIN 60MA</span>
@@ -485,6 +514,31 @@ async function loadDashboard() {
       const upd4h = sp4h.last_updated || '';
       document.getElementById('sp4h-updated').textContent = upd4h ? upd4h.slice(0, 10) : '-';
     }
+
+    // AI 멀티팩터 데이터
+    try {
+      const aiRes = await fetch('data/ai_performance.json');
+      if (aiRes.ok) {
+        const ai = await aiRes.json();
+        document.getElementById('ai-winrate').textContent = ai.win_rate != null ? ai.win_rate.toFixed(1) + '%' : '-';
+        const aiPnl = ai.avg_pnl_pct;
+        const aiPnlEl = document.getElementById('ai-pnl');
+        aiPnlEl.textContent = aiPnl != null ? (aiPnl >= 0 ? '+' : '') + aiPnl.toFixed(2) + '%' : '-';
+        aiPnlEl.className = 'card-stat-num ' + (aiPnl >= 0 ? 'pos' : 'neg');
+        document.getElementById('ai-positions').textContent = (ai.open_positions || []).length;
+        const aiUpd = ai.last_updated || '';
+        document.getElementById('ai-updated').textContent = aiUpd ? aiUpd.slice(0, 10) : '-';
+        // 최근 신호 배지
+        const sigEl = document.getElementById('ai-recent-signals');
+        (ai.recent_signals || []).slice(0, 5).forEach(s => {
+          const span = document.createElement('span');
+          const isBuy = s.signal === 'BUY';
+          span.style.cssText = `font-size:10px;padding:2px 7px;border-radius:4px;font-family:'Space Mono',monospace;background:${isBuy ? 'rgba(0,255,136,0.1)' : 'rgba(255,77,109,0.1)'};color:${isBuy ? 'var(--accent2)' : 'var(--red)'};border:1px solid ${isBuy ? 'rgba(0,255,136,0.2)' : 'rgba(255,77,109,0.2)'};`;
+          span.textContent = s.symbol.replace('KRW-', '');
+          sigEl.appendChild(span);
+        });
+      }
+    } catch(e) {}
 
     // 신창환 60MA 데이터
     const shinRes = await fetch('data/shin_performance.json');
