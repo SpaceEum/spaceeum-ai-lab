@@ -454,7 +454,7 @@ body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR',sans-
 
 <script>
 // ── 상태 ─────────────────────────────────────────────────
-const API_BASE = 'http://3.34.179.161:8001';
+const API_BASE = '';
 let conversationHistory = [];
 let currentUser = null;
 let isStreaming = false;
@@ -552,13 +552,13 @@ async function sendMessage() {
   input.style.height = 'auto';
   document.getElementById('sendBtn').classList.remove('active');
 
-  // 첫 메시지면 채팅 저장
-  if (conversationHistory.length === 1) {
-    saveCurrentChat(text.slice(0, 30));
-  }
-
   // ARIA 응답 스트리밍
   await streamARIA();
+
+  // 첫 메시지면 AI 응답까지 포함해서 저장
+  if (conversationHistory.length === 2) {
+    saveCurrentChat(text.slice(0, 30));
+  }
 }
 
 async function streamARIA() {
@@ -627,7 +627,7 @@ async function streamARIA() {
 function appendMessage(role, content) {
   const msgs = document.getElementById('messages');
   const el = document.createElement('div');
-  el.className = `msg ${role}`;
+  el.className = `msg ${role === 'assistant' ? 'aria' : role}`;
   el.innerHTML = buildBubble(role, renderContent(content));
   msgs.appendChild(el);
   scrollToBottom();

@@ -179,7 +179,7 @@ footer { border-top:1px solid var(--border); padding:32px; background:var(--bg);
     <nav>
       <a href="/#services">사업영역</a>
       <a href="/ai-trading.html">AI 트레이딩</a>
-      <a href="/aria.html" class="active">백테스트</a>
+      <a href="/backtest.html" class="active">백테스트</a>
       <a href="/aria.html">ARIA</a>
       <a href="/#vision">비전</a>
       <a href="/#contact" class="nav-cta">연락하기</a>
@@ -194,7 +194,7 @@ footer { border-top:1px solid var(--border); padding:32px; background:var(--bg);
   </div>
   <h1>AI 전략 <span>백테스트</span></h1>
   <p>공간이음 AI가 개발한 매매 전략을 과거 데이터로 직접 검증해보세요.<br>실전 투자 전 전략의 수익성을 확인할 수 있습니다.</p>
-  <div class="notice">BETA · 현재 로컬 API 서버 연결 필요 (localhost:8001)</div>
+  <div class="notice">BETA · AI 백테스트 서비스 운영 중</div>
 </div>
 
 <section style="padding-top:0;">
@@ -432,7 +432,7 @@ footer { border-top:1px solid var(--border); padding:32px; background:var(--bg);
 </footer>
 
 <script>
-const API_URL = 'http://3.34.179.161:8001';
+const API_URL = '';
 let selectedStrategyId = 'ma60';
 let equityChart = null;
 
@@ -479,15 +479,17 @@ async function runBacktest() {
     if (!runRes.ok) throw new Error(`서버 오류: ${runRes.status}`);
     const { result_id } = await runRes.json();
 
-    // 2. 완료 대기 (폴링)
+    // 2. 완료 대기 (폴링, 최대 60초)
     let result = null;
+    let completed = false;
     for (let i = 0; i < 60; i++) {
       await new Promise(r => setTimeout(r, 1000));
       const statusRes = await fetch(`${API_URL}/api/backtest/status/${result_id}`);
       const status = await statusRes.json();
-      if (status.status === 'completed') break;
+      if (status.status === 'completed') { completed = true; break; }
       if (status.status === 'failed') throw new Error(status.error || '백테스트 실패');
     }
+    if (!completed) throw new Error('백테스트 시간 초과 (60초). 기간을 줄이거나 다시 시도해주세요.');
 
     // 3. 결과 조회
     const resultRes = await fetch(`${API_URL}/api/backtest/result/${result_id}`);
@@ -500,7 +502,7 @@ async function runBacktest() {
 
   } catch (e) {
     console.error(e);
-    document.getElementById('error-msg').textContent = e.message || 'API 서버에 연결할 수 없습니다. localhost:8001 확인';
+    document.getElementById('error-msg').textContent = e.message || '서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.';
     showState('status-error');
   } finally {
     btn.disabled = false;
