@@ -411,6 +411,67 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
   </div>
 </section>
 
+<!-- ── OHLCV 신호 파이프라인 섹션 ── -->
+<section style="padding:60px 32px;position:relative;z-index:1;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:40px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border:1px solid rgba(123,94,167,0.4);border-radius:20px;background:rgba(123,94,167,0.06);font-family:'Space Mono',monospace;font-size:11px;color:var(--accent3);letter-spacing:2px;margin-bottom:16px;">
+        <span style="width:6px;height:6px;background:var(--accent3);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span>
+        OHLCV SIGNAL PIPELINE · 1H
+      </div>
+      <h2 style="font-family:'Orbitron',monospace;font-size:clamp(20px,3vw,32px);font-weight:900;margin-bottom:10px;">신호 파이프라인 <span style="background:linear-gradient(135deg,var(--accent3),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">연구소</span></h2>
+      <p style="font-size:13px;color:var(--text2);">일목균형표 + Volume Oscillator 기반 60봉 신고가 돌파 전략 · 1시간봉 · 업비트 KRW 50개 코인</p>
+    </div>
+
+    <!-- 성과 카드 -->
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">승률</div>
+        <div id="sp-pipe-winrate" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:var(--accent2);">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">평균 수익률</div>
+        <div id="sp-pipe-return" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:var(--accent);">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">최고점 포착률</div>
+        <div id="sp-pipe-capture" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:var(--accent3);">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">MDD</div>
+        <div id="sp-pipe-mdd" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:var(--red);">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">총 거래</div>
+        <div id="sp-pipe-trades" style="font-family:'Orbitron',monospace;font-size:24px;font-weight:700;color:var(--text);">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:8px;">잔고</div>
+        <div id="sp-pipe-balance" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:700;color:var(--text);">-</div>
+      </div>
+    </div>
+
+    <!-- 상태 + 오픈 포지션 -->
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:16px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:12px;">PIPELINE STATUS</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span id="sp-pipe-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text2);display:inline-block;"></span>
+          <span id="sp-pipe-status" style="font-size:13px;color:var(--text2);font-family:'Space Mono',monospace;">초기화 중...</span>
+        </div>
+        <div style="font-size:11px;color:var(--text2);margin-top:12px;">보정 사이클</div>
+        <div id="sp-pipe-cycle" style="font-size:20px;font-weight:700;color:var(--accent);font-family:'Orbitron',monospace;margin-top:4px;">-</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:12px;">업데이트</div>
+        <div id="sp-pipe-updated" style="font-size:11px;color:var(--text);font-family:'Space Mono',monospace;margin-top:4px;">-</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:12px;">오픈 포지션</div>
+        <div id="sp-pipe-positions" style="font-size:13px;color:var(--text2);">데이터 로딩 중...</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <span class="footer-copy">© 2025 SpaceEum. AI-powered trading research.</span>
@@ -580,8 +641,71 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+async function loadSignalPipeline() {
+  try {
+    const res = await fetch('data/ohlcv_pipeline_status.json');
+    if (!res.ok) return;
+    const d = await res.json();
+    const pt = d.paper_trading || {};
+
+    // 성과 지표
+    const wr = pt.win_rate;
+    document.getElementById('sp-pipe-winrate').textContent = wr != null ? wr.toFixed(1) + '%' : '-';
+    document.getElementById('sp-pipe-winrate').style.color = wr >= 55 ? 'var(--accent2)' : 'var(--red)';
+
+    const ret = pt.avg_return_pct;
+    const retEl = document.getElementById('sp-pipe-return');
+    retEl.textContent = ret != null ? (ret >= 0 ? '+' : '') + ret.toFixed(2) + '%' : '-';
+    retEl.style.color = ret >= 0 ? 'var(--accent2)' : 'var(--red)';
+
+    const cap = pt.avg_peak_capture_rate;
+    document.getElementById('sp-pipe-capture').textContent = cap != null ? cap.toFixed(1) + '%' : '-';
+
+    const mdd = pt.mdd;
+    document.getElementById('sp-pipe-mdd').textContent = mdd != null ? '-' + mdd.toFixed(1) + '%' : '-';
+
+    document.getElementById('sp-pipe-trades').textContent = pt.total_trades ?? '-';
+
+    const bal = pt.current_balance;
+    document.getElementById('sp-pipe-balance').textContent = bal != null
+      ? (bal / 10000).toFixed(0) + '만원' : '-';
+
+    // 상태
+    const statusMap = {
+      running:      { label: 'RUNNING', color: 'var(--accent2)' },
+      initializing: { label: 'INIT...', color: 'var(--yellow)' },
+    };
+    const s = statusMap[d.status] || { label: d.status || '-', color: 'var(--text2)' };
+    document.getElementById('sp-pipe-dot').style.background = s.color;
+    document.getElementById('sp-pipe-status').textContent = s.label;
+    document.getElementById('sp-pipe-status').style.color = s.color;
+    document.getElementById('sp-pipe-cycle').textContent = d.pipeline_cycle ?? '-';
+    document.getElementById('sp-pipe-updated').textContent = d.updated_at || '-';
+
+    // 오픈 포지션
+    const posEl = document.getElementById('sp-pipe-positions');
+    const positions = d.open_positions || [];
+    if (positions.length === 0) {
+      posEl.textContent = '오픈 포지션 없음';
+    } else {
+      posEl.innerHTML = positions.map(p => {
+        const ret = p.current_return || 0;
+        const color = ret >= 0 ? 'var(--accent2)' : 'var(--red)';
+        return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;">${(p.ticker||'').replace('KRW-','')}</span>
+          <span style="font-size:11px;color:var(--text2);">${p.entry_date||''}</span>
+          <span style="font-family:'Orbitron',monospace;font-size:12px;color:${color};">${ret>=0?'+':''}${ret.toFixed(2)}%</span>
+        </div>`;
+      }).join('');
+    }
+  } catch(e) {
+    console.log('신호 파이프라인 데이터 없음 (초기화 중)');
+  }
+}
+
 loadDashboard();
 loadOhlcvStatus();
+loadSignalPipeline();
 </script>
 </body>
 </html>
