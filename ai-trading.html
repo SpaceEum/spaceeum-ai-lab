@@ -148,6 +148,21 @@ section { position:relative; z-index:1; padding:60px 32px 80px; }
 .strategy-card.sp4h:hover .card-detail-btn {
   background:rgba(167,139,250,0.12);
 }
+.strategy-card.sp1h:hover {
+  border-color:rgba(251,146,60,0.4);
+  box-shadow:0 16px 48px rgba(251,146,60,0.08);
+}
+.strategy-card.sp1h::before {
+  background:radial-gradient(circle at top left, rgba(251,146,60,0.04), transparent 60%);
+}
+.tag-sp1h { background:rgba(251,146,60,0.1); color:#fb923c; border:1px solid rgba(251,146,60,0.3); }
+.strategy-card.sp1h .card-detail-btn {
+  border-color:rgba(251,146,60,0.4); color:#fb923c;
+  background:rgba(251,146,60,0.05);
+}
+.strategy-card.sp1h:hover .card-detail-btn {
+  background:rgba(251,146,60,0.12);
+}
 .card-updated { font-family:'Space Mono',monospace; font-size:10px; color:var(--text2); }
 
 /* 전략 미니 배지 (신창환 카드) */
@@ -238,7 +253,7 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
     <!-- 상단 요약 -->
     <div class="summary-bar reveal" id="summary-bar">
       <div class="summary-item">
-        <span class="summary-num" id="total-systems">3</span>
+        <span class="summary-num" id="total-systems">4</span>
         <span class="summary-label">운영 중 매매 시스템</span>
       </div>
       <div class="summary-item">
@@ -339,7 +354,35 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
         </div>
       </a>
 
-      <!-- 카드 4: 신창환 60MA -->
+      <!-- 카드 4: 60일 신고가 매매 1H -->
+      <a href="trading_detail_pipeline_1h.html" class="strategy-card sp1h reveal">
+        <div class="card-header">
+          <span class="card-tag tag-sp1h">ICHIMOKU 1H</span>
+          <span class="card-status"><span class="status-dot" style="background:#fb923c;"></span>LIVE</span>
+        </div>
+        <div class="card-title">60봉 신고가<br>매매 (1H)</div>
+        <div class="card-desc">일목균형표 구름 위 첫 60봉 신고가 돌파 매수<br>AI 파이프라인 자동 조건 탐색 · 업비트 KRW 47종</div>
+        <div class="card-stats">
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp1h-winrate">-</span>
+            <span class="card-stat-label">승률</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num pos" id="sp1h-pnl">-</span>
+            <span class="card-stat-label">평균수익</span>
+          </div>
+          <div class="card-stat">
+            <span class="card-stat-num blue" id="sp1h-trades">-</span>
+            <span class="card-stat-label">총거래</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="card-detail-btn">상세 보기 →</span>
+          <span class="card-updated" id="sp1h-updated">-</span>
+        </div>
+      </a>
+
+      <!-- 카드 5: 신창환 60MA -->
       <a href="trading_detail_shin60ma.html" class="strategy-card shin reveal">
         <div class="card-header">
           <span class="card-tag tag-shin">SHIN 60MA</span>
@@ -783,10 +826,33 @@ async function loadPipelineCharts() {
   }
 }
 
+async function loadPipeline1H() {
+  try {
+    const res = await fetch('data/ohlcv_pipeline_status.json');
+    if (!res.ok) return;
+    const d = await res.json();
+    const pt = d.paper_trading || {};
+
+    const wr = pt.win_rate;
+    const wrEl = document.getElementById('sp1h-winrate');
+    wrEl.textContent = wr != null ? wr.toFixed(1) + '%' : '-';
+    wrEl.className = 'card-stat-num ' + (wr >= 55 ? 'pos' : 'neg');
+
+    const ret = pt.avg_return_pct;
+    const retEl = document.getElementById('sp1h-pnl');
+    retEl.textContent = ret != null ? (ret >= 0 ? '+' : '') + ret.toFixed(2) + '%' : '-';
+    retEl.className = 'card-stat-num ' + (ret >= 0 ? 'pos' : 'neg');
+
+    document.getElementById('sp1h-trades').textContent = pt.total_trades ?? '-';
+    document.getElementById('sp1h-updated').textContent = d.updated_at ? d.updated_at.slice(0, 10) : '-';
+  } catch(e) {}
+}
+
 loadDashboard();
 loadOhlcvStatus();
 loadSignalPipeline();
 loadPipelineCharts();
+loadPipeline1H();
 </script>
 </body>
 </html>
