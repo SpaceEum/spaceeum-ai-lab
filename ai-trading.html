@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI 트레이딩 대시보드 — SpaceEum</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
   --bg: #060910;
@@ -451,6 +452,30 @@ footer { position:relative; z-index:1; border-top:1px solid var(--border); paddi
       </div>
     </div>
 
+    <!-- 변화량 곡선 차트 -->
+    <div class="reveal" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;">
+      <div style="font-size:11px;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:1px;margin-bottom:20px;">PERFORMANCE TREND · 보정 사이클별 변화</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div style="font-size:10px;color:var(--accent2);font-family:'Space Mono',monospace;margin-bottom:8px;">WIN RATE (%)</div>
+          <canvas id="chart-winrate" height="120"></canvas>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--accent);font-family:'Space Mono',monospace;margin-bottom:8px;">AVG RETURN (%)</div>
+          <canvas id="chart-return" height="120"></canvas>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--accent3);font-family:'Space Mono',monospace;margin-bottom:8px;">PEAK CAPTURE RATE (%)</div>
+          <canvas id="chart-capture" height="120"></canvas>
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--red);font-family:'Space Mono',monospace;margin-bottom:8px;">MDD (%)</div>
+          <canvas id="chart-mdd" height="120"></canvas>
+        </div>
+      </div>
+      <div id="chart-no-data" style="display:none;text-align:center;padding:40px;font-size:12px;color:var(--text2);font-family:'Space Mono',monospace;">히스토리 데이터 누적 중... (사이클 2회 이상부터 표시)</div>
+    </div>
+
     <!-- 상태 + 오픈 포지션 -->
     <div class="reveal" style="display:grid;grid-template-columns:1fr 2fr;gap:16px;">
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
@@ -703,9 +728,65 @@ async function loadSignalPipeline() {
   }
 }
 
+function makeChart(id, label, color, data, labels) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label,
+        data,
+        borderColor: color,
+        backgroundColor: color + '18',
+        borderWidth: 2,
+        pointRadius: data.length <= 20 ? 3 : 0,
+        pointHoverRadius: 4,
+        fill: true,
+        tension: 0.3,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: {
+        callbacks: { label: ctx => ctx.parsed.y.toFixed(2) + '%' }
+      }},
+      scales: {
+        x: { ticks: { color: '#7a8fa6', font: { size: 9 }, maxTicksLimit: 6 }, grid: { color: '#1a2535' } },
+        y: { ticks: { color: '#7a8fa6', font: { size: 9 }, callback: v => v + '%' }, grid: { color: '#1a2535' } }
+      }
+    }
+  });
+}
+
+async function loadPipelineCharts() {
+  try {
+    const res = await fetch('data/ohlcv_pipeline_history.json');
+    if (!res.ok) return;
+    const history = await res.json();
+    if (!Array.isArray(history) || history.length < 2) {
+      document.getElementById('chart-no-data').style.display = 'block';
+      document.getElementById('chart-winrate').style.display = 'none';
+      document.getElementById('chart-return').style.display = 'none';
+      document.getElementById('chart-capture').style.display = 'none';
+      document.getElementById('chart-mdd').style.display = 'none';
+      return;
+    }
+    const labels = history.map(h => 'C' + h.cycle);
+    makeChart('chart-winrate',  '승률',       '#00ff88', history.map(h => h.win_rate),              labels);
+    makeChart('chart-return',   '평균수익률', '#00d4ff', history.map(h => h.avg_return_pct),        labels);
+    makeChart('chart-capture',  '포착률',     '#7b5ea7', history.map(h => h.avg_peak_capture_rate), labels);
+    makeChart('chart-mdd',      'MDD',        '#ff4d6d', history.map(h => h.mdd),                   labels);
+  } catch(e) {
+    console.log('파이프라인 히스토리 없음:', e);
+  }
+}
+
 loadDashboard();
 loadOhlcvStatus();
 loadSignalPipeline();
+loadPipelineCharts();
 </script>
 </body>
 </html>
