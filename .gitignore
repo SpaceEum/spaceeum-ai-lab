@@ -4,3 +4,10 @@ Lk Project from AI/ichimocu_binance_15m_rev2/logs/
 __pycache__/
 *.pyc
 *.pyo
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
